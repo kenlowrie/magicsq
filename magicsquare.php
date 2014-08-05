@@ -63,38 +63,6 @@ $myTerms->dumpTerms();
 //display_navigation($record, null, null);	// display navigation
 //display_standard_videos($record['uid']);	// Display the remaining videos
 
-/*
-println("ALGO1")
-var magicSquare = cMagicSquare()
-magicSquare.makeMagic(0, startCol: 2)
-magicSquare.dump()
-
-println("ALGO2")
-var ms2 = cMagicSquare()
-ms2.makeMagic2(1, startCol: 2)
-ms2.dump()
-
-println("ALGO3")
-var ms3 = cMagicSquare()
-ms3.makeMagic3(1, startCol: 2)
-ms3.dump()
-
-println("ALGO4")
-var ms4 = cMagicSquare()
-ms4.makeMagic3(0, startCol: 0)
-ms4.dump()
-
-
-var myTerms = Terms()
-myTerms.loadTerms(25)
-println("1st randomization...")
-myTerms.randomizeTerms()
-myTerms.dumpTerms()
-println("2nd randomization...")
-myTerms.randomizeTerms()
-myTerms.dumpTerms()
-*/
-
 
 include ('footer1.inc');
 ?>

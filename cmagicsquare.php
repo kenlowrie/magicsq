@@ -4,14 +4,13 @@ class cMagicSquare{
 	protected $N;
 	protected $magicSquare = array();
 	
-    // var N: Int = 5
-    // var magicSquare: [[Int]] = []
     
     public function __construct() {
     	$this->N = 5;
         $this->initMagicSquare();
     }
-    
+
+	// Implement a hacked constructor that allows me to specify initial size...    
     // public function __construct($newN) {
         // $N = $newN;
         // initMagicSquare();
@@ -23,7 +22,6 @@ class cMagicSquare{
         for ($i = 0; $i < $this->N; ++$i) {
             $row[$i] = 0;
         }
-		//print_r($row);
         
         for ($i = 0; $i < $this->N; ++$i ) {
             $this->magicSquare[$i] = $row;

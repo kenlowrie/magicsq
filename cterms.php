@@ -27,7 +27,6 @@ class Terms{
         for ($i = count($this->terms)-1; $i > 0; --$i) {
             
             $j = rand(0,count($this->terms)) % $i;
-			// arc4random_uniform(UInt32(terms.count))) % i
             
             $tmpTerm = $this->terms[$i];
             $this->terms[$i] = $this->terms[$j];
@@ -38,7 +37,7 @@ class Terms{
     public function loadTerms($howMany) {
 
         for ($i = 0; $i < $howMany; ++$i) {
-		// in 1...howMany{
+
             $tmpTerm = new Term("Term$i", "Definition$i");
             // seems unnecessary to assign to tmpTerm...
             $this->terms[] = $tmpTerm;
@@ -47,7 +46,7 @@ class Terms{
     
     public function dumpTerms() {
         for ($i = 0; $i < count($this->terms); ++$i) {
-        	//in 0..<terms.count {
+
             MyLog("%s -> %s", $this->terms[$i]->lSide, $this->terms[$i]->rSide);
         }
     }
