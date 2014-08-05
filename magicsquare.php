@@ -3,6 +3,8 @@
 //include ('session.php');
 include ('header1.inc');
 
+print("Magic Square v1.0");
+
 //$uid   = $_GET['uid'];              // my UID (record ID) as a GET parameter
 //$video = $_GET['video'];			// read the permalink value
 //$ap    = $_GET['ap'];				// autoplay value
@@ -28,8 +30,6 @@ include ('header1.inc');
 //}
 
 //include ('dispvids.php');
-
-print("Magic Square v1.0");
 
 //display_video($record);			// Display the video window and the requested video
 //display_navigation($record, null, null);	// display navigation
