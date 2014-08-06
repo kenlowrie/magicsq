@@ -1,0 +1,7 @@
+
+Things left To Do
+
+1. Create formatters for the output that write out the data wrapped in HTML
+2. Add the CSS to pretty up the HTML
+3. Add the fourth algorithm to the magic square generator and test it
+4. Add Stephen's algorithm for generating the square based on start position and start number
