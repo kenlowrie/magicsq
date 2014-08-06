@@ -1,31 +1,27 @@
-/* CSS sheet from mm_entertainment template in Dreamweaver */
-/* Modifications for the Video Training System by Ken Lowrie */
 /* Global Styles */
 
-video, canvas {
-    top: 0;
-    left: 0;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-}
-	
-video {
-    height: 100%;
-    position: absolute;
-}
 
 body {
-	margin:0;
+	margin:0px;
 	padding: 0px;
 	height: 100%;
 	width: 100%;
 	display: inline;
 	}
 
+div{
+		margin-left:10px;
+}
+
+table {
+}
+
 td {
-	font:14px arial;
+	font:22px arial;
 	color:#14285f;
+	padding:10px;
+	text-align:center;
+	border: 1pt solid rgb(20,40,95);	
 	}
 	
 hr {
@@ -33,7 +29,8 @@ hr {
 	color: #cccccc;
 	border: none;
 	}
-	
+
+/*	
 a {
 	color: #14285f;
 	text-decoration:none;
@@ -43,15 +40,54 @@ a:hover {
 	color: #FF3300;
 	text-decoration:underline;
 	}
+
+*/
 	
 /* ID Styles */
 
 #wrapper {
     margin-right: auto;
     margin-left: auto;
-    width: 96%; /* Holding outermost DIV */
+    width: 100%;
 }
 
+#outertext{
+	clear:both;
+	font:22px arial;
+	color:#14285f;
+}
+
+#magicsquare {
+	clear:both;
+}
+
+#left
+{
+	float: left;
+	width: 25%;
+	min-width: 250px;
+	/*height: 150px;
+	background-color: #999;*/
+	margin-bottom: 10px;
+}
+
+#right
+{
+	float: left;
+	margin-left: 5%;
+	width: 65%;
+	font:22px arial;
+	color:blue;
+	/* height: 150px;
+	background-color: #999; */
+	margin-bottom: 10px;
+}
+
+#termtable{
+	clear:both;
+}
+
+/*
 #container {
     position: relative;
 }
@@ -61,7 +97,7 @@ a:hover {
 	float:left;
 	width:100%;
 	overflow:hidden;
-	background:#fff689; /* b2f0f9 column 4 background colour */
+	background:#fff689;
 }
 #container3 {
 	clear:left;
@@ -69,7 +105,7 @@ a:hover {
 	width:100%;
 	position:relative;
 	right:25%;
-	background:#fff689; /* 89ffa2 column 3 background colour */
+	background:#fff689;
 }
 #container2 {
 	clear:left;
@@ -77,14 +113,14 @@ a:hover {
 	width:100%;
 	position:relative;
 	right:25%;
-	background:#fff689; /* ffa7a7 column 2 background colour */
+	background:#fff689;
 }
 #container1 {
 	float:left;
 	width:100%;
 	position:relative;
 	right:25%;
-	background:#fff689; /* column 1 background colour */
+	background:#fff689;
 }
 #col1 {
 	float:left;
@@ -115,40 +151,21 @@ a:hover {
 	overflow:hidden;
 }
 
+*/
+
 /* Class Styles */
 
-.tdcat3 {
-	font:22px arial;
+.tdterm {
+	font:18px arial;
 	color:#14285f;
 	padding:10px;
+	text-align:left;
 }
 
-.tdtext3 {
-	font:16px arial;
+.tddef {
+	font:18px arial;
 	color:#14285f;
-	padding-left: 30px;
-	}
-
-.tdtext4 {
-	font:16px arial;
-	color:#14285f;
-	padding-left: 30px;
-	border: 1pt solid rgb(20,40,95);
-	}
-
-.videonav{
+	padding-left: 10px;
+	text-align:left;
+	min-width:400px;
 }
-
-.videonav div{
-	font: 16px arial;
-	font-weight:bold;
-}
-
-.videonav a {
-	text-decoration: none;
-}
-
-.videonav a:hover {
-	text-decoration: underline;
-}
-

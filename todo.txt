@@ -1,7 +1,14 @@
 
 Things left To Do
 
-1. Create formatters for the output that write out the data wrapped in HTML
-2. Add the CSS to pretty up the HTML
-3. Add the fourth algorithm to the magic square generator and test it
+0. Add an initial form that requests the required input data
+0a. Size of MS; Terms/Defs; Which is the FREE answer?; Title "Chemistry Midterm Review"; How many variations?
+1. Add logic to upload a CSV or other files
+2. Add an option to print the conforming output
+3. Output is: see the ONE SQUARE.pdf file
+4. Output is: Generate a key (List format and also a filled out square with letters and numbers.)
+5. Output is: Generate a study list?
+
+
 4. Add Stephen's algorithm for generating the square based on start position and start number
+99. Should we worry about students hitting the site and reverse engineering the puzzles?

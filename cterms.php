@@ -56,18 +56,28 @@ class Terms{
 		$lines = array();
 		$count = 1;
 		$letter = 65;
+		$fmt = new cHTMLFormatter;
+		
+		$fmt->startDiv("termtable");
+		$fmt->startTable();
 		
 		for ($X = 0; $X < $N; ++$X) {
 			for ($Y = 0; $Y < $N; ++$Y) {
+				$fmt->startRow();
 				$item = $ms->getElement($X,$Y);
 				$t1 = $this->terms[$item-1]->getTerm();
 				$d1 = $this->terms[$count-1]->getDefinition();
-				//$lines[] = "x. $t1 -- $count. $d1";
-				MyLog("%c. %s&nbsp;&nbsp; -- %d. %s", $letter, $t1, $count, $d1 );		//$lines[$count]);
+
+				$fmt->writeClassData("tdterm", "%c. %s", $letter, $t1);
+				$fmt->writeClassData("tddef", "%d. %s", $count, $d1);
+				//MyLog("%c. %s&nbsp;&nbsp; -- %d. %s", $letter, $t1, $count, $d1 );
 				++$count;
 				++$letter;
+				$fmt->endRow();
 			}
 		}
+		$fmt->endTable();
+		$fmt->endDiv();
 	}
     
     public function dumpTerms() {

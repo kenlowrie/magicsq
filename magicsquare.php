@@ -6,54 +6,56 @@ include_once ('cmagicsquare.php');
 include_once ('cterms.php');
 include_once ('utility.php');
 
+$fmt = new cHTMLFormatter;
+
+$fmt->startDiv("outertext");
+
 MyLog("Magic Square v1.0a");
 
-// MyLog("ALGO1");
-// $magicSquare = new cMagicSquare();
-// $magicSquare->makeMagicALT(0, 2);
-// $magicSquare->dump();
-// 
-// MyLog("ALGO2 - Original");
-// $ms2 = new cMagicSquare();
-// $ms2->makeMagic2(0, 2);
-// $ms2->dump();
+$fmt->hr();
+MyLog("Using UP -- LEFT Method");
 
-MyLog("UP -- LEFT");
+$fmt->endDiv();
+
 $ms2a = new cMagicSquare();
 $ms2a->makeMagicAlgoUPLEFT(0, 2);
 $ms2a->dump();
 
-MyLog("UP -- RIGHT");
+$fmt->startDiv("outertext");
+$fmt->hr();
+MyLog("Using UP -- RIGHT Method");
+$fmt->endDiv();
 $ms2b = new cMagicSquare();
 $ms2b->makeMagicAlgoUPRIGHT(0, 2);
 $ms2b->dump();
 
-// MyLog("ALGO3");
-// $ms3a = new cMagicSquare();
-// $ms3a->makeMagic3(0, 2);
-// $ms3a->dump();
-
-MyLog("DOWN -- RIGHT");
+$fmt->startDiv("outertext");
+$fmt->hr();
+MyLog("Using DOWN -- RIGHT Method");
+$fmt->endDiv();
 $ms3a = new cMagicSquare();
-$ms3a->makeMagicAlgoDOWNRIGHT(0, 2);
+$ms3a->makeMagicAlgoDOWNRIGHT(1, 2);
 $ms3a->dump();
 
-MyLog("DOWN -- LEFT");
+$fmt->startDiv("outertext");
+$fmt->hr();
+MyLog("Using DOWN -- LEFT Method");
+$fmt->endDiv();
 $ms3b = new cMagicSquare();
 $ms3b->makeMagicAlgoDOWNLEFT(0, 2);
 $ms3b->dump();
 
 
+$fmt->startDiv("outertext");
+MyLog("Sample Terms & Definitions");
+MyLog("Based on DOWN -- LEFT Square above");
 $myTerms = new Terms();
 $myTerms->loadTerms(25);
-//MyLog("1st randomization...");
 $myTerms->randomizeTerms();
-//$myTerms->dumpTerms();
-//MyLog("2nd randomization...");
 $myTerms->randomizeTerms();
-//$myTerms->dumpTerms();
 
 $myTerms->output($ms3b);
+$fmt->endDiv();
 
 //$uid   = $_GET['uid'];              // my UID (record ID) as a GET parameter
 //$video = $_GET['video'];			// read the permalink value

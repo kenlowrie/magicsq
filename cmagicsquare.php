@@ -1,5 +1,7 @@
 <?php
 
+include 'formatters.php';
+
 class cMagicSquare{
 	protected $N;
 	protected $magicSquare = array();
@@ -26,9 +28,6 @@ class cMagicSquare{
 		$this->initMagicSquare();
     } 
     
-	public function getN() {
-		return $this->N;
-	}
     
     public function initMagicSquare(){
     	$row = array();
@@ -41,70 +40,18 @@ class cMagicSquare{
             $this->magicSquare[$i] = $row;
         }
     }
-    
-/*
-    public function makeMagicALT($startRow, $startCol){
-        $newRow  = 0;
-		$newCol = 0;
-		
-        // Set the indices for the middle of the bottom i
-        $row = $startRow;
-        $col = $startCol;
-        
-        // Fill each element of the array using the magic array
-        for ( $value = 1; $value <= $this->N*$this->N; $value++ ) {
-            $this->magicSquare[$row][$col] = $value;
-            // Find the next cell, wrapping around if necessary.
-            $newRow = ($row + 1) % $this->N;
-            $newCol = ($col + 1) % $this->N;
-            
-            // If the cell is empty, remember those indices for the next assignment.
-            if ( $this->magicSquare[$newRow][$newCol] == 0 ) {
-                $row = $newRow;
-                $col = $newCol;
-            }
-            else {
-                // The cell was full. Use the cell above the previous one.
-                $row = ($row - 1 + $this->N) % $this->N;
-            }
-            
-        }
-    }
 
-	 
-    public function makeMagic2($startRow, $startCol){
-        $magicNumber = 1;
-        $row = $startRow;
-        $col = $startCol;
-        
-        for ($A = 0; $A < ($this->N*$this->N); ++$A ) {
-            $this->magicSquare[$row][$col]=$magicNumber++;
-            
-            if (--$row < 0) {			// MOVE LEFT
-                $row = $this->N-1;		// If past 0, then go to FAR RIGHT
-            }
-            if (--$col < 0) {			// MOVE UP
-                $col = $this->N-1;		// If past 0, then go to BOTTOM
-            }
-            
-			// Check to see if the new position is occupado
-            if ($this->magicSquare[$row][$col] != 0) {
-            	// MOVE BACK TO RIGHT, 1 PAST WHERE WE STARTED
-                for ($B = 0; $B < 2; ++$B) {
-                	// MOVE RIGHT
-                    if (++$row > ($this->N-1)) {
-                        $row=0;			// If past END, then go to FAR LEFT 
-                    }
-                }
-				// MOVE DOWN
-                if (++$col > ($this->N-1)) {
-                    $col=0;				// If past BOTTOM, then go to TOP
-                }
-            }
-        }
-        
-    }
-*/
+	public function getN() {
+		return $this->N;
+	}
+
+	public function getElement($row, $col) {
+		if ($row < $this->N && $col < $this->N) {
+			return $this->magicSquare[$row][$col];
+		}
+		return -1;
+	}
+    
 
     public function makeMagicAlgoUPLEFT($startRow, $startCol){
         $magicNumber = 1;
@@ -205,41 +152,7 @@ class cMagicSquare{
             }
         }
 	}
-
-/*
-    public function makeMagic3($startRow, $startCol){
-        $magicNumber = 1;
-        $row = $startRow;
-        $col = $startCol;
-        
-        for ($A = 0; $A < ($this->N*$this->N); ++$A ) {
-            $this->magicSquare[$row][$col]=$magicNumber++;
-            
-            $lastRow = $row+1 == $this->N ? 0 : $row+1;
-            $lastCol = $col;
-            
-            if (--$row < 0) {
-                $row = $this->N-1;
-            }
-            if (++$col == $this->N) {
-                $col=0;
-            }
-            
-            if ($this->magicSquare[$row][$col] != 0) {
-                $row = $lastRow;
-                $col = $lastCol;
-            }
-        }
-        
-    }
-*/
 	
-	public function getElement($row, $col) {
-		if ($row < $this->N && $col < $this->N) {
-			return $this->magicSquare[$row][$col];
-		}
-		return -1;
-	}
 	
 	protected function checkSum($type, $id, $sum, $magicSum){
         if ($sum != $magicSum) {
@@ -247,21 +160,46 @@ class cMagicSquare{
         }		
 	}
     
+	public function prettySquare($fmt){
+        	
+		$fmt->startDiv("left");
+		$fmt->startTable();
+		
+        for ( $X = 0; $X < $this->N; ++$X ) {
+        		$fmt->startRow();
+            for ($Y = 0; $Y < $this->N; ++$Y ) {
+            		$item = $this->magicSquare[$X][$Y];
+                $fmt->writeCellData("%s", $item);
+            }
+        		$fmt->endRow();
+        }
+		$fmt->endTable();
+		$fmt->endDiv();
+		
+	}
+	
     public function dump() {
+
+		$fmt = new cHTMLFormatter();
+		
+		$fmt->startDiv("magicsquare");
 
 		// Compute the magic sum        
         $T = ((($this->N*$this->N*$this->N)+$this->N)/2);
         
+		$this->prettySquare($fmt);
+		
+		$fmt->startDiv("right");
         print("Magic sum is: [$T]\n<br />");
         
-        for ( $X = 0; $X < $this->N; ++$X ) {
-            for ($Y = 0; $Y < $this->N; ++$Y ) {
-            	$item = $this->magicSquare[$X][$Y];
-                MyPrint("%4s", $item);
-            }
-            print("\n<br />");
-        }
-        print("\n<br />");
+        // for ( $X = 0; $X < $this->N; ++$X ) {
+            // for ($Y = 0; $Y < $this->N; ++$Y ) {
+            	// $item = $this->magicSquare[$X][$Y];
+                // MyPrint("%4s", $item);
+            // }
+            // print("\n<br />");
+        // }
+        // print("\n<br />");
         
         for ($X = 0; $X < $this->N; ++$X ) {
             $rowTot = 0;
@@ -294,6 +232,9 @@ class cMagicSquare{
         }
 		$this->checkSum("Diagonal", 2, $diag2, $T);
         MyLog("");
+		
+		$fmt->endDiv();
+		$fmt->endDiv();
     }
 }
 
