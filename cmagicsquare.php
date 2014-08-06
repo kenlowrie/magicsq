@@ -4,17 +4,31 @@ class cMagicSquare{
 	protected $N;
 	protected $magicSquare = array();
 	
+	public function __construct() { 
+        $a = func_get_args(); 
+        $i = func_num_args(); 
+		if ($i == 0) {
+	    	$this->N = 5;
+    	    $this->initMagicSquare();
+			return;
+		}
+        if (method_exists($this,$f='__construct'.$i)) { 
+            call_user_func_array(array($this,$f),$a); 
+			return;
+        } 
+		MyLog("Constructor called with invalid parameters.");
+		die();
+    } 
     
-    public function __construct() {
-    	$this->N = 5;
-        $this->initMagicSquare();
-    }
-
-	// Implement a hacked constructor that allows me to specify initial size...    
-    // public function __construct($newN) {
-        // $N = $newN;
-        // initMagicSquare();
-    //}
+    function __construct1($newN) { 
+        //echo('__construct with 1 param called: '.$a1.PHP_EOL); 
+        $this->N = $newN;
+		$this->initMagicSquare();
+    } 
+    
+	public function getN() {
+		return $this->N;
+	}
     
     public function initMagicSquare(){
     	$row = array();
@@ -28,14 +42,14 @@ class cMagicSquare{
         }
     }
     
-
-    public function makeMagic($startRow, $startCol){
+/*
+    public function makeMagicALT($startRow, $startCol){
         $newRow  = 0;
 		$newCol = 0;
 		
         // Set the indices for the middle of the bottom i
-        $row = $startRow;    //0
-        $col = $startCol;    //N / 2;
+        $row = $startRow;
+        $col = $startCol;
         
         // Fill each element of the array using the magic array
         for ( $value = 1; $value <= $this->N*$this->N; $value++ ) {
@@ -60,41 +74,143 @@ class cMagicSquare{
 	 
     public function makeMagic2($startRow, $startCol){
         $magicNumber = 1;
-        $row = $startRow;  //0;
-        $col = $startCol;  //(N/2);
+        $row = $startRow;
+        $col = $startCol;
         
         for ($A = 0; $A < ($this->N*$this->N); ++$A ) {
-		// in 0..<(N*N) {
             $this->magicSquare[$row][$col]=$magicNumber++;
             
-            if (--$row < 0) {
-                $row = $this->N-1;
+            if (--$row < 0) {			// MOVE LEFT
+                $row = $this->N-1;		// If past 0, then go to FAR RIGHT
             }
-            if (--$col < 0) {
-                $col = $this->N-1;
+            if (--$col < 0) {			// MOVE UP
+                $col = $this->N-1;		// If past 0, then go to BOTTOM
             }
             
+			// Check to see if the new position is occupado
             if ($this->magicSquare[$row][$col] != 0) {
+            	// MOVE BACK TO RIGHT, 1 PAST WHERE WE STARTED
                 for ($B = 0; $B < 2; ++$B) {
-				// in 0..<2 {
+                	// MOVE RIGHT
                     if (++$row > ($this->N-1)) {
-                        $row=0;
+                        $row=0;			// If past END, then go to FAR LEFT 
                     }
                 }
+				// MOVE DOWN
                 if (++$col > ($this->N-1)) {
-                    $col=0;
+                    $col=0;				// If past BOTTOM, then go to TOP
                 }
             }
         }
         
     }
+*/
+
+    public function makeMagicAlgoUPLEFT($startRow, $startCol){
+        $magicNumber = 1;
+        $row = $startRow;
+        $col = $startCol;
+        
+        for ($A = 0; $A < ($this->N*$this->N); ++$A ) {
+            $this->magicSquare[$row][$col]=$magicNumber++;
+      
+	  		// This is where we will go if the new space is occupied
+	  		// NEXT Row, SAME Column
+	  		$isOccupiedRow = $row+1 == $this->N ? 0 : $row+1;
+            $isOccupiedCol = $col;
+			      
+			$row = $row == 0 ? $this->N-1 : $row - 1;	// MOVE UP, WRAP AT TOP
+			$col = $col == 0 ? $this->N-1 : $col - 1;	// MOVE LEFT, WRAP AT START
+			
+			// Check to see if the new position is occupado
+            if ($this->magicSquare[$row][$col] != 0) {
+
+				$row = $isOccupiedRow;
+				$col = $isOccupiedCol;
+            }
+        }
+    }
+        
+    public function makeMagicAlgoUPRIGHT($startRow, $startCol){
+        $magicNumber = 1;
+        $row = $startRow;
+        $col = $startCol;
+        
+        for ($A = 0; $A < ($this->N*$this->N); ++$A ) {
+            $this->magicSquare[$row][$col]=$magicNumber++;
+      
+	  		// This is where we will go if the new space is occupied
+	  		// Next Row, SAME Column
+	  		$isOccupiedRow = $row+1 == $this->N ? 0 : $row+1;
+            $isOccupiedCol = $col;
+			      
+			$row = $row == 0 ? $this->N-1 : $row - 1;	// MOVE UP, WRAP AT TOP
+			$col = $col == $this->N-1 ? 0 : $col + 1;	// MOVE RIGHT, WRAP AT END
+			
+			// Check to see if the new position is occupado
+            if ($this->magicSquare[$row][$col] != 0) {
+
+				$row = $isOccupiedRow;
+				$col = $isOccupiedCol;
+            }
+        }
+    }
+
+    public function makeMagicAlgoDOWNRIGHT($startRow, $startCol){
+        $magicNumber = 1;
+        $row = $startRow;
+        $col = $startCol;
+        
+        for ($A = 0; $A < ($this->N*$this->N); ++$A ) {
+            $this->magicSquare[$row][$col]=$magicNumber++;
+      
+	  		// This is where we will go if the new space is occupied
+	  		// Same ROW, PREVIOUS Column
+	  		$isOccupiedRow = $row;
+            $isOccupiedCol = $col == 0 ? $this->N-1 : $col - 1;
+			      
+			$row = $row == $this->N-1 ? 0 : $row + 1;	// MOVE DOWN, WRAP AT BOTTOM
+			$col = $col == $this->N-1 ? 0 : $col + 1;	// MOVE RIGHT, WRAP AT END
+			
+			// Check to see if the new position is occupado
+            if ($this->magicSquare[$row][$col] != 0) {
+
+				$row = $isOccupiedRow;
+				$col = $isOccupiedCol;
+            }
+        }
+	}
     
-    // make the other variants of these: up/right, up/left, down/left, down/right. I think that cover all four...
-    
+    public function makeMagicAlgoDOWNLEFT($startRow, $startCol){
+        $magicNumber = 1;
+        $row = $startRow;
+        $col = $startCol;
+        
+        for ($A = 0; $A < ($this->N*$this->N); ++$A ) {
+            $this->magicSquare[$row][$col]=$magicNumber++;
+      
+	  		// This is where we will go if the new space is occupied
+	  		// Same ROW, NEXT Column
+	  		$isOccupiedRow = $row;
+            $isOccupiedCol = $col == $this->N-1 ? 0 : $col + 1;
+			      
+			$row = $row == $this->N-1 ? 0 : $row + 1;	// MOVE DOWN, WRAP AT BOTTOM
+			$col = $col == 0 ? $this->N-1 : $col - 1;	// MOVE LEFT, WRAP AT START
+			
+			// Check to see if the new position is occupado
+            if ($this->magicSquare[$row][$col] != 0) {
+
+				$row = $isOccupiedRow;
+				$col = $isOccupiedCol;
+            }
+        }
+	}
+
+/*
     public function makeMagic3($startRow, $startCol){
         $magicNumber = 1;
-        $row = $startRow;  //0;
-        $col = $startCol;  //(N/2);
+        $row = $startRow;
+        $col = $startCol;
         
         for ($A = 0; $A < ($this->N*$this->N); ++$A ) {
             $this->magicSquare[$row][$col]=$magicNumber++;
@@ -116,6 +232,20 @@ class cMagicSquare{
         }
         
     }
+*/
+	
+	public function getElement($row, $col) {
+		if ($row < $this->N && $col < $this->N) {
+			return $this->magicSquare[$row][$col];
+		}
+		return -1;
+	}
+	
+	protected function checkSum($type, $id, $sum, $magicSum){
+        if ($sum != $magicSum) {
+            MyLog("$type $id does not add to magic sum. Expected $magicSum, got $sum.");
+        }		
+	}
     
     public function dump() {
 
@@ -127,7 +257,7 @@ class cMagicSquare{
         for ( $X = 0; $X < $this->N; ++$X ) {
             for ($Y = 0; $Y < $this->N; ++$Y ) {
             	$item = $this->magicSquare[$X][$Y];
-                print("$item&nbsp;&nbsp;");
+                MyPrint("%4s", $item);
             }
             print("\n<br />");
         }
@@ -139,9 +269,7 @@ class cMagicSquare{
             for ($Y = 0; $Y < $this->N; ++$Y ) { 
                 $rowTot += $this->magicSquare[$X][$Y];
             }
-            if ($rowTot != $T) {
-                print("Row $X does not add to magic sum. Is $rowTot.\n<br />");
-            }
+			$this->checkSum("Row", $X, $rowTot, $T);
         }
         
         for ( $Y = 0; $Y < $this->N; ++$Y ) {
@@ -150,28 +278,22 @@ class cMagicSquare{
             for ($X = 0; $X < $this->N; ++$X ) {
                 $colTot += $this->magicSquare[$X][$Y];
             }
-            if ($colTot != $T) {
-                print("Col $Y does not add to magic sum. Is $colTot.\n<br />");
-            }
+			$this->checkSum("Col", $Y, $colTot, $T);
         }
 
         $diag1 = 0;
         for ( $X = 0; $X < $this->N; ++$X ) {
             $diag1 += $this->magicSquare[$X][$X];
         }
-        if ($diag1 != $T) {
-            print("Diagonal 1 does not add to magic sum. Is $diag1.\n<br />");
-        }
+		$this->checkSum("Diagonal", 1, $diag1, $T);
 
         $diag2 = 0;
         $d2col = $this->N-1;
         for ($X = 0; $X < $this->N; ++$X) {
             $diag2 += $this->magicSquare[$X][$d2col--];
         }
-        if ($diag2 != $T) {
-            print("Diagonal 2 does not add to magic sum. Is $diag2.\n<br />");
-        }
-        print("\n<br />");
+		$this->checkSum("Diagonal", 2, $diag2, $T);
+        MyLog("");
     }
 }
 

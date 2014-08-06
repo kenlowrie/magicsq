@@ -6,32 +6,54 @@ include_once ('cmagicsquare.php');
 include_once ('cterms.php');
 include_once ('utility.php');
 
-MyLog("Magic Square v1.0");
+MyLog("Magic Square v1.0a");
 
-MyLog("ALGO1");
-$magicSquare = new cMagicSquare();
-$magicSquare->makeMagic(0, 2);
-$magicSquare->dump();
+// MyLog("ALGO1");
+// $magicSquare = new cMagicSquare();
+// $magicSquare->makeMagicALT(0, 2);
+// $magicSquare->dump();
+// 
+// MyLog("ALGO2 - Original");
+// $ms2 = new cMagicSquare();
+// $ms2->makeMagic2(0, 2);
+// $ms2->dump();
 
-MyLog("ALGO2");
-$ms2 = new cMagicSquare();
-$ms2->makeMagic2(0, 2);
-$ms2->dump();
+MyLog("UP -- LEFT");
+$ms2a = new cMagicSquare();
+$ms2a->makeMagicAlgoUPLEFT(0, 2);
+$ms2a->dump();
 
-MyLog("ALGO3");
-$ms3 = new cMagicSquare();
-$ms3->makeMagic3(0, 2);
-$ms3->dump();
+MyLog("UP -- RIGHT");
+$ms2b = new cMagicSquare();
+$ms2b->makeMagicAlgoUPRIGHT(0, 2);
+$ms2b->dump();
+
+// MyLog("ALGO3");
+// $ms3a = new cMagicSquare();
+// $ms3a->makeMagic3(0, 2);
+// $ms3a->dump();
+
+MyLog("DOWN -- RIGHT");
+$ms3a = new cMagicSquare();
+$ms3a->makeMagicAlgoDOWNRIGHT(0, 2);
+$ms3a->dump();
+
+MyLog("DOWN -- LEFT");
+$ms3b = new cMagicSquare();
+$ms3b->makeMagicAlgoDOWNLEFT(0, 2);
+$ms3b->dump();
+
 
 $myTerms = new Terms();
 $myTerms->loadTerms(25);
-MyLog("1st randomization...");
+//MyLog("1st randomization...");
 $myTerms->randomizeTerms();
-$myTerms->dumpTerms();
-MyLog("2nd randomization...");
+//$myTerms->dumpTerms();
+//MyLog("2nd randomization...");
 $myTerms->randomizeTerms();
-$myTerms->dumpTerms();
+//$myTerms->dumpTerms();
 
+$myTerms->output($ms3b);
 
 //$uid   = $_GET['uid'];              // my UID (record ID) as a GET parameter
 //$video = $_GET['video'];			// read the permalink value
