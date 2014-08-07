@@ -46,8 +46,9 @@ a:hover {
 /* ID Styles */
 
 #wrapper {
-    margin-right: auto;
-    margin-left: auto;
+	margin-top: 10px;
+    margin-right: 10px;	/*auto;*/
+    margin-left: 10px;  /* auto;*/
     width: 100%;
 }
 
