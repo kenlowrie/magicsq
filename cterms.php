@@ -22,12 +22,24 @@ class Term {
 
 class Terms{
 	protected $terms = array();
+	protected $filename = "<>";
 	
     
     public function addTerm($term){
         $this->terms[] = $term;
     }
+	
+	public function getTerms(){
+		return $this->terms;
+	}
 
+	public function setFilename($filename) {
+		$this->filename = $filename;
+	}
+	public function getFilename() {
+		return $this->filename;
+	}
+	
     public function randomizeTerms() {
         
         //MyLog("There are %d terms in the array", count($this->terms));
