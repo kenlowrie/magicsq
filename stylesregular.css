@@ -30,6 +30,13 @@ hr {
 	border: none;
 	}
 
+input {
+	font:18px Arial;
+}
+
+select {
+	font:18px Arial;
+}
 /*	
 a {
 	color: #14285f;
@@ -163,10 +170,40 @@ a:hover {
 	text-align:left;
 }
 
+.quizmaker{
+	width: 100%;	
+}
+
 .tddef {
 	font:18px arial;
 	color:#14285f;
 	padding-left: 10px;
 	text-align:left;
 	min-width:400px;
+}
+
+.tdheader{
+	font:22px Arial;
+	text-align:center;
+	font-weight:bold;	
+}
+
+.tdrow{
+	width: 15%;
+	font:18px Arial;
+	text-align:right;
+	font-weight:bold;
+}
+
+.tdinput{
+	width: 35%;
+	min-width: 250px;
+	font:18px Arial;
+	text-align:center;
+}
+
+.tddesc{
+	width: 50%;
+	font:18px Arial;
+	text-align:left;
 }
