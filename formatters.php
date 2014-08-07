@@ -8,6 +8,9 @@ class cHTMLFormatter{
 	public function hr(){
 		print("<hr />");
 	}
+	public function addLink($page,$text){
+		print("<a href=\"$page\">$text</a>");
+	}
 	public function startDiv($id){
 		print("<div id=\"$id\">\n");
 	}
