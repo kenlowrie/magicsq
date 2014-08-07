@@ -50,7 +50,7 @@ function writeTermFileLoader(){
 	print("      </form>");
 	$terms = getTerms();
 	if (IsSet($terms)){
-		print("<p>Currently loaded terms file: " . $terms->getFilename() . " with [" . count($terms->getTerms()) . "] terms loaded.</p>\n");
+		print("<p>\"" . $terms->getFilename() . "\" with [" . count($terms->getTerms()) . "] terms is loaded.</p>\n");
 	}
 }
 
@@ -72,18 +72,18 @@ function add_field($row_name, $variable, $type, $value, $minlen, $maxlen, $popdo
 {
      // get a friendly upper cased first letter version of the variable for display
     print("  <tr>\r\n");
-	print("    <td width=\"100\" align=\"right\"><strong>$row_name</strong></td>");
+	print("    <td class=\"tdrow\">$row_name</td>");
 	
 	switch($type){
 		case 'text':
-		    print("    <td width=\"300\"><input type=text size=\"50\" maxlength=\"$maxlen\" name=$variable value=\"$value\"></td>\r\n");
+		    print("    <td class=\"tdinput\"><input type=text size=\"50\" maxlength=\"$maxlen\" name=$variable value=\"$value\"></td>\r\n");
 			break;
 		case 'select':
     		  	// this is a popdown menu, construct the select statement for it by
           	// breaking down the | separated list of values. take note of each
           	// value to see if it matches $value, and then have it selected by
           	// default.     
-	     	print("    <td width=\"300\">");
+	     	print("    <td class=\"tdinput\">");
 			print("<select name=$variable>");
     	     	$option = strtok($popdown,'|');
 			while($option){
@@ -96,10 +96,10 @@ function add_field($row_name, $variable, $type, $value, $minlen, $maxlen, $popdo
 			print("</select></td>\r\n");
 			break;
 		case 'number':
-		    print("    <td width=\"300\"><input type=number min=\"$minlen\" max=\"$maxlen\" name=$variable value=\"$value\"></td>\r\n");
+		    print("    <td class=\"tdinput\"><input type=number min=\"$minlen\" max=\"$maxlen\" name=$variable value=\"$value\"></td>\r\n");
 			break;
 		case 'file':
-		    print("    <td width=\"300\">");
+		    print("    <td class=\"tdinput\">");
 			writeTermFileLoader();
 		    print("</td>\r\n");
 			break;
@@ -109,10 +109,10 @@ function add_field($row_name, $variable, $type, $value, $minlen, $maxlen, $popdo
     // if $help is 1 then go do a lookup for the help string
     if($help == 1) {
     		$helpstr = get_help($variable);
-        if ($helpstr) print("<td>$helpstr</td>\r\n");
+        if ($helpstr) print("<td class=\"tddesc\">$helpstr</td>\r\n");
     }
     elseif ($help != NULL)  { // if not NULL, then user is specifying the string
-        print("<td>$help</td>\r\n");
+        print("<td class=\"tddesc\">$help</td>\r\n");
      }
      print("  </tr>\r\n");
 }
@@ -136,63 +136,56 @@ function modify_record($alias, $quiz, $commit_id, $showhelp=1)
 	$variants = $quiz->variants;
 	$freeterm = $quiz->freeTerm;
 
-     // if no help is displayed, use a smaller table
-     if ($showhelp)
-          $tablesize = 800;
-     else
-          $tablesize = 400;
-
      // construct the form, and then the outer table that will hold the field definitions
 	print("<form method=\"POST\" action=\"$alias?type=$commit_id\">\r\n");
 
-	print("<table width=\"$tablesize\" border=\"1\" cellpadding=\"1\" cellspacing=\"0\">");
-	print("<tr><td colspan=2 align=\"center\"><strong>Magic Square Quiz Maker</strong></td>");
-     if ($showhelp)
-     {
-          print("<td align=\"center\"><strong>Description</strong></td>\r\n");
-     }
-     print("</tr>\r\n");
+	print("<table class=\"quizmaker\">");
+	print("<tr><td colspan=2 class=\"tdheader\">Magic Square Quiz Maker</td>");
+    if ($showhelp) {
+   		print("<td class=\"tdheader\">Description</td>\r\n");
+    }
+    print("</tr>\r\n");
 
-     // now add one row per field value
-     add_field('Title', 				'title',		"text", 		$title,		0,	128,		NULL,			$showhelp);
-     add_field('Magic Square Type', 	'mssize', 	"select", 	$mstype,		0,	31,		get_mstypes(),	$showhelp);
-     add_field('How many variants?', 'variants',	"number", 	$variants,	1,	9,		NULL,			$showhelp);
-     add_field('Terms File Name', 	'filename',	"file", 		$inputfile,	0,	31,		NULL,			$showhelp);
-     add_field('Free Term', 			'freeterm', "number", 	$freeterm,	0,	31,		NULL,			$showhelp);
+    // now add one row per field value
+    add_field('Title', 				'title',		"text", 		$title,		0,	128,		NULL,			$showhelp);
+    add_field('Type', 				'mssize', 	"select", 	$mstype,		0,	31,		get_mstypes(),	$showhelp);
+    add_field('Variants', 			'variants',	"number", 	$variants,	1,	9,		NULL,			$showhelp);
+    //add_field('Terms File',		 	'filename',	"file", 		$inputfile,	0,	31,		NULL,			$showhelp);
+    add_field('Free Term', 			'freeterm', "number", 	$freeterm,	0,	31,		NULL,			$showhelp);
 
-     print("</table><br>\r\n");
+    print("</table><br>\r\n");
 
-     // now do another table to hold the buttons for the action or cancel function of the form
-     print("<table>\r\n");
-	 print("  <tr valign=\"top\">\r\n");
-	 print("    <td>\r\n");
-	 print("      <input type=submit value=\"Generate Quiz Data\">\r\n");
-	 print("      </form>\r\n");
-	 print("    </td>\r\n");
+    // now do another table to hold the buttons for the action or cancel function of the form
+    print("<table>\r\n");
+	print("  <tr valign=\"top\">\r\n");
+	print("    <td>\r\n");
+	print("      <input type=submit value=\"Generate Quiz Data\">\r\n");
+	print("      </form>\r\n");
+	print("    </td>\r\n");
+
+	print("    <td class=\"tdinput\">");
+	writeTermFileLoader();
+	print("    </td>");
+    print("  </tr>");
+
+	print("  <tr valign=\"top\">\r\n");
 
 	$reset_id = MAKE_TERMS;
-	 print("    <td>");
-	 print("		  <form method=\"POST\" action=\"$alias?type=$reset_id\">\r\n");
-	 print("        <input type=\"submit\" name=\"terms\" value=\"Generate Sample Terms\">");
-	 print("      </form>");
-	 print("    </td>");
+	print("    <td>");
+	print("		  <form method=\"POST\" action=\"$alias?type=$reset_id\">\r\n");
+	print("        <input type=\"submit\" name=\"terms\" value=\"Generate Sample Terms\">");
+	print("      </form>");
+	print("    </td>");
 
 	$reset_id = RESET;
-	 print("    <td>");
-	 print("		  <form method=\"POST\" action=\"$alias?type=$reset_id\">\r\n");
-	 print("        <input type=\"submit\" name=\"reset\" value=\"Reset Session Data\">");
-	 print("      </form>");
-	 print("    </td>");
-     print("  </tr>");
-	 print("</table>\r\n");
+	print("    <td>");
+	print("		  <form method=\"POST\" action=\"$alias?type=$reset_id\">\r\n");
+	print("        <input type=\"submit\" name=\"reset\" value=\"Reset Session Data\">");
+	print("      </form>");
+	print("    </td>");
+    print("  </tr>");
+	print("</table>\r\n");
 	 
 }
-/*
-<form action="upload_file.php" method="post"
-enctype="multipart/form-data">
-<label for="file">Filename:</label>
-<input type="file" name="file" id="file"><br>
-<input type="submit" name="submit" value="Submit">
-</form>
-*/
+
 ?>
