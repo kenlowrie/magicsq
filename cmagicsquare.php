@@ -192,15 +192,6 @@ class cMagicSquare{
 		$fmt->startDiv("right");
         print("Magic sum is: [$T]\n<br />");
         
-        // for ( $X = 0; $X < $this->N; ++$X ) {
-            // for ($Y = 0; $Y < $this->N; ++$Y ) {
-            	// $item = $this->magicSquare[$X][$Y];
-                // MyPrint("%4s", $item);
-            // }
-            // print("\n<br />");
-        // }
-        // print("\n<br />");
-        
         for ($X = 0; $X < $this->N; ++$X ) {
             $rowTot = 0;
             
