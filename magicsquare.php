@@ -1,9 +1,7 @@
 <?php
 
-//include ('session.php');
+include_once ('session.php');
 include ('header1.inc');
-include_once ('cmagicsquare.php');
-include_once ('cterms.php');
 include_once ('utility.php');
 
 $fmt = new cHTMLFormatter;
@@ -57,6 +55,17 @@ $myTerms->randomizeTerms();
 $myTerms->output($ms3b);
 $fmt->endDiv();
 
+$fmt->startDiv("outertext");
+MyLog("Loaded Terms & Definitions");
+MyLog("Based on DOWN -- RIGHT Square above");
+$loadedTerms = $_SESSION['terms'];
+if (IsSet($loadedTerms)){
+	$loadedTerms->randomizeTerms();
+	$loadedTerms->output($ms3a);
+} else {
+	MyLog("Terms not loaded in session...");
+}
+$fmt->endDiv();
 //$uid   = $_GET['uid'];              // my UID (record ID) as a GET parameter
 //$video = $_GET['video'];			// read the permalink value
 //$ap    = $_GET['ap'];				// autoplay value
