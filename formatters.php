@@ -8,6 +8,28 @@ class cHTMLFormatter{
 	public function hr(){
 		print("<hr />");
 	}
+	public function brk(){
+		print("<br />");
+	}
+	public function h1($text){
+		print("<h1>". $text . "</h1>\n");
+	}
+	public function h2($text){
+		print("<h2>". $text . "</h2>\n");
+	}
+	public function h3($text){
+		print("<h3>". $text . "</h3>\n");
+	}
+	public function h4($text){
+		print("<h4>". $text . "</h4>\n");
+	}
+	public function p($text, $class=NULL){
+		$element = IsSet($class) ? "<p class=\"$class\">" : "<p>";
+		print($element . $text . "</p>\r\n");
+	}
+	public function write($text){
+		print($text);
+	}
 	public function addLink($page,$text){
 		print("<a href=\"$page\">$text</a>");
 	}
@@ -81,8 +103,5 @@ class cHTMLFormatter{
 		$this->endCell();
 	}
 }
-
-
-
 
 ?>
