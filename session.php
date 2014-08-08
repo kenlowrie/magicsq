@@ -19,6 +19,7 @@ define(EDIT_FORM,1);             // type used to specify edit quiz form
 define(EDIT_COMMIT,2);           // type used to specify commit changes to quiz object
 define(RESET,3);             	// type used to specify a reset of the session data
 define(MAKE_TERMS,4);			// type used to signal creation of default terms for testing
+define(LOAD_FILE,5);				// type used to signal that we need to load the input file
 // define(DELETE_FORM,3);             // type used to specify display a delete form
 // define(DELETE_COMMIT,4);           // type used to specify commit a delete record     
 // define(ADD_FORM,5);                // type used to specify display an add form
