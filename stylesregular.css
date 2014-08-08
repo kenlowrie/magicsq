@@ -54,8 +54,8 @@ a:hover {
 
 #wrapper {
 	margin-top: 10px;
-    margin-right: 10px;	/*auto;*/
-    margin-left: 10px;  /* auto;*/
+    margin-right: auto;
+    margin-left: 5px;
     width: 100%;
 }
 
@@ -65,7 +65,25 @@ a:hover {
 	color:#14285f;
 }
 
+#statusarea{
+	clear:both;
+	font:14px arial;
+	color:#14285f;
+	background-color: #999;
+}
+
+#step1{
+	/*clear:both;*/
+	font:18px arial;
+	color:black;
+	background-color: #999999;
+}
+
 #magicsquare {
+	clear:both;
+}
+
+#clearboth {
 	clear:both;
 }
 
@@ -94,72 +112,6 @@ a:hover {
 #termtable{
 	clear:both;
 }
-
-/*
-#container {
-    position: relative;
-}
-
-#container4 {
-	clear:left;
-	float:left;
-	width:100%;
-	overflow:hidden;
-	background:#fff689;
-}
-#container3 {
-	clear:left;
-	float:left;
-	width:100%;
-	position:relative;
-	right:25%;
-	background:#fff689;
-}
-#container2 {
-	clear:left;
-	float:left;
-	width:100%;
-	position:relative;
-	right:25%;
-	background:#fff689;
-}
-#container1 {
-	float:left;
-	width:100%;
-	position:relative;
-	right:25%;
-	background:#fff689;
-}
-#col1 {
-	float:left;
-	width:21%;
-	position:relative;
-	left:77%;
-	overflow:hidden;
-}
-#col2 {
-	float:left;
-	width:21%;
-	position:relative;
-	left:81%;
-	overflow:hidden;
-}
-#col3 {
-	float:left;
-	width:21%;
-	position:relative;
-	left:85%;
-	overflow:hidden;
-}
-#col4 {
-	float:left;
-	width:21%;
-	position:relative;
-	left:89%;
-	overflow:hidden;
-}
-
-*/
 
 /* Class Styles */
 
