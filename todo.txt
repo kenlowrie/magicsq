@@ -4,7 +4,6 @@ Things left To Do - yfi=G8Pb}+R-
 1. Add CSS to format the MKMS output so that it works correctly on iOS
 1a. Create the code to hook up the Generate Quiz Data button to
 1b. Show which term is currently selected
-1c. Add a page that dumps the terms and definitions for review (with link back to MKMS)
 1d. Make a two column table for the buttons at the bottom, and then write help that goes with them so you know what they do.
 1e. Add a button to show the magicsquare.php file (for debugging).
 2. Add an option to print the conforming output
