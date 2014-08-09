@@ -2,6 +2,12 @@
 
 include 'formatters.php';
 
+function isValidSquareSize($square){
+	$validSizes = array(3.0, 5.0, 7.0, 9.0);
+	
+	return in_array($square, $validSizes);
+}
+
 class cMagicSquare{
 	protected $N;
 	protected $magicSquare = array();
