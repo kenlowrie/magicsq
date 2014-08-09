@@ -27,12 +27,22 @@ class cHTMLFormatter{
 		$element = IsSet($class) ? "<p class=\"$class\">" : "<p>";
 		print($element . $text . "</p>\r\n");
 	}
-	public function write($text){
+	public function write($text,$newline=true){
 		print($text);
+		if ($newline) print("\n");
 	}
 	public function addLink($page,$text){
 		print("<a href=\"$page\">$text</a>");
 	}
+
+	public function linkbutton($action, $text, $help=NULL, $method="POST", $type="submit", $name="name")
+	{
+		print("<form method=\"$method\" action=\"$action\">\n");
+		print("  <input type=\"$type\" name=\"$name\" value=\"$text\">\n");
+		print("</form>\n");
+		print($help."\n");		
+	}
+	
 	public function startDiv($id){
 		print("<div id=\"$id\">\n");
 	}
