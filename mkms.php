@@ -37,19 +37,7 @@ switch ($type){
 		genSampleTerms();		// create sample terms
 		$type = EDIT_FORM;
 		break;
-		
-	case EDIT_COMMIT:
-		// Generate Quiz Data (the SUBMIT button on the main form), invokes the page with this type. Extract the
-		// new values that the user entered, store them in the object, and then put the type back to EDIT mode...
-		// At some point, I need to invoke the code here that generates the OUTPUT, or make another PHP script for that,
-		// and put this code over there, then return back to here (or something)...
-		$quiz = getQuiz();
-		$quiz->quizTitle = $_POST['title'];    // transfer the form variables into
-		$quiz->magicSquareSize = $_POST['mssize'];
-		$quiz->variants = $_POST['variants'];	
-		$quiz->freeTerm = $_POST['freeterm'];
-		break;
-		
+				
 	case EDIT_FORM:
 		break;		// This case is handled below, it's the same for all types...
 		
