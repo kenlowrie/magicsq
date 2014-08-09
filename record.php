@@ -37,6 +37,15 @@ function get_help($key)
      case 'freeterm':
           $str = "Enter the line number of the free term in the file that is/will be uploaded. This term will be solved automatically in the output to assist the student in understanding how to fill out the answer sheet. Enter zero (0) for no freebies!";
           break;
+	 case 'genterms':
+          $str = "Click this button to generate a sample set of terms to see how the app works.";
+          break;
+	 case 'displayterms':
+          $str = "Click this button to display the currently loaded terms and the jumbled sets.";
+          break;
+	 case 'reset':
+          $str = "Click this button to reset all the data and start over.";
+          break;
      default:
           $str = NULL;
      }
@@ -47,7 +56,7 @@ function get_help($key)
 function display_quiz_form($alias, $quiz, $commit_id)
 {
 	$title  = $quiz->quizTitle;
-	$mstype = $quiz->magicSquareSize;
+	//$mstype = $quiz->magicSquareSize;
 	$variants = $quiz->variants;
 	$freeterm = $quiz->freeTerm;
 
@@ -55,122 +64,118 @@ function display_quiz_form($alias, $quiz, $commit_id)
 	
 	$fmt->startDiv("step1");
 
-	$fmt->h3("Step 1 - Load input file with terms and definitions");
+	$fmt->h3("Load input file with terms and definitions");
 	
 	$terms = getTerms();
 	if (IsSet($terms)){
-		$fmt->p("\"" . $terms->getFilename() . "\" with [" . count($terms->getTerms()) . "] terms is currently loaded.");
-		$fmt->p("To replace these terms, just load another file using the buttons below, otherwise continue with Step 2...");
+		$numterms = count($terms->getTerms());
+		$fmt->p("\"" . $terms->getFilename() . "\" with [" . $numterms . "] terms is currently loaded.");
+		$squaresize = sqrt($numterms);
+		if( isValidSquareSize($squaresize)){
+			$quiz->magicSquareSize = intval($squaresize);
+			$fmt->p("Based on this set of terms, you will have a " . $quiz->magicSquareSize . "x" . $quiz->magicSquareSize . " magic square.");
+		} else {
+			$quiz->magicSquareSize = 0;
+			$fmt->p("Based on this term set, I cannot generate a magic square for you. Only odd sized squares of 3, 5, 7 or 9 are currently supported, therefore I need a terms file with 9, 25, 48 or 81 terms in it.");
+		}
+		$fmt->p("To replace these terms, just load another file using the button below.");
 	}
 
 	$loadfile = LOAD_FILE;
-	print("      <form method=\"POST\" action=\"$alias?type=$loadfile\" enctype=\"multipart/form-data\">\n");
-	//print("        <label for=\"file\">Filename:</label>");
-	print("        <input type=\"file\" name=\"file\" id=\"file\">\n");
-	print("        <input type=\"submit\" name=\"submit\" value=\"Submit\">\n");
-	print("      </form>\r\n");
+	$fmt->write("      <form method=\"POST\" action=\"$alias?type=$loadfile\" enctype=\"multipart/form-data\">");
+	//$fmt->write("        <label for=\"file\">Filename:</label>");
+	$fmt->write("        <input type=\"file\" name=\"file\" id=\"file\">");
+	$fmt->write("        <input type=\"submit\" name=\"submit\" value=\"Submit\">");
+	$fmt->write("      </form>");
 
-	$fmt->endDiv();
-		
-	$fmt->h3("Step 2 - Provide details for the handouts, or if everything is okay as-is, continue with Step 3...");
-	
-     // construct the form, and then the outer table that will hold the field definitions
-	print("<form method=\"POST\" action=\"$alias?type=$commit_id\">\n");
-
-	$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
-	$fmt->startDiv("left");
-	
-	$fmt->h3("Handout Title");
-	
-    print("<input type=text size=\"25\" maxlength=\"128\" name=\"title\" value=\"$title\"><br /><br />\n");
-
-	$fmt->endDiv();
-	$fmt->startDiv("right");
-
-    	$helpstr = get_help("title");
-    if ($helpstr) print("$helpstr<br />\r\n");
-	$fmt->endDiv();
-	$fmt->endDiv();
-
-
-	$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
-	$fmt->startDiv("left");
-		
-	$fmt->h3("Size of Magic Square");
-
-	print("<select name=\"mssize\"");
-	$popdown = get_mstypes();
- 	$option = strtok($popdown,'|');
-	while($option){
-		if ($option == $value)
-			print("<option selected=\"selected\">$option</option>");
-		else
-			print("<option>$option</option>");
-		$option = strtok("|");
-	}
-	print("</select><br /><br />\n");
-
-	$fmt->endDiv();
-	$fmt->startDiv("right");
-
-    	$helpstr = get_help("mssize");
-    if ($helpstr) print("$helpstr<br />\n");
-
-	$fmt->endDiv();
-	$fmt->endDiv();
-
-
-	$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
-	$fmt->startDiv("left");
-		
-	$fmt->h3("Number of variants");
-    print("<input type=\"number\" min=\"1\" max=\"9\" name=\"variants\" value=\"$variants\"><br /><br />\n");
-
-	$fmt->endDiv();
-	$fmt->startDiv("right");
-
-    	$helpstr = get_help("variants");
-    if ($helpstr) print("$helpstr<br />\n");
-
-	$fmt->endDiv();
-	$fmt->endDiv();
-
-
-	$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
-	$fmt->startDiv("left");
-		
-	$fmt->h3("Free Term");
-    print("<input type=number min=\"0\" max=\"25\" name=\"freeterm\" value=\"$freeterm\"><br /><br />\n");
-
-	$fmt->endDiv();
-	$fmt->startDiv("right");
-
-    	$helpstr = get_help("freeterm");
-    if ($helpstr) print("$helpstr<br />\n");
-	
 	$fmt->brk();
-	$fmt->endDiv();
-	$fmt->endDiv();
 
-	print("<input type=submit value=\"Generate Quiz Data\">\n");
-	print("</form><br /><br />\r\n");
+	$fmt->endDiv();
+		
+	if (IsSet($terms)){
 
-	$fmt->h3("Step 3 - Use the buttons below as needed.");
+		$fmt->h3("Provide details for the handouts, and then click Generate Quiz Data.");
+		
+	     // construct the form, and then the outer table that will hold the field definitions
+		$fmt->write("<form method=\"POST\" action=\"makequiz.php\">");
 	
-	$reset_id = MAKE_TERMS;
-	print("		  <form method=\"POST\" action=\"$alias?type=$reset_id\">\n");
-	print("        <input type=\"submit\" name=\"terms\" value=\"Generate Sample Terms\">\n");
-	print("      </form><br /><br />\n");
+		$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
+		$fmt->startDiv("mainleft");
+		
+		$fmt->h3("Handout Title");
+		
+	    $fmt->write("<input type=text size=\"25\" maxlength=\"128\" name=\"title\" value=\"$title\"><br /><br />");
+	
+		$fmt->endDiv();
+		$fmt->startDiv("mainright");
+	
+	    	$helpstr = get_help("title");
+	    if ($helpstr) $fmt->write("$helpstr<br />");
+		$fmt->endDiv();
+		$fmt->endDiv();
+	
+	
+		$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
+		$fmt->startDiv("mainleft");
+			
+		$fmt->h3("Number of variants");
+	    $fmt->write("<input type=\"number\" min=\"1\" max=\"9\" name=\"variants\" value=\"$variants\"><br /><br />");
+	
+		$fmt->endDiv();
+		$fmt->startDiv("mainright");
+	
+	    	$helpstr = get_help("variants");
+	    if ($helpstr) $fmt->write("$helpstr<br />");
+	
+		$fmt->endDiv();
+		$fmt->endDiv();
+	
+	
+		$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
+		$fmt->startDiv("mainleft");
+			
+		$fmt->h3("Free Term");
+		//TODO: I need to set the maximum based on how many terms are in the term file...
+		$maxterms = count($terms->getTerms());
+	    $fmt->write("<input type=number min=\"0\" max=\"$maxterms\" name=\"freeterm\" value=\"$freeterm\"><br /><br />");
 
-	$reset_id = MAKE_TERMS;
-	print("		  <form method=\"POST\" action=\"displayterms.php\">\n");
-	print("        <input type=\"submit\" name=\"terms\" value=\"Display Current Terms\">\n");
-	print("      </form><br /><br />");
+		$fmt->endDiv();
+		$fmt->startDiv("mainright");
+	
+	    	$helpstr = get_help("freeterm");
+	    if ($helpstr) $fmt->write("$helpstr");
+		if ($freeterm > 0){
+			if($freeterm < $maxterms){
+				$termlist = $terms->getTerms();
+				$fmt->write("The free term in the generated magic squares will be \"".$termlist[$freeterm-1]->getTerm() . "\".");				
+			} else{
+				$fmt->write("The currently selected free term is not within the limits of the current term set.");
+			}
+		} else {
+			$fmt->write("There will be no free term given, probably because you're a mean teacher or you have mean students...");		
+		}
+		
+		$fmt->brk();
+		$fmt->endDiv();
+		$fmt->endDiv();
+	
+		$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
+		$fmt->write("<input type=submit value=\"Generate Quiz Data\">");
+		$fmt->write("</form>");
+		$fmt->write("Click this button to generate your output.");
+		$fmt->endDiv();
+	}
 
-	$reset_id = RESET;
-	print("		  <form method=\"POST\" action=\"$alias?type=$reset_id\">\n");
-	print("        <input type=\"submit\" name=\"reset\" value=\"Reset Session Data\">\n");
-	print("      </form><br />\n");
+	$fmt->h3("Other helpful options...");
+	
+	$fmt->linkbutton("$alias?type=".MAKE_TERMS, "Generate Sample Terms",get_help("genterms"));
+	$fmt->brk();
+	
+	$fmt->linkbutton("displayterms.php", "Display Current Terms",get_help("displayterms"));
+	$fmt->brk();
+
+	$fmt->linkbutton("$alias?type=".RESET, "Reset Session Data",get_help("reset"));
+	$fmt->brk();
 	 
 }
 ?>
