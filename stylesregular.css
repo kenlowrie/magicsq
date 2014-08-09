@@ -37,6 +37,11 @@ input {
 select {
 	font:18px Arial;
 }
+
+form {
+	display:inline;
+}
+
 /*	
 a {
 	color: #14285f;
@@ -106,6 +111,29 @@ a:hover {
 	color:blue;
 	/* height: 150px;
 	background-color: #999; */
+	margin-bottom: 10px;
+}
+
+#mainleft
+{
+	float: left;
+	width: 20%;
+	min-width: 250px;
+	/*height: 150px;*/
+	background-color: #FFFFCC;
+	margin-bottom: 10px;
+}
+
+#mainright
+{
+	float: left;
+	margin-left: 1%;
+	width: 69%;
+	font:18px arial;
+	/* color:blue;
+	height: 150px;
+	background-color: #FFFFCC;*/
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
