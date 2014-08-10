@@ -9,6 +9,8 @@ $fmt = new cHTMLFormatter;
 
 include('header1.inc');        // display our standard page layout
 
+$fmt->startDiv("magicsquare");
+
 $fmt->h2("Magic Square Quiz Maker");
 
 // If this page is invoked with no type= (first time or via the uploader), default it to EDIT mode...
@@ -20,7 +22,7 @@ if (!IsSet($type)){
 switch ($type){
 	case LOAD_FILE:
 		// The Load File type is used to load up the input file.
-		uploadinputfile();
+		uploadinputfile($fmt);
 		$type = EDIT_FORM;
 		break;
 		
@@ -47,7 +49,9 @@ switch ($type){
 }
 
 // This function displays the main form so the user can enter data...
-display_quiz_form($alias, getQuiz(), EDIT_COMMIT);
+display_quiz_form($fmt, $alias, getQuiz(), EDIT_COMMIT);
+
+$fmt->endDiv();
 
 include('footer1.inc');
 ?>
