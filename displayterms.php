@@ -6,26 +6,32 @@ include_once ('utility.php');
 
 $fmt = new cHTMLFormatter;
 
-$fmt->startDiv("outertext");	// IS THIS OKAY?? SHOULD WE HAVE SPECIFIC VERSION?
+$fmt->startDiv("outertext");
 
-MyLog("Display Terms and Definitions");
+$fmt->h2("Display Terms and Definitions");
 
 $fmt->hr();
 
 $fmt->startDiv("outertext");
 $loadedTerms = getTerms();
 
-if ($loadedTerms->numVariants() == 0){
-	$loadedTerms->randomizeTerms();
-	$loadedTerms->randomizeTerms();	
+if (IsSet($loadedTerms)){
+		
+	if ($loadedTerms->numVariants() == 0){
+		$fmt->writeRawData("There are currently no jumbled sets defined for the terms.");
+	} else {
+		$fmt->writeRawData("There are %d variants", $loadedTerms->numVariants());	
+	}
+	
+	$loadedTerms->dumpTermObject();
+} else {
+	$fmt->p("There are no terms currently loaded...");
 }
-
-MyLog("There are %d variants", $loadedTerms->numVariants());
-
-$loadedTerms->dumpTermObject();
 
 $fmt->endDiv();
 
 $fmt->addLink("mkms.php","Click me to return to the Magic Square Maker Page");
+
+$fmt->endDiv();
 
 ?>
