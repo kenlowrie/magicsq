@@ -46,8 +46,15 @@ class cHTMLFormatter{
 	public function startDiv($id){
 		print("<div id=\"$id\">\n");
 	}
-	public function endDiv(){
-		print("</div>\n");
+	public function startDivs($array_of_divs){
+		foreach ($array_of_divs as $div) {
+			$this->startDiv($div);
+		}
+	}
+	public function endDiv($count=1){
+		while ($count--){
+			print("</div>\n");		
+		}
 	}
 
 	public function startTable(){
@@ -74,7 +81,7 @@ class cHTMLFormatter{
 	public function endCell(){
 		print("</td>\n");
 	}
-	public function writeRawData($format_string){
+	public function writeRawData($format_string, $newline=true){
 		if( func_num_args() == 1){
 			print($format_string);
 		} else {
@@ -83,6 +90,7 @@ class cHTMLFormatter{
 			$tmp = vsprintf($format_string, $args);
 			print($tmp);	
 		}
+		if ($newline) print("\n");
 	}
 	public function writeCellData($format_string)
 	{
