@@ -53,16 +53,14 @@ function get_help($key)
 }
 
 
-function display_quiz_form($alias, $quiz, $commit_id)
+function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 {
 	$title  = $quiz->quizTitle;
 	//$mstype = $quiz->magicSquareSize;
 	$variants = $quiz->variants;
 	$freeterm = $quiz->freeTerm;
 
-	$fmt = new cHTMLFormatter;
-	
-	$fmt->startDiv("step1");
+	$fmt->startDiv("loadterms");
 
 	$fmt->h3("Load input file with terms and definitions");
 	
@@ -85,7 +83,7 @@ function display_quiz_form($alias, $quiz, $commit_id)
 	$fmt->write("      <form method=\"POST\" action=\"$alias?type=$loadfile\" enctype=\"multipart/form-data\">");
 	//$fmt->write("        <label for=\"file\">Filename:</label>");
 	$fmt->write("        <input type=\"file\" name=\"file\" id=\"file\">");
-	$fmt->write("        <input type=\"submit\" name=\"submit\" value=\"Submit\">");
+	$fmt->write("        <input type=\"submit\" name=\"submit\" value=\"Load Terms\">");
 	$fmt->write("      </form>");
 
 	$fmt->brk();
@@ -94,13 +92,14 @@ function display_quiz_form($alias, $quiz, $commit_id)
 		
 	if (IsSet($terms)){
 
+		$divs = array("clearboth","mainleft");
+		
 		$fmt->h3("Provide details for the handouts, and then click Generate Quiz Data.");
 		
 	     // construct the form, and then the outer table that will hold the field definitions
 		$fmt->write("<form method=\"POST\" action=\"makequiz.php\">");
 	
-		$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
-		$fmt->startDiv("mainleft");
+		$fmt->startDivs($divs);
 		
 		$fmt->h3("Handout Title");
 		
@@ -111,12 +110,10 @@ function display_quiz_form($alias, $quiz, $commit_id)
 	
 	    	$helpstr = get_help("title");
 	    if ($helpstr) $fmt->write("$helpstr<br />");
-		$fmt->endDiv();
-		$fmt->endDiv();
+		$fmt->endDiv(2);
 	
 	
-		$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
-		$fmt->startDiv("mainleft");
+		$fmt->startDivs($divs);
 			
 		$fmt->h3("Number of variants");
 	    $fmt->write("<input type=\"number\" min=\"1\" max=\"9\" name=\"variants\" value=\"$variants\"><br /><br />");
@@ -127,12 +124,10 @@ function display_quiz_form($alias, $quiz, $commit_id)
 	    	$helpstr = get_help("variants");
 	    if ($helpstr) $fmt->write("$helpstr<br />");
 	
-		$fmt->endDiv();
-		$fmt->endDiv();
+		$fmt->endDiv(2);
 	
 	
-		$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
-		$fmt->startDiv("mainleft");
+		$fmt->startDivs($divs);
 			
 		$fmt->h3("Free Term");
 		//TODO: I need to set the maximum based on how many terms are in the term file...
@@ -156,16 +151,17 @@ function display_quiz_form($alias, $quiz, $commit_id)
 		}
 		
 		$fmt->brk();
-		$fmt->endDiv();
-		$fmt->endDiv();
+		$fmt->endDiv(2);
 	
-		$fmt->startDiv("clearboth");		//TODO: Need to make this happen automatically. Can I add to Left??
+		$fmt->startDivs(array("clearboth","mainall"));
 		$fmt->write("<input type=submit value=\"Generate Quiz Data\">");
 		$fmt->write("</form>");
-		$fmt->write("Click this button to generate your output.");
-		$fmt->endDiv();
+		$fmt->write("Click this button to preview your squares and term sets.");
+		$fmt->endDiv(2);
 	}
 
+	$fmt->startDivs(array("clearboth","mainall"));
+		
 	$fmt->h3("Other helpful options...");
 	
 	$fmt->linkbutton("$alias?type=".MAKE_TERMS, "Generate Sample Terms",get_help("genterms"));
@@ -176,6 +172,7 @@ function display_quiz_form($alias, $quiz, $commit_id)
 
 	$fmt->linkbutton("$alias?type=".RESET, "Reset Session Data",get_help("reset"));
 	$fmt->brk();
-	 
+
+	$fmt->endDiv(2);	 
 }
 ?>
