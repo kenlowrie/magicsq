@@ -77,11 +77,10 @@ a:hover {
 	background-color: #999;
 }
 
-#step1{
-	/*clear:both;*/
+#loadterms{
 	font:18px arial;
 	color:black;
-	background-color: #999999;
+	background-color: #FFFFCC;
 }
 
 #magicsquare {
@@ -133,6 +132,18 @@ a:hover {
 	/* color:blue;
 	height: 150px;
 	background-color: #FFFFCC;*/
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#mainall
+{
+	float: left;
+	margin-left: 1%;
+	width: 99%;
+	font:18px arial;
+	background-color: #FFFFCC;
+	padding:5px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
