@@ -12,6 +12,11 @@ MyLog("Generate Quiz Data");
 
 $fmt->hr();
 
+$fmt->addLink("makepdf.php","Click me to generate the output PDF - after reviewing everything below");
+$fmt->brk();
+$fmt->addLink("mkms.php","Click me to return to the Magic Square Maker Page");
+$fmt->brk();
+
 $fmt->startDiv("outertext");
 
 // Generate Quiz Data (the SUBMIT button on the main form), invokes this page, so we need to Extract the
@@ -34,19 +39,29 @@ $loadedTerms = getTerms();
 
 // Should we always throw away what we have and redo with the current number of variants?
 
+$fmt->startDiv("statusarea");
+$fmt->p("TODO:");
+$fmt->write("Detect if the number of variants has changed, and if so, make it match the new selection...<br />");
+$fmt->write("For now, you have to RESET from the main page, reload the terms, and set the variants value BEFORE previewing the output.");
+$fmt->brk();
+$fmt->endDiv();
+
 if ($loadedTerms->numVariants() == 0){
 	for($X = 0; $X < $quiz->variants; ++$X){
 		$loadedTerms->randomizeTerms();
 	}
 }
-
-MyLog("There are %d variants", $loadedTerms->numVariants());
+$numvariants = $loadedTerms->numVariants();
+MyLog("There %s %d variant%s", $numvariants == 1 ? "is" : "are", $numvariants, $numvariants == 1 ? "" : "s");
 
 for($X = 0; $X < $quiz->variants; ++$X){
 	$fmt->startDiv("outertext");				//TODO: Need a custom div type here
 	MyLog("Variation: %d",$X+1);
 	$quiz->magicSquares[$X]->prettySquare($fmt);
+	MyLog("TODO: Add a button here that allows you to regenerate this specific square");
 	$loadedTerms->output($quiz->magicSquares[$X],$X);
+	MyLog("TODO: Add a button here that allows you to regenerate this specific set of jumbled terms");
+	$fmt->brk();
 	$fmt->endDiv();
 }
 
@@ -56,6 +71,6 @@ for($X = 0; $X < $quiz->variants; ++$X){
 // 
 $fmt->endDiv();
 
-$fmt->addLink("mkms.php","Click me to return to the Magic Square Maker Page");
+$fmt->endDiv();
 
 ?>
