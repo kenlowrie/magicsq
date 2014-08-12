@@ -14,6 +14,7 @@ div{
 }
 
 table {
+	border:none;
 }
 
 td {
@@ -197,4 +198,20 @@ a:hover {
 	width: 50%;
 	font:18px Arial;
 	text-align:left;
+}
+
+.tdtitle {
+	font:18px arial;
+	color:#14285f;
+	/*padding-left: 10px;*/
+	text-align:left;
+	/*min-width:400px;*/
+	border:none;
+}
+
+.directions{
+	font-size:12px; 
+	font-family: arial;
+	color:#14285f;
+	background-color: #FFFFCC;
 }
