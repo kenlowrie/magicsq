@@ -12,7 +12,7 @@ MyLog("Generate Quiz Data");
 
 $fmt->hr();
 
-$fmt->addLink("makepdf.php","Click me to generate the output PDF - after reviewing everything below");
+$fmt->addLink("makepdf.php","Click me to generate the output PDF - after reviewing everything below",true);
 $fmt->brk();
 $fmt->addLink("mkms.php","Click me to return to the Magic Square Maker Page");
 $fmt->brk();
