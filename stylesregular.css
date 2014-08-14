@@ -18,7 +18,7 @@ table {
 }
 
 td {
-	font:22px arial;
+	font:14px arial;
 	color:#14285f;
 	padding:10px;
 	text-align:center;
@@ -71,9 +71,15 @@ a:hover {
 	color:#14285f;
 }
 
+#makequiz{
+	clear:both;
+	font:22px arial;
+	color:#14285f;
+}
+
 #statusarea{
 	clear:both;
-	font:14px arial;
+	font:16px arial;
 	color:#14285f;
 	background-color: #999;
 }
@@ -95,8 +101,8 @@ a:hover {
 #left
 {
 	float: left;
-	width: 25%;
-	min-width: 250px;
+	width: 20%;
+	min-width: 200px;
 	/*height: 150px;
 	background-color: #999;*/
 	margin-bottom: 10px;
@@ -105,8 +111,8 @@ a:hover {
 #right
 {
 	float: left;
-	margin-left: 5%;
-	width: 65%;
+	/*margin-left: 5%;*/
+	width: 75%;
 	font:22px arial;
 	color:blue;
 	/* height: 150px;
@@ -156,7 +162,8 @@ a:hover {
 /* Class Styles */
 
 .tdterm {
-	font:18px arial;
+	font-size:14px; 
+	font-family: arial;
 	color:#14285f;
 	padding:10px;
 	text-align:left;
@@ -167,7 +174,8 @@ a:hover {
 }
 
 .tddef {
-	font:18px arial;
+	font-size:14px; 
+	font-family: arial;
 	color:#14285f;
 	padding-left: 10px;
 	text-align:left;
