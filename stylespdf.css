@@ -1,0 +1,114 @@
+/* Global Styles */
+
+body {
+	margin:0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+	display: inline;
+	}
+
+div{
+}
+
+table {
+	border:none;
+}
+
+tr {
+		page-break-inside:avoid;
+}
+
+td {
+	font:22px arial;
+	color:black;
+	padding:10px;
+	text-align:center;
+	border: 1pt solid rgb(20,40,95);	
+	}
+	
+th {
+	font:22px arial;
+	color:black;
+	padding:10px;
+	text-align:center;
+	border: 1pt solid rgb(20,40,95);	
+	}
+
+hr {
+	height:1px; 
+	color: #cccccc;
+	border: none;
+	}
+	
+/* ID Styles */
+
+#maintext{
+	clear:both;
+	font:22px arial;
+	color:black;
+}
+
+#termtable{
+	clear:both;
+}
+
+/* Class Styles */
+
+.ptdheader{
+	font:22px Arial;
+	text-align:center;
+	font-weight:bold;	
+}
+
+.ptdterm {
+	font:18px arial;
+	color:black;
+	padding:10px;
+	text-align:left;
+	page-break-inside:avoid;
+	width:30%;
+}
+
+.ptdanswer {
+	font-size:38px; 
+	font-family: arial;
+	color:black;
+	padding:10px;
+	text-align:center;
+	page-break-inside:avoid;
+	width:10%;
+}
+
+.ptddef {
+	font-size:18px; 
+	font-family: arial;
+	color:black;
+	padding-left: 10px;
+	text-align:left;
+	width:60%;
+	page-break-inside:avoid;
+}
+
+.tdtitle1 {
+	font-size:22px; 
+	font-family: arial;
+	color:black;
+	text-align:left;
+	border:none;
+}
+
+.tdtitle2 {
+	font-size:16px; 
+	font-family: arial;
+	color:black;
+	text-align:left;
+	border:none;
+	min-width:65%;
+}
+
+.directions{
+	font-size:16px; 
+	font-family: arial;
+	color:black;
+}
