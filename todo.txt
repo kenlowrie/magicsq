@@ -10,6 +10,7 @@ Things left To Do - yfi=G8Pb}+R-
 3. Output is: see the ONE SQUARE.pdf file
 4. Output is: Generate a key (List format and also a filled out square with letters and numbers.)
 5. Output is: Generate a study list?
+6. Split out the CSS for the PDF so I only have what is used in there...
 
 
 4. Add Stephen's algorithm for generating the square based on start position and start number
