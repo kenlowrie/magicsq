@@ -50,9 +50,13 @@ class cHTMLFormatter{
 		}
 	}
 
-	public function linkbutton($action, $text, $help=NULL, $method="POST", $type="submit", $name="name")
+	public function linkbutton($action, $text, $help=NULL, $method="POST", $type="submit", $name="name", $newwin=false)
 	{
-		$curtext = $this->_print("<form method=\"$method\" action=\"$action\">\n");
+		if ($newwin){
+			$curtext = $this->_print("<form method=\"$method\" action=\"$action\" target=\"_blank\">\n");		
+		} else {
+			$curtext = $this->_print("<form method=\"$method\" action=\"$action\">\n");					
+		}
 		$curtext .= $this->_print("  <input type=\"$type\" name=\"$name\" value=\"$text\">\n");
 		$curtext .= $this->_print("</form>\n");
 		$curtext .= $this->_print($help."\n");	
