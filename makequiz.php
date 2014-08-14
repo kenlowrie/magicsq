@@ -6,63 +6,81 @@ include_once ('utility.php');
 
 $fmt = new cHTMLFormatter;
 
-$fmt->startDiv("outertext");	// IS THIS OKAY?? SHOULD WE HAVE SPECIFIC VERSION?
+$fmt->startDiv("outertext");
 
 MyLog("Generate Quiz Data");
 
 $fmt->hr();
 
-$fmt->addLink("makepdf.php","Click me to generate the output PDF - after reviewing everything below",true);
-$fmt->brk();
+// $fmt->addLink("makepdf.php","Click me to generate the output PDF - after reviewing everything below",true);
+// $fmt->brk();
 $fmt->addLink("mkms.php","Click me to return to the Magic Square Maker Page");
 $fmt->brk();
 
 $fmt->startDiv("outertext");
 
-// Generate Quiz Data (the SUBMIT button on the main form), invokes this page, so we need to Extract the
-// new values that the user entered, store them in the object, so that we remember them until they finish
-// or do a RESET later...
 $quiz = getQuiz();
-$quiz->quizTitle = $_POST['title'];    // transfer the form variables into
-$quiz->variants = $_POST['variants'];	
-$quiz->freeTerm = $_POST['freeterm'];
 
-$quiz->magicSquares = array();
-for($X = 0; $X < $quiz->variants; ++$X){
-	//TODO: Make this better, randomize the square type...
-	$tmpSquare = new cMagicSquare;
-	$tmpSquare->makeMagicAlgoUPLEFT(rand(0,4), rand(0,4));
-	$quiz->magicSquares[] = $tmpSquare;	
-}
+$regen = $_GET['regen'];       	// check to see if we are in regen mode
+$object  = $_GET['object'];		// which object to regen
 
 $loadedTerms = getTerms();
+$numvariants = $loadedTerms->numVariants();
 
-// Should we always throw away what we have and redo with the current number of variants?
-
-$fmt->startDiv("statusarea");
-$fmt->p("TODO:");
-$fmt->write("Detect if the number of variants has changed, and if so, make it match the new selection...<br />");
-$fmt->write("For now, you have to RESET from the main page, reload the terms, and set the variants value BEFORE previewing the output.");
-$fmt->brk();
-$fmt->endDiv();
-
-if ($loadedTerms->numVariants() == 0){
+if (!IsSet($regen)){
+	// In this case, we are coming in on a POST (should I verify that??)
+	// Generate Quiz Data (the SUBMIT button on the main form), invokes this page, so we need to Extract the
+	// new values that the user entered, store them in the object, so that we remember them until they finish
+	// or do a RESET later...
+	$quiz->quizTitle = $_POST['title'];    // transfer the form variables into
+	$quiz->variants = $_POST['variants'];	
+	$quiz->freeTerm = $_POST['freeterm'];
+	$quiz->magicSquares = array();
+	for($X = 0; $X < $quiz->variants; ++$X){
+		//TODO: Make this better, randomize the square type...
+		$tmpSquare = new cMagicSquare;
+		$tmpSquare->makeMagicAlgoUPLEFT(rand(0,4), rand(0,4));
+		$quiz->magicSquares[] = $tmpSquare;	
+	}
+	
+	$loadedTerms->resetJumbledTerms();				// Throw out what we had, if any
 	for($X = 0; $X < $quiz->variants; ++$X){
 		$loadedTerms->randomizeTerms();
 	}
+} elseif ($regen >= $numvariants){
+		$fmt->p("Internal error: regen element is out of variant range [$regen]");	
+} else{
+	switch ($object){
+		case 1:
+			$tmpSquare = new cMagicSquare;
+			$tmpSquare->makeMagicAlgoUPLEFT(rand(0,4), rand(0,4));
+			$quiz->magicSquares[$regen] = $tmpSquare;	
+			break;
+		case 2:
+			$loadedTerms->randomizeTerms($regen);
+			break;
+		default:
+			$fmt->p("Internal error: regen mode with invalid object type $object");
+			break;
+	}
 }
-$numvariants = $loadedTerms->numVariants();
-MyLog("There %s %d variant%s", $numvariants == 1 ? "is" : "are", $numvariants, $numvariants == 1 ? "" : "s");
+
+//MyLog("There %s %d variant%s", $numvariants == 1 ? "is" : "are", $numvariants, $numvariants == 1 ? "" : "s");
+$fmt->startDiv("statusarea");
+$fmt->p("Your generated output is below.");
+$fmt->p("Review the puzzles and jumbled term lists, regenerate as needed, and then generate the PDF by clicking the appropriate button for each set.");
+$fmt->endDiv();
 
 for($X = 0; $X < $quiz->variants; ++$X){
-	$fmt->startDiv("outertext");				//TODO: Need a custom div type here
-	MyLog("Variation: %d",$X+1);
+	$fmt->linkbutton("makepdf.php?variant=$X", "Generate PDF of variant " . strval($X+1),null,"POST","submit","name",true);
+	$fmt->linkbutton("makequiz.php?regen=$X&object=1","Regen this square");
+	$fmt->linkbutton("makequiz.php?regen=$X&object=2","Jumble this set of terms again");
+	$fmt->startDiv("makequiz");
 	$quiz->magicSquares[$X]->prettySquare($fmt);
-	MyLog("TODO: Add a button here that allows you to regenerate this specific square");
+	$fmt->startDiv("right");
 	$loadedTerms->output($quiz->magicSquares[$X],$X);
-	MyLog("TODO: Add a button here that allows you to regenerate this specific set of jumbled terms");
 	$fmt->brk();
-	$fmt->endDiv();
+	$fmt->endDiv(2);
 }
 
 // 
