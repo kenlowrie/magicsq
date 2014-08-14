@@ -5,21 +5,21 @@ include_once ('session.php');
 include_once ('utility.php');
 require_once('tcpdf/tcpdf.php');
 
-function genhtml($fmt,$quiz,$loadedTerms,$pdf){
+function genhtml($fmt,$quiz,$loadedTerms,$variant,$pdf){
 	
-	$output = '<style>'.file_get_contents('stylesregular.css').'</style>';
+	$output = '<style>'.file_get_contents('stylespdf.css').'</style>';
 	
+	if ($variant >= $loadedTerms->numVariants()){
+		return $fmt->p("Internal error: Variant [$variant] is out of range...");
+	}
 	$output .= $fmt->startTable();
 	$output .= $fmt->startRow();
-	$output .= $fmt->writeClassData("tdtitle","Magic Square");	
-	$output .= $fmt->writeClassData("tdtitle","Name: __________________________");
+	$output .= $fmt->writeClassData("tdtitle1","Magic Square");	
+	$output .= $fmt->writeClassData("tdtitle2","Name: __________________________");
 	$output .= $fmt->endRow();
 	$output .= $fmt->endTable();
 	
 	$output .= $fmt->brk();
-	//$output .= $fmt->h3("Magic Square");
-	//$output .= $fmt->h4($quiz->quizTitle);
-	//$output .= $fmt->writeAndBreak("");
 	$dirTxt = <<<EOD
 Directions: Match the correct terms with the correct definition or information. On the last page, 
 place the number of the definition in the box with the letter of the term it matches. 
@@ -29,24 +29,30 @@ EOD;
 	
 	//$pdf->SetFont('helvetica', '', 10, '', true);
 	$output .= $fmt->p($dirTxt,"directions");
-	$output .= $fmt->hr();
-	
-	$output .= $fmt->startDiv("outertext");
-	
-	$output .= $fmt->p("For each variant of the review terms...");
-
-	$output .= $fmt->writeRawData("1. Add page(s) with table of jumbled terms and a blank magic square.");
 	$output .= $fmt->brk();
-	$output .= $fmt->write("2. Add a page with the solution for each set of jumbled terms.");
-	$output .= $fmt->brk();
-	$output .= $fmt->brk();	
+	//$output .= $fmt->hr();
 	
-	$output .= $fmt->p("This is some formatted text...","tdterm");
+	$output .= $fmt->startDiv("maintext");
+	
+	$jumbledTerms = $loadedTerms->getJumbledTerms();
+	$output .= $loadedTerms->printTermSet($quiz->magicSquares[$variant],$quiz->freeTerm, $jumbledTerms[$variant],$fmt);
 	
 	return $output;
 }
 
-function createPDF($fmt, $quiz, $loadedTerms)
+function gensquare($fmt,$quiz,$loadedTerms,$variant,$pdf){
+
+	$output = '<style>'.file_get_contents('stylespdf.css').'</style>';	
+		
+	if ($variant >= $loadedTerms->numVariants()){
+		return $fmt->p("Internal error: Variant [$variant] is out of range...");
+	}
+	$output .= $quiz->magicSquares[$variant]->prettySquare($fmt);
+	
+	return $output;
+}
+
+function createPDF($fmt, $quiz, $loadedTerms, $variant)
 {
 	// create new PDF document
 	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -104,67 +110,37 @@ function createPDF($fmt, $quiz, $loadedTerms)
 	// set text shadow effect
 	$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 	
-	// Set some content to print
-// $html = <<<EOD
-// <h1>Welcome to <a href="http://www.tcpdf.org" style="text-decoration:none;background-color:#CC0000;color:black;">&nbsp;<span style="color:black;">TC</span><span style="color:white;">PDF</span>&nbsp;</a>!</h1>
-// <i>This is the first example of TCPDF library.</i>
-// <p>This text is printed using the <i>writeHTMLCell()</i> method but you can also use: <i>Multicell(), writeHTML(), Write(), Cell() and Text()</i>.</p>
-// <p>Please check the source code documentation and other examples for further information.</p>
-// <p style="color:#CC0000;">TO IMPROVE AND EXPAND TCPDF I NEED YOUR SUPPORT, PLEASE <a href="http://sourceforge.net/donate/index.php?group_id=128076">MAKE A DONATION!</a></p>
-//EOD;
 	
-	// Print text using writeHTMLCell()
-//	$pdf->writeHTMLCell(0, 0, '', '', genhtml($fmt,$quiz,$loadedTerms,$pdf), 0, 1, 0, true, '', true);
-	$pdf->writeHTML(genhtml($fmt,$quiz,$loadedTerms,$pdf), true, false, true, false, '');
+	// Print text using writeHTML()
+	$pdf->writeHTML(genhtml($fmt,$quiz,$loadedTerms,$variant,$pdf), true, false, true, false, '');
 	
 	// ---------------------------------------------------------
 	
 	$pdf->AddPage();
 	
-	$pdf->writeHTML(genhtml($fmt,$quiz,$loadedTerms,$pdf), true, false, true, false, '');
-//	$pdf->writeHTMLCell(0,0,'','', genhtml($fmt,$quiz,$loadedTerms,$pdf), 0,1,0,true,'',true);
+	$pdf->writeHTML(gensquare($fmt,$quiz,$loadedTerms,$variant,$pdf), true, false, true, false, '');
 	
 	// Close and output PDF document
 	// This method has several options, check the source code documentation for more information.
-	$pdf->Output('example_001.pdf', 'I');
-	
+	$pdf->Output('example_001.pdf', 'I');	
 }
 
 $fmt = new cHTMLFormatter;
 $fmt->justPrint = false;
 
+$variant = $_GET['variant'];		// Get the variant # that we are to process
+
+if (!IsSet($variant)){
+	include ('header1.inc');
+	$fmt->p("Internal error: No variant was passed to the PDF maker");
+	include ('footer1.inc');
+	return;	
+}
 //$fmt->startDiv("outertext");
 
 $quiz = getQuiz();
 $loadedTerms = getTerms();
 
-createPDF($fmt, $quiz, $loadedTerms);
-
-/*
-if (!IsSet($loadedTerms)){
-	$fmt->p("You need to load a terms file or generate sample terms first...");
-} else {
-	
-	$fmt->h2("Create PDF output");
-	
-	$fmt->hr();
-	
-	$fmt->startDiv("outertext");
-	
-	$fmt->p("This is where the generate PDF code will live. When this is completed, it will:");
-
-	$fmt->writeRawData("1. Generate a PDF with %d version%s of the terms and definitions and the blank magic square.", $quiz->variants, $quiz->variants == 1 ? "" : "s");
-	$fmt->brk();
-	$fmt->write("2. Generate a PDF that has a key for each variant of the output.");
-	$fmt->brk();
-	$fmt->brk();
-		
-	$fmt->endDiv();
-}
-
-$fmt->addLink("mkms.php","Click me to return to the Magic Square Maker Page");
-
-$fmt->endDiv();
-*/
+createPDF($fmt, $quiz, $loadedTerms, $variant);
 
 ?>
