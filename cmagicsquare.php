@@ -168,20 +168,21 @@ class cMagicSquare{
     
 	public function prettySquare($fmt){
         	
-		$fmt->startDiv("left");
-		$fmt->startTable();
+		$output = $fmt->startDiv("left");
+		$output .= $fmt->startTable();
 		
         for ( $X = 0; $X < $this->N; ++$X ) {
-        		$fmt->startRow();
+        		$output .= $fmt->startRow();
             for ($Y = 0; $Y < $this->N; ++$Y ) {
             		$item = $this->magicSquare[$X][$Y];
-                $fmt->writeCellData("%s", $item);
+                $output .= $fmt->writeCellData("%s", $item);
             }
-        		$fmt->endRow();
+        		$output .= $fmt->endRow();
         }
-		$fmt->endTable();
-		$fmt->endDiv();
+		$output .= $fmt->endTable();
+		$output .= $fmt->endDiv();
 		
+		return $output;
 	}
 	
     public function dump() {
