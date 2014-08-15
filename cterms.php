@@ -58,19 +58,8 @@ class Terms{
 
 		$copy = $this->terms;		// Make a copy of the current terms
 
-        //MyLog("RANDOMIZE: There are %d terms in the array", count($copy));
-		//MyPrint("Randomization in progress: ");
-        for ($i = count($copy)-1; $i > 0; --$i) {
-        		//MyPrint(".");
-            
-            $j = rand(0,count($copy)) % $i;
-            
-            $tmpTerm = $copy[$i];
-            $copy[$i] = $copy[$j];
-            $copy[$j] = $tmpTerm;
-        }
+		shuffle($copy);
 		if( $replaceSet == -1){
-	        	//MyLog(" completed.<br />\r\nRANDOMIZE: Saving jumbled copy<br />");
 			$this->jumbled[] = $copy;		// Save this copy of the jumbled terms into the array
 		} elseif ($replace >= count($this->jumbled)){
 			MyLog("randomizeTerms($replaceSet) called with invalid item number");
@@ -81,7 +70,7 @@ class Terms{
     
     public function loadTerms($howMany) {
 
-        for ($i = 0; $i < $howMany; ++$i) {
+        for ($i = 1; $i <= $howMany; ++$i) {
 
             $tmpTerm = new Term("Term$i", "Definition$i");
             // seems unnecessary to assign to tmpTerm...
@@ -89,9 +78,49 @@ class Terms{
         }
     }
 	
+	public function findItemInSquare($item,$ms){
+		$N = $ms->getN();
+		for ($X = 0; $X < $N; ++$X) {
+			for ($Y = 0; $Y < $N; ++$Y) {
+				if($ms->getElement($X,$Y) == $item){
+					return ($X * $N) + $Y;
+				}
+			}
+		}
+		return -1;
+	}
+
+	public function checkAlignment($ms,$jumbleset=0,$fmt=NULL){
+		$N = $ms->getN();
+		$count = 1;
+		$letter = 65;
+		if($fmt == NULL){
+			$fmt = new cHTMLFormatter;		
+		}
+		$fmt->startDiv("statusarea");
+		if( $this->numVariants() > 0){
+			$js = $this->jumbled[$jumbleset];
+			
+			for ($X = 0; $X < $N; ++$X) {
+				for ($Y = 0; $Y < $N; ++$Y) {
+
+					$location = $this->findItemInSquare($count, $ms);
+					if ($location != -1 && $letter == ($location+65)){
+						$msg = sprintf("NOTE: Term and Definition on row [%c] are aligned",$location+65);
+						$fmt->write($msg,true,true);
+					}	
+					++$count;
+					++$letter;
+				}
+			}
+		} else {
+			MyLog("output called with no variants defined...");
+		}
+		$fmt->endDiv();
+	}
+	
 	public function output($ms,$jumbleset=0,$fmt=NULL){
 		$N = $ms->getN();
-		//$lines = array();
 		$count = 1;
 		$letter = 65;
 		if($fmt == NULL){
@@ -104,6 +133,11 @@ class Terms{
 		if( $this->numVariants() > 0){
 			$js = $this->jumbled[$jumbleset];
 			
+			$fmt->startRow();
+			$fmt->writeClassData("tdhterm", "Word:");
+			$fmt->writeClassData("tdhansr", "Correct Answer:");
+			$fmt->writeClassData("tdhdefi", "Definition/Information:");
+			$fmt->endRow();
 			for ($X = 0; $X < $N; ++$X) {
 				for ($Y = 0; $Y < $N; ++$Y) {
 					$fmt->startRow();
@@ -112,6 +146,12 @@ class Terms{
 					$d1 = $js[$count-1]->getDefinition();
 	
 					$fmt->writeClassData("tdterm", "%c. %s", $letter, $t1);
+					$location = $this->findItemInSquare($count, $ms);
+					if ($location != -1){
+						$fmt->writeClassData("tdanswer", "%c", $location + 65);
+					} else {
+						$fmt->writeClassData("tdanswer", "?");
+					}
 					$fmt->writeClassData("tddef", "%d. %s", $count, $d1);
 					++$count;
 					++$letter;
@@ -165,8 +205,10 @@ class Terms{
 	}
 	
 	public function getFreeTerm($freeTerm, $termSet){
-		if (($freeTerm-1) < count($termSet)){
-			return $this->terms[$freeTerm-1]->getTerm();	// Terms are zero based internally...
+		if ($freeTerm != 0){	
+			if (($freeTerm-1) < count($termSet)){
+				return $this->terms[$freeTerm-1]->getTerm();	// Terms are zero based internally...
+			}
 		}
 		return "";
 	}
@@ -174,29 +216,12 @@ class Terms{
 	public function mapFreeTermToRow($ftstr,$termSet){
 		for ($index = 0; $index < count($termSet); ++$index){
 			if ($ftstr == $termSet[$index]->getTerm()){
-				return $index;
+				return $index+1;		// Since terms are zero based, but we will lookup in square using one based...
 			}		
 		}
 		return -1;
 	}
 	
-	public function mapFreeTermToSquare($ftrow, $square){
-		if($ftrow == -1) return $ftrow;
-		
-		$N = $square->getN();
-		$count = 0;
-		for ($X = 0; $X < $N; ++$X) {
-			for ($Y = 0; $Y < $N; ++$Y) {
-				if( $ftrow == $square->getElement($X,$Y) ){
-					//print("$count");
-					return $count;
-				}
-				++$count;
-			}
-		}
-		return -1;
-	}
-
 	public function printTermSet($ms, $freeTerm, $termSet, $fmt = NULL){
 		$N = $ms->getN();
 		$count = 1;
@@ -208,18 +233,20 @@ class Terms{
 		$ftstr = $this->getFreeTerm($freeTerm,$termSet);
 		
 		$ftrow = $this->mapFreeTermToRow($ftstr,$termSet);
-		$ftsid = $this->mapFreeTermToSquare($ftrow, $ms);
+		$ftsid = $this->findItemInSquare($ftrow, $ms);
 		
 		$output = $fmt->startDiv("ptermtable");
-		//$output .= $fmt->h3($which);
 		$output .= $fmt->startTable();
-		
+
+		$fmt->startRow();
+		$fmt->writeClassData("ptdhterm", "Word:");
+		$fmt->writeClassData("ptdhansr", "Correct Answer:");
+		$fmt->writeClassData("ptdhdefi", "Definition/Information:");
+		$fmt->endRow();
+
 		for ($X = 0; $X < $N; ++$X) {
 			for ($Y = 0; $Y < $N; ++$Y) {
-//		for ($X = 0; $X < count($termSet); ++$X) {
 				$output .= $fmt->startRow();
-				// $t1 = $termSet[$X]->getTerm();
-				// $d1 = $termSet[$X]->getDefinition();
 
 				$item = $ms->getElement($X,$Y);
 				$t1 = $termSet[$item-1]->getTerm();
@@ -227,8 +254,11 @@ class Terms{
 
 
 				$output .= $fmt->writeClassData("ptdterm", "%c. %s", $letter, $t1);
-				if($count-1 == $ftrow){
-					$output .= $fmt->writeClassData("ptdanswer", "%c", $ftsid+65);				
+				if($count == $ftrow){
+					// If the lookup failed, this will print '@' ... Should be obvious... :)
+					$output .= $fmt->writeClassData("ptdanswer", "%c", $ftsid+65);
+					// remember this for later...
+					$ms->setFreeTermSolution($ftsid+65,$count);
 				} else {
 					$output .= $fmt->writeClassData("ptdanswer", "%s", "&nbsp;");									
 				}
