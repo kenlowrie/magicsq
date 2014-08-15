@@ -1,3 +1,3 @@
 <?php
-include ('magicsquare.php');
+include ('mkms.php');
 ?>
