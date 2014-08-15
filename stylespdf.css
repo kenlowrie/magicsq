@@ -20,7 +20,8 @@ tr {
 }
 
 td {
-	font:22px arial;
+	font-size:22px; 
+	font-family: arial;
 	color:black;
 	padding:10px;
 	text-align:center;
@@ -28,7 +29,8 @@ td {
 	}
 	
 th {
-	font:22px arial;
+	font-size:22px; 
+	font-family: arial;
 	color:black;
 	padding:10px;
 	text-align:center;
@@ -45,7 +47,15 @@ hr {
 
 #maintext{
 	clear:both;
-	font:22px arial;
+	font-size:22px; 
+	font-family: arial;
+	color:black;
+}
+
+#puzzle{
+	clear:both;
+	font-size:22px; 
+	font-family: arial;
 	color:black;
 }
 
@@ -55,14 +65,31 @@ hr {
 
 /* Class Styles */
 
-.ptdheader{
-	font:22px Arial;
+.ptdhterm{
+	font-size:18px; 
+	font-family: arial;
+	text-align:center;
+	font-weight:bold;	
+}
+
+.ptdhansr{
+	font-size:18px; 
+	font-family: arial;
+	text-align:center;
+	font-weight:bold;	
+	width:10%;
+}
+
+.ptdhdefi{
+	font-size:18px; 
+	font-family: arial;
 	text-align:center;
 	font-weight:bold;	
 }
 
 .ptdterm {
-	font:18px arial;
+	font-size:18px; 
+	font-family: arial;
 	color:black;
 	padding:10px;
 	text-align:left;
@@ -72,7 +99,7 @@ hr {
 
 .ptdanswer {
 	font-size:38px; 
-	font-family: arial;
+	font-family: Arial;
 	color:black;
 	padding:10px;
 	text-align:center;
@@ -111,4 +138,22 @@ hr {
 	font-size:16px; 
 	font-family: arial;
 	color:black;
+}
+
+.bigsquare {
+	font-size:24px; 
+	font-family: arial;
+	color:black;
+	padding:10px;
+	text-align:center;
+	min-width:25px;
+	min-height:45px;
+}
+
+.giant {
+	font-size:60px; 
+	font-family: arial;
+	color:black;
+	padding:10px;
+	text-align:center;
 }
