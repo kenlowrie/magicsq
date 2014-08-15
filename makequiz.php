@@ -37,9 +37,8 @@ if (!IsSet($regen)){
 	$quiz->freeTerm = $_POST['freeterm'];
 	$quiz->magicSquares = array();
 	for($X = 0; $X < $quiz->variants; ++$X){
-		//TODO: Make this better, randomize the square type...
-		$tmpSquare = new cMagicSquare;
-		$tmpSquare->makeMagicAlgoUPLEFT(rand(0,4), rand(0,4));
+		$tmpSquare = new cMagicSquare($quiz->magicSquareSize);
+		$tmpSquare->makeMagic();
 		$quiz->magicSquares[] = $tmpSquare;	
 	}
 	
@@ -52,8 +51,8 @@ if (!IsSet($regen)){
 } else{
 	switch ($object){
 		case 1:
-			$tmpSquare = new cMagicSquare;
-			$tmpSquare->makeMagicAlgoUPLEFT(rand(0,4), rand(0,4));
+			$tmpSquare = new cMagicSquare($quiz->magicSquareSize);
+			$tmpSquare->makeMagic();
 			$quiz->magicSquares[$regen] = $tmpSquare;	
 			break;
 		case 2:
@@ -72,13 +71,16 @@ $fmt->p("Review the puzzles and jumbled term lists, regenerate as needed, and th
 $fmt->endDiv();
 
 for($X = 0; $X < $quiz->variants; ++$X){
-	$fmt->linkbutton("makepdf.php?variant=$X", "Generate PDF of variant " . strval($X+1),null,"POST","submit","name",true);
-	$fmt->linkbutton("makequiz.php?regen=$X&object=1","Regen this square");
+	$sqType = $quiz->magicSquares[$X]->getSquareType();
+	$fmt->linkbutton("makepdf.php?variant=$X", "Generate PDF for this set",null,"POST","submit","name",true);
+	$fmt->linkbutton("makequiz.php?regen=$X&object=1","Regen this square [$sqType]");
 	$fmt->linkbutton("makequiz.php?regen=$X&object=2","Jumble this set of terms again");
+	$quiz->magicSquares[$X]->validate($fmt,"clearboth");
+	$loadedTerms->checkAlignment($quiz->magicSquares[$X],$X,$fmt);
 	$fmt->startDiv("makequiz");
 	$quiz->magicSquares[$X]->prettySquare($fmt);
 	$fmt->startDiv("right");
-	$loadedTerms->output($quiz->magicSquares[$X],$X);
+	$loadedTerms->output($quiz->magicSquares[$X],$X,$fmt);
 	$fmt->brk();
 	$fmt->endDiv(2);
 }
