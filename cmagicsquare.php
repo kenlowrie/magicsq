@@ -10,7 +10,10 @@ function isValidSquareSize($square){
 
 class cMagicSquare{
 	protected $N;
+	protected $sqType;						// which algorithm made it
 	protected $magicSquare = array();
+	protected $freeTermLetter = '@';			// means No Free Term Solution has been set
+	protected $freeTermSolution = 0;
 	
 	public function __construct() { 
         $a = func_get_args(); 
@@ -36,7 +39,7 @@ class cMagicSquare{
     
     
     public function initMagicSquare(){
-    	$row = array();
+    		$row = array();
         //var row: [Int] = []
         for ($i = 0; $i < $this->N; ++$i) {
             $row[$i] = 0;
@@ -50,7 +53,15 @@ class cMagicSquare{
 	public function getN() {
 		return $this->N;
 	}
+	
+	public function getSquareType(){
+		return $this->sqType;
+	}
 
+	public function getMagicSum(){
+		// Compute the magic sum        
+        return ((($this->N*$this->N*$this->N)+$this->N)/2);
+	}
 	public function getElement($row, $col) {
 		if ($row < $this->N && $col < $this->N) {
 			return $this->magicSquare[$row][$col];
@@ -58,8 +69,24 @@ class cMagicSquare{
 		return -1;
 	}
     
+	public function setFreeTermSolution($letter, $solution) {
+		$this->freeTermLetter = $letter;
+		$this->freeTermSolution = $solution;
+	}
+
+	public function hasFreeTermSolution($letter) {
+		return $this->freeTermLetter == $letter;
+	}
+
+	public function getFreeTermSolution($letter) {
+		if ($this->freeTermLetter == $letter){
+			return $this->freeTermSolution;
+		}
+		return -1;
+	}
 
     public function makeMagicAlgoUPLEFT($startRow, $startCol){
+    		$this->sqType = "UL";
         $magicNumber = 1;
         $row = $startRow;
         $col = $startCol;
@@ -85,6 +112,7 @@ class cMagicSquare{
     }
         
     public function makeMagicAlgoUPRIGHT($startRow, $startCol){
+    		$this->sqType = "UR";
         $magicNumber = 1;
         $row = $startRow;
         $col = $startCol;
@@ -110,6 +138,7 @@ class cMagicSquare{
     }
 
     public function makeMagicAlgoDOWNRIGHT($startRow, $startCol){
+    		$this->sqType = "DR";
         $magicNumber = 1;
         $row = $startRow;
         $col = $startCol;
@@ -135,6 +164,7 @@ class cMagicSquare{
 	}
     
     public function makeMagicAlgoDOWNLEFT($startRow, $startCol){
+    		$this->sqType = "DL";
         $magicNumber = 1;
         $row = $startRow;
         $col = $startCol;
@@ -159,23 +189,46 @@ class cMagicSquare{
         }
 	}
 	
+	public function makeMagic(){
+		$N = $this->getN();
+		$startRow = rand(0,$N-1);
+		$startCol = rand(0,$N-1);
+		
+		switch(rand(1,4)){
+			case 1:
+				$this->makeMagicAlgoDOWNLEFT($startRow, $startCol);
+				break;
+			case 2:
+				$this->makeMagicAlgoUPRIGHT($startRow, $startCol);
+				break;
+			case 3:
+				$this->makeMagicAlgoDOWNRIGHT($startRow, $startCol);
+				break;
+			case 4:
+			default:
+				$this->makeMagicAlgoUPLEFT($startRow, $startCol);
+				break;
+		}
+	}
 	
-	protected function checkSum($type, $id, $sum, $magicSum){
+	protected function checkSum($fmt, $type, $id, $sum, $magicSum){
         if ($sum != $magicSum) {
-            MyLog("$type $id does not add to magic sum. Expected $magicSum, got $sum.");
-        }		
+            return $fmt->write("$type $id does not add to magic sum. Expected $magicSum, got $sum.",true,true);
+        }
+		return "";
 	}
     
 	public function prettySquare($fmt){
         	
-		$output = $fmt->startDiv("left");
+		$output = $fmt->startDiv("left".strval($this->N));	// adjust the space needed for the square
 		$output .= $fmt->startTable();
 		
         for ( $X = 0; $X < $this->N; ++$X ) {
         		$output .= $fmt->startRow();
             for ($Y = 0; $Y < $this->N; ++$Y ) {
+				$letter = 65 + ($X * $this->N) + $Y;
             		$item = $this->magicSquare[$X][$Y];
-                $output .= $fmt->writeCellData("%s", $item);
+                $output .= $fmt->writeCellData("%s:%c", $item,$letter);
             }
         		$output .= $fmt->endRow();
         }
@@ -185,19 +238,39 @@ class cMagicSquare{
 		return $output;
 	}
 	
-    public function dump() {
-
-		$fmt = new cHTMLFormatter();
+	public function prettySquarePDF($fmt,$freeTerm,$solution=false){
+        	
+		$output = $fmt->startDiv("puzzle");
+		$output .= $fmt->startTable();
 		
-		$fmt->startDiv("magicsquare");
-
-		// Compute the magic sum        
-        $T = ((($this->N*$this->N*$this->N)+$this->N)/2);
-        
-		$this->prettySquare($fmt);
+        for ( $X = 0; $X < $this->N; ++$X ) {
+        		$output .= $fmt->startRow();
+            for ($Y = 0; $Y < $this->N; ++$Y ) {
+				$letter = 65 + ($X * $this->N) + $Y;
+            		$item = $this->magicSquare[$X][$Y];
+            		if ($solution){
+            			$output .= $fmt->writeClassData("bigsquare","%c.<br /><br /><span class=\"giant\">%s</span>", $letter, $item );
+				} elseif ($this->hasFreeTermSolution($letter)){
+            			$output .= $fmt->writeClassData("bigsquare","%c.<br /><br /><span class=\"giant\">%s</span>", $letter, strval($this->getFreeTermSolution($letter)) );					
+            		} else {
+            			$output .= $fmt->writeClassData("bigsquare","%c.<br /><br /><span class=\"giant\">&nbsp;</span>", $letter);
+            		}
+            }
+        		$output .= $fmt->endRow();
+        }
+		$output .= $fmt->endTable();
+		$output .= $fmt->endDiv();
 		
-		$fmt->startDiv("right");
-        print("Magic sum is: [$T]\n<br />");
+		return $output;
+	}
+	
+	public function validate($fmt, $div="right", $checkTrueness=false){
+		
+		$T = $this->getMagicSum();
+		$output = "";
+		
+		$output .= $fmt->startDiv($div);
+        $output .= $fmt->write("Magic sum for this square is: [$T]",true,true);
         
         for ($X = 0; $X < $this->N; ++$X ) {
             $rowTot = 0;
@@ -205,7 +278,7 @@ class cMagicSquare{
             for ($Y = 0; $Y < $this->N; ++$Y ) { 
                 $rowTot += $this->magicSquare[$X][$Y];
             }
-			$this->checkSum("Row", $X, $rowTot, $T);
+			$output .= $this->checkSum($fmt, "Row", $X, $rowTot, $T);
         }
         
         for ( $Y = 0; $Y < $this->N; ++$Y ) {
@@ -214,24 +287,41 @@ class cMagicSquare{
             for ($X = 0; $X < $this->N; ++$X ) {
                 $colTot += $this->magicSquare[$X][$Y];
             }
-			$this->checkSum("Col", $Y, $colTot, $T);
+			$output .= $this->checkSum($fmt, "Col", $Y, $colTot, $T);
         }
-
-        $diag1 = 0;
-        for ( $X = 0; $X < $this->N; ++$X ) {
-            $diag1 += $this->magicSquare[$X][$X];
-        }
-		$this->checkSum("Diagonal", 1, $diag1, $T);
-
-        $diag2 = 0;
-        $d2col = $this->N-1;
-        for ($X = 0; $X < $this->N; ++$X) {
-            $diag2 += $this->magicSquare[$X][$d2col--];
-        }
-		$this->checkSum("Diagonal", 2, $diag2, $T);
-        MyLog("");
 		
-		$fmt->endDiv();
+		if($checkTrueness){
+	        $diag1 = 0;
+	        for ( $X = 0; $X < $this->N; ++$X ) {
+	            $diag1 += $this->magicSquare[$X][$X];
+	        }
+			$output .= $this->checkSum($fmt, "Diagonal", 1, $diag1, $T);
+	
+	        $diag2 = 0;
+	        $d2col = $this->N-1;
+	        for ($X = 0; $X < $this->N; ++$X) {
+	            $diag2 += $this->magicSquare[$X][$d2col--];
+	        }
+			$output .= $this->checkSum($fmt, "Diagonal", 2, $diag2, $T);		
+		}
+
+        $output .= $fmt->write("");
+		
+		$output .= $fmt->endDiv();	
+		
+		return $output;	
+	}
+	
+    public function dump() {
+
+		$fmt = new cHTMLFormatter();
+		
+		$fmt->startDiv("magicsquare");
+
+		$this->prettySquare($fmt);
+
+		$this->validate($fmt);
+		
 		$fmt->endDiv();
     }
 }
