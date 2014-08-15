@@ -1,7 +1,6 @@
 <?php
 
 include_once ('session.php');
-//include ('header1.inc');
 include_once ('utility.php');
 require_once('tcpdf/tcpdf.php');
 
@@ -12,13 +11,8 @@ function genhtml($fmt,$quiz,$loadedTerms,$variant,$pdf){
 	if ($variant >= $loadedTerms->numVariants()){
 		return $fmt->p("Internal error: Variant [$variant] is out of range...");
 	}
-	$output .= $fmt->startTable();
-	$output .= $fmt->startRow();
-	$output .= $fmt->writeClassData("tdtitle1","Magic Square");	
-	$output .= $fmt->writeClassData("tdtitle2","Name: __________________________");
-	$output .= $fmt->endRow();
-	$output .= $fmt->endTable();
-	
+	$output .= $fmt->p("Name: __________________________","tdtitle2");
+		
 	$output .= $fmt->brk();
 	$dirTxt = <<<EOD
 Directions: Match the correct terms with the correct definition or information. On the last page, 
@@ -47,7 +41,24 @@ function gensquare($fmt,$quiz,$loadedTerms,$variant,$pdf){
 	if ($variant >= $loadedTerms->numVariants()){
 		return $fmt->p("Internal error: Variant [$variant] is out of range...");
 	}
-	$output .= $quiz->magicSquares[$variant]->prettySquare($fmt);
+	$output .= $fmt->p("Name: __________________________","tdtitle2");
+		
+	$output .= $fmt->brk();
+	$output .= $quiz->magicSquares[$variant]->prettySquarePDF($fmt,$quiz->freeTerm);
+	
+	return $output;
+}
+
+function gensolution($fmt,$quiz,$loadedTerms,$variant,$pdf){
+
+	$output = '<style>'.file_get_contents('stylespdf.css').'</style>';	
+		
+	$output .= $quiz->magicSquares[$variant]->validate($fmt,"maintext");
+
+	if ($variant >= $loadedTerms->numVariants()){
+		return $fmt->p("Internal error: Variant [$variant] is out of range...");
+	}
+	$output .= $quiz->magicSquares[$variant]->prettySquarePDF($fmt,$quiz->freeTerm, true);
 	
 	return $output;
 }
@@ -55,17 +66,17 @@ function gensquare($fmt,$quiz,$loadedTerms,$variant,$pdf){
 function createPDF($fmt, $quiz, $loadedTerms, $variant)
 {
 	// create new PDF document
-	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, "LETTER", true, 'UTF-8', false);
 	
 	// set document information
 	$pdf->SetCreator(PDF_CREATOR);
 	$pdf->SetAuthor('Magic Square Maker');
 	$pdf->SetTitle($quiz->quizTitle);
-	$pdf->SetSubject('SUBJECT');				// Should I add this?
+	$pdf->SetSubject('Magic Square');
 	$pdf->SetKeywords('Magic Square, PDF');
 	
 	// set default header data
-	$pdf->SetHeaderData(NULL, 0, $quiz->quizTitle, "SUBJECT", array(0,64,255), array(0,64,128));
+	$pdf->SetHeaderData(NULL, 0, $quiz->quizTitle, "Magic Square", array(0,64,255), array(0,64,128));
 	$pdf->setFooterData(array(0,64,0), array(0,64,128));
 	
 	// set header and footer fonts
@@ -120,9 +131,17 @@ function createPDF($fmt, $quiz, $loadedTerms, $variant)
 	
 	$pdf->writeHTML(gensquare($fmt,$quiz,$loadedTerms,$variant,$pdf), true, false, true, false, '');
 	
+	// ---------------------------------------------------------
+	
+	$pdf->SetHeaderData(NULL, 0, $quiz->quizTitle. " - SOLUTION", "Magic Square", array(0,64,255), array(0,64,128));
+	$pdf->ResetHeaderTemplate();
+	$pdf->AddPage();
+	
+	$pdf->writeHTML(gensolution($fmt,$quiz,$loadedTerms,$variant,$pdf), true, false, true, false, '');
+
 	// Close and output PDF document
 	// This method has several options, check the source code documentation for more information.
-	$pdf->Output('example_001.pdf', 'I');	
+	$pdf->Output("magic_square_$variant.pdf", 'I');	
 }
 
 $fmt = new cHTMLFormatter;
@@ -136,7 +155,6 @@ if (!IsSet($variant)){
 	include ('footer1.inc');
 	return;	
 }
-//$fmt->startDiv("outertext");
 
 $quiz = getQuiz();
 $loadedTerms = getTerms();
