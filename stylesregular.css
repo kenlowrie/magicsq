@@ -79,9 +79,10 @@ a:hover {
 
 #statusarea{
 	clear:both;
+	padding:5px;
 	font:16px arial;
-	color:#14285f;
-	background-color: #999;
+	color:black;
+	background-color: #CCCCCC;
 }
 
 #loadterms{
@@ -98,25 +99,33 @@ a:hover {
 	clear:both;
 }
 
-#left
+#left3
 {
 	float: left;
-	width: 20%;
-	min-width: 200px;
-	/*height: 150px;
-	background-color: #999;*/
+	width: 15%;
+	margin-bottom: 10px;
+}
+
+#left5
+{
+	float: left;
+	width: 25%;
+	margin-bottom: 10px;
+}
+
+#left7
+{
+	float: left;
+	width: 35%;
 	margin-bottom: 10px;
 }
 
 #right
 {
 	float: left;
-	/*margin-left: 5%;*/
-	width: 75%;
+	width: 60%;
 	font:22px arial;
 	color:blue;
-	/* height: 150px;
-	background-color: #999; */
 	margin-bottom: 10px;
 }
 
@@ -161,6 +170,10 @@ a:hover {
 
 /* Class Styles */
 
+.quizmaker{
+	width: 100%;	
+}
+
 .tdterm {
 	font-size:14px; 
 	font-family: arial;
@@ -169,8 +182,13 @@ a:hover {
 	text-align:left;
 }
 
-.quizmaker{
-	width: 100%;	
+.ptdanswer {
+	font-size:18px; 
+	font-family: arial;
+	color:black;
+	padding:10px;
+	text-align:center;
+	width:10%;
 }
 
 .tddef {
@@ -182,8 +200,24 @@ a:hover {
 	min-width:400px;
 }
 
-.tdheader{
-	font:22px Arial;
+.tdhterm{
+	font-size:18px; 
+	font-family: arial;
+	text-align:center;
+	font-weight:bold;	
+}
+
+.tdhansr{
+	font-size:18px; 
+	font-family: arial;
+	text-align:center;
+	font-weight:bold;	
+	width:10%;
+}
+
+.tdhdefi{
+	font-size:18px; 
+	font-family: arial;
 	text-align:center;
 	font-weight:bold;	
 }
