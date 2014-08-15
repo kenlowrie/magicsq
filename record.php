@@ -37,11 +37,14 @@ function get_help($key)
      case 'freeterm':
           $str = "Enter the line number of the free term in the file that is/will be uploaded. This term will be solved automatically in the output to assist the student in understanding how to fill out the answer sheet. Enter zero (0) for no freebies!";
           break;
-	 case 'genterms':
-          $str = "Click this button to generate a sample set of terms to see how the app works.";
+	 case 'genterms3':
+          $str = "Click this button to generate a sample 3x3 set of terms to see how the app works.";
           break;
-	 case 'displayterms':
-          $str = "Click this button to display the currently loaded terms and the jumbled sets.";
+	 case 'genterms5':
+          $str = "Click this button to generate a sample 5x5 set of terms to see how the app works.";
+          break;
+	 case 'genterms7':
+          $str = "Click this button to generate a sample 7x7 set of terms to see how the app works.";
           break;
 	 case 'reset':
           $str = "Click this button to reset all the data and start over.";
@@ -164,12 +167,15 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		
 	$fmt->h3("Other helpful options...");
 	
-	$fmt->linkbutton("$alias?type=".MAKE_TERMS, "Generate Sample Terms",get_help("genterms"));
+	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=3", "Generate 3x3 Sample Terms",get_help("genterms3"));
 	$fmt->brk();
 	
-	$fmt->linkbutton("displayterms.php", "Display Current Terms",get_help("displayterms"));
+	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=5", "Generate 5x5 Sample Terms",get_help("genterms5"));
 	$fmt->brk();
-
+	
+	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=7", "Generate 7x7 Sample Terms",get_help("genterms7"));
+	$fmt->brk();
+	
 	$fmt->linkbutton("$alias?type=".RESET, "Reset Session Data",get_help("reset"));
 	$fmt->brk();
 
