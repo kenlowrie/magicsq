@@ -36,7 +36,12 @@ switch ($type){
 	case MAKE_TERMS:
 		// The Generate Sample Terms button sets the type to MAKE_TERMS, which means we want to generate some sample
 		// term data... Do that, and then put the type back to EDIT mode...
-		genSampleTerms();		// create sample terms
+		$size  = $_GET['size'];  // get the size of the square
+		
+		if( !IsSet($size) || !in_array($size, array(3,5,7)) ){
+			$size = 5;
+		} 
+		genSampleTerms($size);		// create sample terms
 		$type = EDIT_FORM;
 		break;
 				
