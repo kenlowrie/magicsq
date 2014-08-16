@@ -2,11 +2,5 @@
 Things left To Do - yfi=G8Pb}+R-
 
 1. Add CSS to format the MKMS output so that it works correctly on iOS
-1f. Should I prevent a term from aligning with its definition? I've tried, I can't. WTF?
-
-2f. The 7x7 works, but letters are weird.
-
-Q1. Should I print the magic sum on the blank puzzle?
 
 4. Add Stephen's algorithm for generating the square based on start position and start number
-99. Should we worry about students hitting the site and reverse engineering the puzzles?
