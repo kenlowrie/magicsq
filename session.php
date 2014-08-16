@@ -7,6 +7,7 @@
 include_once ('cmagicsquare.php');
 include_once ('cterms.php');
 include_once ('cquizmaker.php');
+include_once ('csymbol.php');
 
 /*
 ** This file is included by all other PHP scripts. It fires the session_start(), and defines common things...
