@@ -14,6 +14,7 @@ class cMagicSquare{
 	protected $magicSquare = array();
 	protected $freeTermLetter = '@';			// means No Free Term Solution has been set
 	protected $freeTermSolution = 0;
+	protected $alignedRow = -1;				// set during validation of square
 	
 	public function __construct() { 
         $a = func_get_args(); 
@@ -85,6 +86,14 @@ class cMagicSquare{
 		return -1;
 	}
 
+	public function setAlignedRow($alignedRow){
+		$this->alignedRow = $alignedRow;
+	}
+	
+	public function getAlignedRow(){
+		return $this->alignedRow;
+	}
+	
     public function makeMagicAlgoUPLEFT($startRow, $startCol){
     		$this->sqType = "UL";
         $magicNumber = 1;
@@ -222,13 +231,14 @@ class cMagicSquare{
         	
 		$output = $fmt->startDiv("left".strval($this->N));	// adjust the space needed for the square
 		$output .= $fmt->startTable();
+		$sym = new cSymbol;
 		
         for ( $X = 0; $X < $this->N; ++$X ) {
         		$output .= $fmt->startRow();
             for ($Y = 0; $Y < $this->N; ++$Y ) {
-				$letter = 65 + ($X * $this->N) + $Y;
+				$letter = $sym->getSymbol(($X * $this->N) + $Y);
             		$item = $this->magicSquare[$X][$Y];
-                $output .= $fmt->writeCellData("%s:%c", $item,$letter);
+                $output .= $fmt->writeCellData("%s:%s", $item,$letter);
             }
         		$output .= $fmt->endRow();
         }
@@ -242,18 +252,21 @@ class cMagicSquare{
         	
 		$output = $fmt->startDiv("puzzle");
 		$output .= $fmt->startTable();
+		$sym = new cSymbol;
+		$bsq = $this->N > 5 ? "bigsquare7" : "bigsquare";
+		$gsq = $this->N > 5 ? "giant7" : "giant";
 		
         for ( $X = 0; $X < $this->N; ++$X ) {
         		$output .= $fmt->startRow();
             for ($Y = 0; $Y < $this->N; ++$Y ) {
-				$letter = 65 + ($X * $this->N) + $Y;
+				$letter = $sym->getSymbol(($X * $this->N) + $Y);
             		$item = $this->magicSquare[$X][$Y];
             		if ($solution){
-            			$output .= $fmt->writeClassData("bigsquare","%c.<br /><br /><span class=\"giant\">%s</span>", $letter, $item );
-				} elseif ($this->hasFreeTermSolution($letter)){
-            			$output .= $fmt->writeClassData("bigsquare","%c.<br /><br /><span class=\"giant\">%s</span>", $letter, strval($this->getFreeTermSolution($letter)) );					
+            			$output .= $fmt->writeClassData($bsq,"%s.<br /><br /><span class=\"$gsq\">%s</span>", $letter, $item );
+				} elseif ($freeTerm != 0 && $this->hasFreeTermSolution($letter)){
+            			$output .= $fmt->writeClassData($bsq,"%s.<br /><br /><span class=\"$gsq\">%s</span>", $letter, strval($this->getFreeTermSolution($letter)) );					
             		} else {
-            			$output .= $fmt->writeClassData("bigsquare","%c.<br /><br /><span class=\"giant\">&nbsp;</span>", $letter);
+            			$output .= $fmt->writeClassData($bsq,"%s.<br /><br /><span class=\"$gsq\">&nbsp;</span>", $letter);
             		}
             }
         		$output .= $fmt->endRow();
