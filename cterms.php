@@ -93,7 +93,8 @@ class Terms{
 	public function checkAlignment($ms,$jumbleset=0,$fmt=NULL){
 		$N = $ms->getN();
 		$count = 1;
-		$letter = 65;
+		$letter = new cSymbol;
+		$alignedRow = -1;
 		if($fmt == NULL){
 			$fmt = new cHTMLFormatter;		
 		}
@@ -105,24 +106,27 @@ class Terms{
 				for ($Y = 0; $Y < $N; ++$Y) {
 
 					$location = $this->findItemInSquare($count, $ms);
-					if ($location != -1 && $letter == ($location+65)){
-						$msg = sprintf("NOTE: Term and Definition on row [%c] are aligned",$location+65);
+					if ($location != -1 && $letter->me() == $letter->getSymbol($location)){
+						$msg = sprintf("NOTE: Term and Definition on row [%s] are aligned",$letter->me());
 						$fmt->write($msg,true,true);
+						$alignedRow = $location + 1;		// Bump the row so it is 1-based because that's what the lookup expects later...
 					}	
 					++$count;
-					++$letter;
+					$letter->increment();
 				}
 			}
 		} else {
 			MyLog("output called with no variants defined...");
 		}
 		$fmt->endDiv();
+		
+		return $alignedRow;
 	}
 	
 	public function output($ms,$jumbleset=0,$fmt=NULL){
 		$N = $ms->getN();
 		$count = 1;
-		$letter = 65;
+		$letter = new cSymbol;
 		if($fmt == NULL){
 			$fmt = new cHTMLFormatter;		
 		}
@@ -145,16 +149,16 @@ class Terms{
 					$t1 = $js[$item-1]->getTerm();
 					$d1 = $js[$count-1]->getDefinition();
 	
-					$fmt->writeClassData("tdterm", "%c. %s", $letter, $t1);
+					$fmt->writeClassData("tdterm", "%s. %s", $letter->me(), $t1);
 					$location = $this->findItemInSquare($count, $ms);
 					if ($location != -1){
-						$fmt->writeClassData("tdanswer", "%c", $location + 65);
+						$fmt->writeClassData("tdanswer", "%s", $letter->getSymbol($location));
 					} else {
 						$fmt->writeClassData("tdanswer", "?");
 					}
 					$fmt->writeClassData("tddef", "%d. %s", $count, $d1);
 					++$count;
-					++$letter;
+					$letter->increment();
 					$fmt->endRow();
 				}
 			}
@@ -167,7 +171,7 @@ class Terms{
     
 	public function dumpTermSet($which, $termSet, $fmt = NULL){
 		$count = 1;
-		$letter = 65;
+		$letter = new cSymbol;
 		if($fmt == NULL){
 			$fmt = new cHTMLFormatter;		
 		}
@@ -181,10 +185,10 @@ class Terms{
 			$t1 = $termSet[$X]->getTerm();
 			$d1 = $termSet[$X]->getDefinition();
 
-			$output .= $fmt->writeClassData("tdterm", "%c. %s", $letter, $t1);
+			$output .= $fmt->writeClassData("tdterm", "%s. %s", $letter->me(), $t1);
 			$output .= $fmt->writeClassData("tddef", "%d. %s", $count, $d1);
 			++$count;
-			++$letter;
+			$letter->increment();
 			$output .= $fmt->endRow();
 		}
 		if ($X == 0) {
@@ -222,18 +226,30 @@ class Terms{
 		return -1;
 	}
 	
-	public function printTermSet($ms, $freeTerm, $termSet, $fmt = NULL){
+	public function printTermSet($ms, $freeTerm, $alignFT, $termSet, $fmt = NULL){
 		$N = $ms->getN();
 		$count = 1;
-		$letter = 65;
+		$letter = new cSymbol;
 		if($fmt == NULL){
 			$fmt = new cHTMLFormatter;		
 		}
-		
-		$ftstr = $this->getFreeTerm($freeTerm,$termSet);
-		
-		$ftrow = $this->mapFreeTermToRow($ftstr,$termSet);
-		$ftsid = $this->findItemInSquare($ftrow, $ms);
+				
+		if ($freeTerm == 0) {
+			// if freeTerm is zero, that has precedent...
+			$ftrow = -1;		// everything below will just ignore the free term...
+			$ftsid = -1;
+		} else {
+			// If the user wants to set the free term to the aligned term/definition ...
+			if ($alignFT){
+				$ftrow = $ms->getAlignedRow();
+			} else {
+				// Okay, we need to find the free term in the jumbled set
+				$ftstr = $this->getFreeTerm($freeTerm,$termSet);
+				$ftrow = $this->mapFreeTermToRow($ftstr,$termSet);		
+			}
+			// now find the free term in the magic square
+			$ftsid = $this->findItemInSquare($ftrow, $ms);
+		}
 		
 		$output = $fmt->startDiv("ptermtable");
 		$output .= $fmt->startTable();
@@ -253,18 +269,18 @@ class Terms{
 				$d1 = $termSet[$count-1]->getDefinition();
 
 
-				$output .= $fmt->writeClassData("ptdterm", "%c. %s", $letter, $t1);
+				$output .= $fmt->writeClassData("ptdterm", "%s. %s", $letter->me(), $t1);
 				if($count == $ftrow){
 					// If the lookup failed, this will print '@' ... Should be obvious... :)
-					$output .= $fmt->writeClassData("ptdanswer", "%c", $ftsid+65);
+					$output .= $fmt->writeClassData("ptdanswer", "%s", $letter->getSymbol($ftsid));
 					// remember this for later...
-					$ms->setFreeTermSolution($ftsid+65,$count);
+					$ms->setFreeTermSolution($letter->getSymbol($ftsid),$count);
 				} else {
 					$output .= $fmt->writeClassData("ptdanswer", "%s", "&nbsp;");									
 				}
 				$output .= $fmt->writeClassData("ptddef", "%d. %s", $count, $d1);
 				++$count;
-				++$letter;
+				$letter->increment();
 				$output .= $fmt->endRow();		
 			}
 		}
