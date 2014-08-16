@@ -37,6 +37,9 @@ function get_help($key)
      case 'freeterm':
           $str = "Enter the line number of the free term in the file that is/will be uploaded. This term will be solved automatically in the output to assist the student in understanding how to fill out the answer sheet. Enter zero (0) for no freebies!";
           break;
+     case 'alignft':
+          $str = "Check me to automatically align free term (see above description) to the term/definition that is aligned in the output. In each generated magic square, there is always at least one term/definition that will be aligned in the terms table. By checking this box, the aligned term becomes the free term, as long as free term (above) is not 0.";
+          break;
 	 case 'genterms3':
           $str = "Click this button to generate a sample 3x3 set of terms to see how the app works.";
           break;
@@ -133,7 +136,6 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		$fmt->startDivs($divs);
 			
 		$fmt->h3("Free Term");
-		//TODO: I need to set the maximum based on how many terms are in the term file...
 		$maxterms = count($terms->getTerms());
 	    $fmt->write("<input type=number min=\"0\" max=\"$maxterms\" name=\"freeterm\" value=\"$freeterm\"><br /><br />");
 
@@ -152,6 +154,24 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		} else {
 			$fmt->write("There will be no free term given, probably because you're a mean teacher or you have mean students...");		
 		}
+		
+		$fmt->brk();
+		$fmt->endDiv(2);
+	
+		$fmt->startDivs($divs);
+			
+		$fmt->h3("Aligned Term/Def is free term");
+		if ($quiz->mapFTtoAlignedTD){
+		    $fmt->write("<input type=checkbox name=\"alignft\" value=\"1\" checked=\"checked\"><br /><br />");		
+		} else {
+		    $fmt->write("<input type=checkbox name=\"alignft\" value=\"1\"><br /><br />");					
+		}
+
+		$fmt->endDiv();
+		$fmt->startDiv("mainright");
+	
+	    	$helpstr = get_help("alignft");
+	    if ($helpstr) $fmt->write("$helpstr");
 		
 		$fmt->brk();
 		$fmt->endDiv(2);
