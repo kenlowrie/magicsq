@@ -35,6 +35,8 @@ if (!IsSet($regen)){
 	$quiz->quizTitle = $_POST['title'];    // transfer the form variables into
 	$quiz->variants = $_POST['variants'];	
 	$quiz->freeTerm = $_POST['freeterm'];
+	$alignFT = $_POST['alignft'];
+	$quiz->mapFTtoAlignedTD = ($alignFT == 1) ? true : false;
 	$quiz->magicSquares = array();
 	for($X = 0; $X < $quiz->variants; ++$X){
 		$tmpSquare = new cMagicSquare($quiz->magicSquareSize);
@@ -72,11 +74,15 @@ $fmt->endDiv();
 
 for($X = 0; $X < $quiz->variants; ++$X){
 	$sqType = $quiz->magicSquares[$X]->getSquareType();
-	$fmt->linkbutton("makepdf.php?variant=$X", "Generate PDF for this set",null,"POST","submit","name",true);
+	$fmt->linkbutton("makepdf.php?variant=$X", "Display PDF for this set",null,"POST","submit","name",true);
+	$fmt->linkbutton("makepdf.php?variant=$X&download=1", "Download PDF for this set",null,"POST","submit","name",true);
 	$fmt->linkbutton("makequiz.php?regen=$X&object=1","Regen this square [$sqType]");
 	$fmt->linkbutton("makequiz.php?regen=$X&object=2","Jumble this set of terms again");
 	$quiz->magicSquares[$X]->validate($fmt,"clearboth");
-	$loadedTerms->checkAlignment($quiz->magicSquares[$X],$X,$fmt);
+	$alignedRow = $loadedTerms->checkAlignment($quiz->magicSquares[$X],$X,$fmt);
+	if ($alignedRow != -1 && $quiz->mapFTtoAlignedTD){
+		$quiz->magicSquares[$X]->setAlignedRow($alignedRow);	// This will be used later
+	}
 	$fmt->startDiv("makequiz");
 	$quiz->magicSquares[$X]->prettySquare($fmt);
 	$fmt->startDiv("right");
