@@ -157,3 +157,21 @@ hr {
 	padding:10px;
 	text-align:center;
 }
+
+.bigsquare7 {
+	font-size:18px; 
+	font-family: arial;
+	color:black;
+	padding:10px;
+	text-align:center;
+	min-width:25px;
+	min-height:45px;
+}
+
+.giant7 {
+	font-size:48px; 
+	font-family: arial;
+	color:black;
+	padding:10px;
+	text-align:center;
+}
