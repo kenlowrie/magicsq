@@ -29,7 +29,7 @@ EOD;
 	$output .= $fmt->startDiv("maintext");
 	
 	$jumbledTerms = $loadedTerms->getJumbledTerms();
-	$output .= $loadedTerms->printTermSet($quiz->magicSquares[$variant],$quiz->freeTerm, $jumbledTerms[$variant],$fmt);
+	$output .= $loadedTerms->printTermSet($quiz->magicSquares[$variant],$quiz->freeTerm, $quiz->mapFTtoAlignedTD,$jumbledTerms[$variant],$fmt);
 	
 	return $output;
 }
@@ -63,7 +63,7 @@ function gensolution($fmt,$quiz,$loadedTerms,$variant,$pdf){
 	return $output;
 }
 
-function createPDF($fmt, $quiz, $loadedTerms, $variant)
+function createPDF($fmt, $quiz, $loadedTerms, $variant, $pdfDest)
 {
 	// create new PDF document
 	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, "LETTER", true, 'UTF-8', false);
@@ -141,13 +141,14 @@ function createPDF($fmt, $quiz, $loadedTerms, $variant)
 
 	// Close and output PDF document
 	// This method has several options, check the source code documentation for more information.
-	$pdf->Output("magic_square_$variant.pdf", 'I');	
+	$pdf->Output("magic_square_$variant.pdf", $pdfDest);	
 }
 
 $fmt = new cHTMLFormatter;
 $fmt->justPrint = false;
 
 $variant = $_GET['variant'];		// Get the variant # that we are to process
+$download = $_GET['download'];	// whether we want to display inline or download
 
 if (!IsSet($variant)){
 	include ('header1.inc');
@@ -156,9 +157,15 @@ if (!IsSet($variant)){
 	return;	
 }
 
+if (IsSet($download) && $download == '1'){
+	$pdfDest = 'D';
+} else {
+	$pdfDest = 'I';
+}
+
 $quiz = getQuiz();
 $loadedTerms = getTerms();
 
-createPDF($fmt, $quiz, $loadedTerms, $variant);
+createPDF($fmt, $quiz, $loadedTerms, $variant, $pdfDest);
 
 ?>
