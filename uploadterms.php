@@ -45,7 +45,7 @@ function uploadinputfile($fmt){
 			    fclose($handle);
 			}
 			setTerms($myterms);
-			$fmt->writeRawData("Parsing has completed... Found <%d> terms.<br />",$row-1);
+			$fmt->writeRawData("Parsing has completed... Found <".strval($row-1)."> terms.<br />");
 		}
 	} else {
 		$fmt->writeRawData("Invalid file [%s] passed to uploaded. Must be .CSV or .TXT",$_FILES["file"]["name"],true,true);
