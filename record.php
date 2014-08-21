@@ -4,16 +4,8 @@ include_once ('session.php');
 include ('uploadterms.php');
 
 /*
-** The common functions for handling the record forms are in this file.
+** The common functions for handling the forms are in this file.
 */
-
-/*
-** Returns the list of magic square types
-*/
-function get_mstypes()
-{
-	return '3x3|5x5|7x7|9x9';
-}
 
 /*
 ** Return the help string for the specified field.
@@ -66,7 +58,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 	$variants = $quiz->variants;
 	$freeterm = $quiz->freeTerm;
 
-	$fmt->startDiv("loadterms");
+	$fmt->startSection("loadTerms");
 
 	$fmt->h3("Load input file with terms and definitions");
 	
@@ -89,58 +81,65 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 	$fmt->write("      <form method=\"POST\" action=\"$alias?type=$loadfile\" enctype=\"multipart/form-data\">");
 	//$fmt->write("        <label for=\"file\">Filename:</label>");
 	$fmt->write("        <input type=\"file\" name=\"file\" id=\"file\">");
+	$fmt->brk();
 	$fmt->write("        <input type=\"submit\" name=\"submit\" value=\"Load Terms\">");
+	$fmt->write("Click this button to upload your file");
 	$fmt->write("      </form>");
 
 	$fmt->brk();
 
-	$fmt->endDiv();
-		
+	$fmt->endSection();
+	
 	if (IsSet($terms)){
 
-		$divs = array("clearboth","mainleft");
+		$fmt->startSection("selectOptions");
 		
+		$divMainLeft = "mainLeft";
+		$divMainRight = "mainRight";
+		
+		$fmt->startDivClass("quizForm");
+
 		$fmt->h3("Provide details for the handouts, and then click Generate Quiz Data.");
 		
 	     // construct the form, and then the outer table that will hold the field definitions
 		$fmt->write("<form method=\"POST\" action=\"makequiz.php\">");
 	
-		$fmt->startDivs($divs);
+		$fmt->startDivClass($divMainLeft);
 		
 		$fmt->h3("Handout Title");
 		
 	    $fmt->write("<input type=text size=\"25\" maxlength=\"128\" name=\"title\" value=\"$title\"><br /><br />");
 	
 		$fmt->endDiv();
-		$fmt->startDiv("mainright");
+		$fmt->startDivClass($divMainRight);
 	
 	    	$helpstr = get_help("title");
 	    if ($helpstr) $fmt->write("$helpstr<br />");
-		$fmt->endDiv(2);
+		$fmt->endDiv();
 	
 	
-		$fmt->startDivs($divs);
+		$fmt->startDivClass($divMainLeft);
 			
 		$fmt->h3("Number of variants");
 	    $fmt->write("<input type=\"number\" min=\"1\" max=\"9\" name=\"variants\" value=\"$variants\"><br /><br />");
 	
 		$fmt->endDiv();
-		$fmt->startDiv("mainright");
+		$fmt->startDivClass($divMainRight);
 	
 	    	$helpstr = get_help("variants");
 	    if ($helpstr) $fmt->write("$helpstr<br />");
 	
-		$fmt->endDiv(2);
+		$fmt->endDiv();
 	
 	
-		$fmt->startDivs($divs);
+		$fmt->startDivClass($divMainLeft);
 			
 		$fmt->h3("Free Term");
 		$maxterms = count($terms->getTerms());
 	    $fmt->write("<input type=number min=\"0\" max=\"$maxterms\" name=\"freeterm\" value=\"$freeterm\"><br /><br />");
 
 		$fmt->endDiv();
-		$fmt->startDiv("mainright");
+		$fmt->startDivClass($divMainRight);
 	
 	    	$helpstr = get_help("freeterm");
 	    if ($helpstr) $fmt->write("$helpstr");
@@ -155,12 +154,11 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 			$fmt->write("There will be no free term given, probably because you're a mean teacher or you have mean students...");		
 		}
 		
-		$fmt->brk();
-		$fmt->endDiv(2);
+		$fmt->endDiv();
 	
-		$fmt->startDivs($divs);
+		$fmt->startDivClass($divMainLeft);
 			
-		$fmt->h3("Aligned Term/Def is free term");
+		$fmt->h3("Align Free Term");
 		if ($quiz->mapFTtoAlignedTD){
 		    $fmt->write("<input type=checkbox name=\"alignft\" value=\"1\" checked=\"checked\"><br /><br />");		
 		} else {
@@ -168,22 +166,25 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		}
 
 		$fmt->endDiv();
-		$fmt->startDiv("mainright");
+		$fmt->startDivClass($divMainRight);
 	
 	    	$helpstr = get_help("alignft");
 	    if ($helpstr) $fmt->write("$helpstr");
 		
 		$fmt->brk();
-		$fmt->endDiv(2);
-	
-		$fmt->startDivs(array("clearboth","mainall"));
+		$fmt->endDiv();
+		
+		$fmt->startP("clearAndCenter");
 		$fmt->write("<input type=submit value=\"Generate Quiz Data\">");
+		$fmt->endP();
 		$fmt->write("</form>");
-		$fmt->write("Click this button to preview your squares and term sets.");
-		$fmt->endDiv(2);
+
+		$fmt->endDiv();			// quizForm end div
+
+		$fmt->endSection();
 	}
 
-	$fmt->startDivs(array("clearboth","mainall"));
+	$fmt->startSection("helpers");
 		
 	$fmt->h3("Other helpful options...");
 	
@@ -199,6 +200,6 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 	$fmt->linkbutton("$alias?type=".RESET, "Reset Session Data",get_help("reset"));
 	$fmt->brk();
 
-	$fmt->endDiv(2);	 
+	$fmt->endSection();
 }
 ?>
