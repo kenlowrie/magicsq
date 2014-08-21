@@ -6,8 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- This file is the default HTML template used by the troubleshooting step-by-step pages. -->
 <!-- footer1.inc contains the closing tags for this header. -->
-<title>Magic Square School Tools</title>
+<title>Magic Square Quiz Maker</title>
 <link rel="stylesheet" href="stylesregular.css" type="text/css" />
 </head>
 <body>
-<div id="wrapper">
