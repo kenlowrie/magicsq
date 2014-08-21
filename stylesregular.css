@@ -1,15 +1,29 @@
 /* Global Styles */
 
+/*limited reset*/
+html, body, div, section, article, aside, header, hgroup, footer, nav, h1, h2, h3, h4, h5, h6, p, blockquote, address, time, span, em, strong, img, ol, ul, li, figure, canvas, video, th, td, tr {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align:baseline;
+	font-size: 100%;
+	font: inherit;
+	font-family:Arial;
+}
 
-body {
+/*html5 display rule*/
+address, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+	display: block;
+}
+
+/*body {
 	margin:0px;
 	padding: 0px;
 	height: 100%;
 	width: 100%;
-	display: inline;
-	}
+	display: inline;*/	}
 
-div{
+/*div{
 		margin-left:10px;
 }
 
@@ -37,10 +51,28 @@ input {
 
 select {
 	font:18px Arial;
-}
+}*/
 
 form {
 	display:inline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 1.6em;
+}
+
+h2 {
+	font-size: 1.4em;
+}
+
+h3 {
+	font-size: 1.2em;
+	margin:0;
+	padding:10px;
 }
 
 /*	
@@ -58,14 +90,87 @@ a:hover {
 	
 /* ID Styles */
 
-#wrapper {
+/*#wrapper {
+	padding:5px;
 	margin-top: 10px;
     margin-right: auto;
     margin-left: 5px;
     width: 100%;
+}*/
+
+/* This is used by the <header> tag specified in header1.inc */
+#mainHeader {
+	background: gray;
+	color: white;
+	padding: 15px;
+	text-align:center;
 }
 
-#outertext{
+/* This wraps the Load Input File section */
+#loadTerms{
+	color:black;
+	background-color: #FFFFCC;
+	padding:10px;
+}
+
+#loadTerms h3{
+	padding-left:0px;
+}
+
+#selectOptions
+{
+	padding-bottom: 10px;
+	background-color: beige;
+}
+
+#selectOptions div.quizForm
+{
+}
+
+#selectOptions div.mainLeft
+{
+	clear: both;
+	float: left;
+	margin-right:1%;
+	text-align:right;
+	width: 20%;
+	min-width: 250px;
+	border-bottom: 1px dashed black;
+}
+
+#selectOptions div.mainRight
+{
+	float: left;
+	margin-left: 1%;
+	width: 69%;
+	font:18px arial;
+	margin-top: 10px;
+}
+
+#selectOptions p.clearAndCenter
+{
+	clear:both;
+	padding:10px;
+	text-align:center;
+}
+
+#selectOptions form{
+	display:inline;
+}
+
+#helpers
+{
+	clear:both;
+	font-size:1em;
+	background-color: #FFFFCC;
+	padding:10px;
+}
+
+#helpers form{
+	display:inline;
+}
+
+/*#outertext{
 	clear:both;
 	font:22px arial;
 	color:#14285f;
@@ -75,23 +180,17 @@ a:hover {
 	clear:both;
 	font:22px arial;
 	color:#14285f;
-}
+}*/
 
 #statusarea{
 	clear:both;
 	padding:5px;
-	font:16px arial;
+	font-size: .8em;
 	color:black;
 	background-color: #CCCCCC;
 }
 
-#loadterms{
-	font:18px arial;
-	color:black;
-	background-color: #FFFFCC;
-}
-
-#magicsquare {
+/*#magicsquare {
 	clear:both;
 }
 
@@ -134,7 +233,6 @@ a:hover {
 	float: left;
 	width: 20%;
 	min-width: 250px;
-	/*height: 150px;*/
 	background-color: #FFFFCC;
 	margin-bottom: 10px;
 }
@@ -145,28 +243,15 @@ a:hover {
 	margin-left: 1%;
 	width: 69%;
 	font:18px arial;
-	/* color:blue;
-	height: 150px;
-	background-color: #FFFFCC;*/
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
-#mainall
-{
-	float: left;
-	margin-left: 1%;
-	width: 99%;
-	font:18px arial;
-	background-color: #FFFFCC;
-	padding:5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
 
 #termtable{
 	clear:both;
 }
+*/
 
 /* Class Styles */
 
