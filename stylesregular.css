@@ -75,6 +75,12 @@ h3 {
 	padding:10px;
 }
 
+h4 {
+	font-size: 1.1em;
+	margin:0;
+	padding:8px;
+}
+
 /*	
 a {
 	color: #14285f;
@@ -100,7 +106,7 @@ a:hover {
 
 /* This is used by the <header> tag specified in header1.inc */
 #mainHeader {
-	background: gray;
+	background: #333;
 	color: white;
 	padding: 15px;
 	text-align:center;
@@ -115,36 +121,120 @@ a:hover {
 
 #loadTerms h3{
 	padding-left:0px;
+	text-align:center;
+	text-transform:capitalize;
+}
+
+#loadTerms h5{
+	padding: 10px 0;
+	text-transform: uppercase;
+}
+
+#loadTerms p{
+	padding-bottom: 10px;
+}
+
+#loadTerms div.termInfo{
+	background-color: #eee;
+	border-radius: 25px;
+	padding: 10px;
+}
+/*
+#loadTermsFile{
+	background-color: gray;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #000;
+    font-size: 1em;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+    padding:2px;
+}
+
+#loadTermsFile:hover{
+	border: none;
+	background:red;
+	color:#FFF;
+	box-shadow: 0px 0px 1px #777;
+}
+*/
+.loadTermsButton{
+	background-color: gray;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #FFF;
+    font-size: 1em;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+    padding:3px 5px;
+}
+
+.loadTermsButton:hover{
+	border: none;
+	background:red;
+	color:#FFF;
+	box-shadow: 0px 0px 1px #777;
 }
 
 #selectOptions
 {
 	padding-bottom: 10px;
-	background-color: beige;
+	background-color: #eee;
 }
 
-#selectOptions div.quizForm
+#selectOptions h3{
+	text-align: center;
+}
+
+#selectOptions h4{
+	text-align: right;
+}
+
+div.quizForm
 {
+	margin-left:10px;
 }
 
-#selectOptions div.mainLeft
+div.quizOptionEven
+{
+	background-color: #dae5f4;
+}
+
+div.quizOptionOdd
+{
+	background-color: #b8d1f3;
+}
+
+div.quizOptionLeft
 {
 	clear: both;
 	float: left;
-	margin-right:1%;
+	padding: 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
 	text-align:right;
 	width: 20%;
-	min-width: 250px;
-	border-bottom: 1px dashed black;
+	background-color:inherit;
+	min-width: 250px; 
+	min-height: 100px;
+	border-radius: 15px;
 }
 
-#selectOptions div.mainRight
+div.quizOptionRight
 {
 	float: left;
-	margin-left: 1%;
-	width: 69%;
-	font:18px arial;
-	margin-top: 10px;
+	padding: 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	width: 70%;
+	min-height:100px;
+	font-size: 1.2em;
+	border-radius: 15px;
+	background-color:inherit;
 }
 
 #selectOptions p.clearAndCenter
@@ -158,6 +248,25 @@ a:hover {
 	display:inline;
 }
 
+#genQuizButton{
+	background-color: gray;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #FFF;
+    font-size: 1.4em;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+}
+
+#genQuizButton:hover{
+	border: none;
+	background:red;
+	color:#FFF;
+	box-shadow: 0px 0px 1px #777;
+}
+
 #helpers
 {
 	clear:both;
@@ -168,6 +277,26 @@ a:hover {
 
 #helpers form{
 	display:inline;
+}
+
+.helperButton{
+	background-color: gray;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #FFF;
+    font-size: 1.4em;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+    min-width:380px;
+}
+
+.helperButton:hover{
+	border: none;
+	background:red;
+	color:#FFF;
+	box-shadow: 0px 0px 1px #777;
 }
 
 /*#outertext{
