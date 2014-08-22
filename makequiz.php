@@ -74,8 +74,8 @@ $fmt->endDiv();
 
 for($X = 0; $X < $quiz->variants; ++$X){
 	$sqType = $quiz->magicSquares[$X]->getSquareType();
-	$fmt->linkbutton("makepdf.php?variant=$X", "Display PDF for this set",null,"POST","submit","name",true);
-	$fmt->linkbutton("makepdf.php?variant=$X&download=1", "Download PDF for this set",null,"POST","submit","name",true);
+	$fmt->linkbutton("makepdf.php?variant=$X", "Display PDF for this set",null,null,"POST","submit","name",true);
+	$fmt->linkbutton("makepdf.php?variant=$X&download=1", "Download PDF for this set",null,null,"POST","submit","name",true);
 	$fmt->linkbutton("makequiz.php?regen=$X&object=1","Regen this square [$sqType]");
 	$fmt->linkbutton("makequiz.php?regen=$X&object=2","Jumble this set of terms again");
 	$quiz->magicSquares[$X]->validate($fmt,"clearboth");
