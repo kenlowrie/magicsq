@@ -40,6 +40,12 @@ class cHTMLFormatter{
 	public function h4($text){
 		return $this->_print("<h4>". $text . "</h4>\n");
 	}
+	public function h5($text){
+		return $this->_print("<h5>". $text . "</h5>\n");
+	}
+	public function h6($text){
+		return $this->_print("<h6>". $text . "</h6>\n");
+	}
 	public function startP($class=NULL){
 		$element = IsSet($class) ? "<p class=\"$class\">" : "<p>";
 		return $this->_print($element);
@@ -68,14 +74,19 @@ class cHTMLFormatter{
 		}
 	}
 
-	public function linkbutton($action, $text, $help=NULL, $method="POST", $type="submit", $name="name", $newwin=false)
+	public function linkbutton($action, $text, $help=NULL, $buttonClass=NULL, $method="POST", $type="submit", $name="name", $newwin=false)
 	{
 		if ($newwin){
 			$curtext = $this->_print("<form method=\"$method\" action=\"$action\" target=\"_blank\">\n");		
 		} else {
 			$curtext = $this->_print("<form method=\"$method\" action=\"$action\">\n");					
 		}
-		$curtext .= $this->_print("  <input type=\"$type\" name=\"$name\" value=\"$text\">\n");
+		if (!IsSet($buttonClass)){
+			$btnClass="";
+		} else {
+			$btnClass=" class=\"".$buttonClass."\"";
+		}
+		$curtext .= $this->_print("  <input type=\"$type\" name=\"$name\" value=\"$text\"$btnClass>\n");
 		$curtext .= $this->_print("</form>\n");
 		$curtext .= $this->_print($help."\n");	
 		return $curtext;	
