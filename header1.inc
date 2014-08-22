@@ -7,6 +7,9 @@
 <!-- This file is the default HTML template used by the troubleshooting step-by-step pages. -->
 <!-- footer1.inc contains the closing tags for this header. -->
 <title>Magic Square Quiz Maker</title>
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 <link rel="stylesheet" href="stylesregular.css" type="text/css" />
 </head>
 <body>
