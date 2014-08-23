@@ -98,7 +98,6 @@ class Terms{
 		if($fmt == NULL){
 			$fmt = new cHTMLFormatter;		
 		}
-		$fmt->startDiv("statusarea");
 		if( $this->numVariants() > 0){
 			$js = $this->jumbled[$jumbleset];
 			
@@ -118,7 +117,6 @@ class Terms{
 		} else {
 			MyLog("output called with no variants defined...");
 		}
-		$fmt->endDiv();
 		
 		return $alignedRow;
 	}
@@ -131,16 +129,16 @@ class Terms{
 			$fmt = new cHTMLFormatter;		
 		}
 		
-		$fmt->startDiv("termtable");
+		$fmt->startDivClass("puzzleTerms puzzleTermsSize".strval($N));
 		$fmt->startTable();
 
 		if( $this->numVariants() > 0){
 			$js = $this->jumbled[$jumbleset];
 			
 			$fmt->startRow();
-			$fmt->writeClassData("tdhterm", "Word:");
-			$fmt->writeClassData("tdhansr", "Correct Answer:");
-			$fmt->writeClassData("tdhdefi", "Definition/Information:");
+			$fmt->writeCellData("Word:");
+			$fmt->writeCellData("Correct Answer:");
+			$fmt->writeCellData("Definition/Information:");
 			$fmt->endRow();
 			for ($X = 0; $X < $N; ++$X) {
 				for ($Y = 0; $Y < $N; ++$Y) {
@@ -149,14 +147,14 @@ class Terms{
 					$t1 = $js[$item-1]->getTerm();
 					$d1 = $js[$count-1]->getDefinition();
 	
-					$fmt->writeClassData("tdterm", "%s. %s", $letter->me(), $t1);
+					$fmt->writeCellData("%s. %s", $letter->me(), $t1);
 					$location = $this->findItemInSquare($count, $ms);
 					if ($location != -1){
-						$fmt->writeClassData("tdanswer", "%s", $letter->getSymbol($location));
+						$fmt->writeClassData("answer", "%s", $letter->getSymbol($location));
 					} else {
-						$fmt->writeClassData("tdanswer", "?");
+						$fmt->writeClassData("answer", "?");
 					}
-					$fmt->writeClassData("tddef", "%d. %s", $count, $d1);
+					$fmt->writeCellData("%d. %s", $count, $d1);
 					++$count;
 					$letter->increment();
 					$fmt->endRow();
