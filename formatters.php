@@ -16,7 +16,7 @@ class cHTMLFormatter{
 	}
 	
 	public function _print($outinfo,$incAfter=false,$prefix=true){
-		$retStr = $this->prefix.$outinfo;
+		$retStr = ($prefix ? $this->prefix : "") . $outinfo;
 		if($this->justPrint) print($retStr);
 		if($incAfter) $this->prefixInc();
 		
@@ -25,8 +25,12 @@ class cHTMLFormatter{
 	public function hr(){
 		return $this->_print("<hr />\n");
 	}
-	public function brk(){
-		return $this->_print("<br />\n");
+	public function brk($howMany=1){
+		$retStr = "";
+		for(;$howMany--;){
+			$retStr .= $this->_print("<br />\n");
+		}
+		return $retStr;
 	}
 	public function h1($text){
 		return $this->_print("<h1>". $text . "</h1>\n");
@@ -59,7 +63,7 @@ class cHTMLFormatter{
 	}
 	public function write($text,$newline=true,$autobreak=false){
 		$curtext = $this->_print($text);
-		if ($newline) return $curtext .= $this->_print($autobreak ? "<br />" : "" . "\n");
+		if ($newline) return $curtext .= $this->_print(($autobreak ? "<br />" : "") . "\n",false,false);
 		//if ($newline) print("\n");
 		return $curtext;
 	}
@@ -170,7 +174,7 @@ class cHTMLFormatter{
 	}
 	public function endCell(){
 		$this->prefixDec();
-		return $this->_print("</td>\n");
+		return $this->_print("</td>\n",false,false);
 	}
 	public function writeRawData($format_string, $newline=true, $autobreak=false){
 		$curtext = "";
@@ -189,12 +193,12 @@ class cHTMLFormatter{
 	{
 		$curtext = $this->startCell("");
 		if( func_num_args() == 1){
-			$curtext .= $this->_print($format_string);
+			$curtext .= $this->_print($format_string,false,false);
 		} else {
 			$args = func_get_args();
 			array_shift($args);
 			$tmp = vsprintf($format_string, $args);
-			$curtext .= $this->_print($tmp);
+			$curtext .= $this->_print($tmp,false,false);
 		}
 		$curtext .= $this->endCell();
 		return $curtext;
@@ -203,14 +207,14 @@ class cHTMLFormatter{
 	{
 		$curtext = $this->startCell($class);
 		if( func_num_args() == 2){
-			$curtext .= $this->_print($format_string);
+			$curtext .= $this->_print($format_string,false,false);
 		} else {
 			//TODO: This is an error if called with 1 arg...
 			$args = func_get_args();
 			array_shift($args);			// EAT $class
 			array_shift($args);			// EAT $format_string
 			$tmp = vsprintf($format_string, $args);
-			$curtext .= $this->_print($tmp);
+			$curtext .= $this->_print($tmp,false,false);
 		}
 		$curtext .= $this->endCell();
 		return $curtext;
