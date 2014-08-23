@@ -229,7 +229,7 @@ class cMagicSquare{
     
 	public function prettySquare($fmt){
         	
-		$output = $fmt->startDiv("left".strval($this->N));	// adjust the space needed for the square
+		$output = $fmt->startDivClass("puzzleSquare puzzleSize".strval($this->N));	// adjust the space needed for the square
 		$output .= $fmt->startTable();
 		$sym = new cSymbol;
 		
@@ -277,12 +277,11 @@ class cMagicSquare{
 		return $output;
 	}
 	
-	public function validate($fmt, $div="right", $checkTrueness=false){
+	public function validate($fmt, $checkTrueness=false){
 		
 		$T = $this->getMagicSum();
 		$output = "";
 		
-		$output .= $fmt->startDiv($div);
         $output .= $fmt->write("Magic sum for this square is: [$T]",true,true);
         
         for ($X = 0; $X < $this->N; ++$X ) {
@@ -319,8 +318,6 @@ class cMagicSquare{
 		}
 
         $output .= $fmt->write("");
-		
-		$output .= $fmt->endDiv();	
 		
 		return $output;	
 	}
