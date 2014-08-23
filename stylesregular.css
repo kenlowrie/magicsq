@@ -16,43 +16,6 @@ address, article, aside, canvas, details, figcaption, figure, footer, header, hg
 	display: block;
 }
 
-/*body {
-	margin:0px;
-	padding: 0px;
-	height: 100%;
-	width: 100%;
-	display: inline;*/	}
-
-/*div{
-		margin-left:10px;
-}
-
-table {
-	border:none;
-}
-
-td {
-	font:14px arial;
-	color:#14285f;
-	padding:10px;
-	text-align:center;
-	border: 1pt solid rgb(20,40,95);	
-	}
-	
-hr {
-	height:1px; 
-	color: #cccccc;
-	border: none;
-	}
-
-input {
-	font:18px Arial;
-}
-
-select {
-	font:18px Arial;
-}*/
-
 form {
 	display:inline;
 }
@@ -81,7 +44,17 @@ h4 {
 	padding:8px;
 }
 
-/*	
+table {
+	border:none;
+}
+
+td {
+	color:#14285f;
+	padding:10px;
+	text-align:center;
+	border: 1pt solid rgb(20,40,95);
+}
+
 a {
 	color: #14285f;
 	text-decoration:none;
@@ -92,19 +65,9 @@ a:hover {
 	text-decoration:underline;
 	}
 
-*/
-	
 /* ID Styles */
 
-/*#wrapper {
-	padding:5px;
-	margin-top: 10px;
-    margin-right: auto;
-    margin-left: 5px;
-    width: 100%;
-}*/
-
-/* This is used by the <header> tag specified in header1.inc */
+/* This is used by the <header> tag specified in the various php page files */
 #mainHeader {
 	background: #333;
 	color: white;
@@ -139,46 +102,6 @@ a:hover {
 	border-radius: 25px;
 	padding: 10px;
 }
-/*
-#loadTermsFile{
-	background-color: gray;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius:6px;
-    color: #000;
-    font-size: 1em;
-    text-decoration: none;
-    cursor: pointer;
-    border:none;
-    padding:2px;
-}
-
-#loadTermsFile:hover{
-	border: none;
-	background:red;
-	color:#FFF;
-	box-shadow: 0px 0px 1px #777;
-}
-*/
-.loadTermsButton{
-	background-color: gray;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius:6px;
-    color: #FFF;
-    font-size: 1em;
-    text-decoration: none;
-    cursor: pointer;
-    border:none;
-    padding:3px 5px;
-}
-
-.loadTermsButton:hover{
-	border: none;
-	background:red;
-	color:#FFF;
-	box-shadow: 0px 0px 1px #777;
-}
 
 #selectOptions
 {
@@ -192,6 +115,78 @@ a:hover {
 
 #selectOptions h4{
 	text-align: right;
+}
+
+#selectOptions p.clearAndCenter
+{
+	clear:both;
+	padding:10px;
+	text-align:center;
+}
+
+#selectOptions form{
+	display:inline;
+}
+
+#helpers
+{
+	clear:both;
+	font-size:1em;
+	background-color: #FFFFCC;
+	padding:10px;
+}
+
+#helpers form{
+	display:inline;
+}
+
+
+#statusArea{
+	clear:both;
+	padding:5px;
+	font-size: .8em;
+	color:black;
+	background-color: #CCCCCC;
+}
+
+
+/* This wraps the makequiz section */
+#makeQuiz{
+	color:black;
+	background-color: #FFFFCC;
+	padding:10px;
+}
+
+#makeQuiz div.quizInfo{
+	background-color: #eee;
+	border-radius: 25px;
+	padding: 10px;
+}
+
+/* Class Styles */
+
+.fancyButton{
+	background-color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #FFF;
+    font-size: 1.4em;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+}
+
+.fancyButton:hover{
+	border: none;
+	background:red;
+	color:#FFF;
+	box-shadow: 0px 0px 1px #777;
+}
+
+.loadTermsButton{
+    font-size: 1em;
+    padding:3px 5px;
 }
 
 div.quizForm
@@ -237,237 +232,102 @@ div.quizOptionRight
 	background-color:inherit;
 }
 
-#selectOptions p.clearAndCenter
-{
-	clear:both;
-	padding:10px;
-	text-align:center;
+
+.genQuizButton{
 }
 
-#selectOptions form{
-	display:inline;
-}
-
-#genQuizButton{
-	background-color: gray;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius:6px;
-    color: #FFF;
-    font-size: 1.4em;
-    text-decoration: none;
-    cursor: pointer;
-    border:none;
-}
-
-#genQuizButton:hover{
-	border: none;
-	background:red;
-	color:#FFF;
-	box-shadow: 0px 0px 1px #777;
-}
-
-#helpers
-{
-	clear:both;
-	font-size:1em;
-	background-color: #FFFFCC;
-	padding:10px;
-}
-
-#helpers form{
-	display:inline;
+.genQuizButton:hover{
 }
 
 .helperButton{
-	background-color: gray;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius:6px;
-    color: #FFF;
-    font-size: 1.4em;
-    text-decoration: none;
-    cursor: pointer;
-    border:none;
-    min-width:380px;
+    min-width:280px;
 }
 
 .helperButton:hover{
-	border: none;
-	background:red;
-	color:#FFF;
-	box-shadow: 0px 0px 1px #777;
 }
 
-/*#outertext{
-	clear:both;
-	font:22px arial;
-	color:#14285f;
+.puzzleButton{
+    min-width:200px;
 }
 
-#makequiz{
-	clear:both;
-	font:22px arial;
-	color:#14285f;
-}*/
-
-#statusarea{
-	clear:both;
-	padding:5px;
-	font-size: .8em;
-	color:black;
-	background-color: #CCCCCC;
-}
-
-/*#magicsquare {
-	clear:both;
-}
-
-#clearboth {
-	clear:both;
-}
-
-#left3
+div.puzzle
 {
-	float: left;
-	width: 15%;
-	margin-bottom: 10px;
+	margin-top:10px;
+	margin-bottom:10px;
 }
 
-#left5
+div.puzzleEven
 {
-	float: left;
-	width: 25%;
-	margin-bottom: 10px;
+	background-color: #dae5f4;
+	padding-left:10px;
 }
 
-#left7
+div.puzzleOdd
 {
-	float: left;
-	width: 40%;
-	margin-bottom: 10px;
+	background-color: #b8d1f3;
+	padding-left:10px;
 }
 
-#right
-{
-	float: left;
-	width: 55%;
-	font:22px arial;
-	color:blue;
-	margin-bottom: 10px;
+div.puzzleInfo{
+	clear: both;
+	background-color:inherit;	
 }
 
-#mainleft
-{
-	float: left;
-	width: 20%;
-	min-width: 250px;
-	background-color: #FFFFCC;
-	margin-bottom: 10px;
-}
-
-#mainright
-{
-	float: left;
-	margin-left: 1%;
-	width: 69%;
-	font:18px arial;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-
-#termtable{
-	clear:both;
-}
-*/
-
-/* Class Styles */
-
-.quizmaker{
-	width: 100%;	
-}
-
-.tdterm {
-	font-size:14px; 
-	font-family: arial;
-	color:#14285f;
+div.squareInfo{
 	padding:10px;
-	text-align:left;
-}
-
-.ptdanswer {
-	font-size:18px; 
-	font-family: arial;
+	font-size: 1.1em;
 	color:black;
+	background-color: inherit;
+}
+
+div.puzzleSquare
+{
+	clear: both;
+	float: left;
 	padding:10px;
-	text-align:center;
-	width:10%;
+	background-color:inherit;
 }
 
-.tddef {
-	font-size:14px; 
-	font-family: arial;
-	color:#14285f;
-	padding-left: 10px;
-	text-align:left;
-	min-width:400px;
+div.puzzleSize3
+{
+	min-width: 15%;
 }
 
-.tdhterm{
-	font-size:18px; 
-	font-family: arial;
-	text-align:center;
-	font-weight:bold;	
+div.puzzleSize5
+{
+	min-width: 25%;
 }
 
-.tdhansr{
-	font-size:18px; 
-	font-family: arial;
-	text-align:center;
-	font-weight:bold;	
-	width:10%;
+div.puzzleSize7
+{
+	min-width: 40%;
 }
 
-.tdhdefi{
-	font-size:18px; 
-	font-family: arial;
-	text-align:center;
-	font-weight:bold;	
+div.puzzleTerms
+{
+	padding: 10px;
+	font-size: 1.2em;
+	background-color:inherit;
+	overflow:auto;
 }
 
-.tdrow{
-	width: 15%;
-	font:18px Arial;
-	text-align:right;
-	font-weight:bold;
+div.puzzleTermsSize3
+{
 }
 
-.tdinput{
-	width: 35%;
-	min-width: 250px;
-	font:18px Arial;
-	text-align:center;
+div.puzzleTermsSize5
+{
 }
 
-.tddesc{
-	width: 50%;
-	font:18px Arial;
+div.puzzleTermsSize7
+{
+}
+
+div.puzzleTerms td{
 	text-align:left;
 }
 
-.tdtitle {
-	font:18px arial;
-	color:#14285f;
-	/*padding-left: 10px;*/
-	text-align:left;
-	/*min-width:400px;*/
-	border:none;
-}
-
-.directions{
-	font-size:12px; 
-	font-family: arial;
-	color:#14285f;
-	background-color: #FFFFCC;
+div.puzzleTerms td.answer{
+	text-align:center;
+	font-size:1.4em;
 }
