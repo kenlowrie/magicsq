@@ -1,10 +1,9 @@
 
 Things left To Do - yfi=G8Pb}+R-
 
-1. Redo the CSS so that no (or few) CSS classes are used in the code. Use IDs within Divs, and then descendant selectors
+1. Redo the CSS so that no (or few) CSS classes are used in the code. Use IDs or classes within Divs, and then descendant selectors
+2. Finalize the new colors and test on Android and iPad/iPhone and Windows (!) and then update the code on kenlowrie.com
 
 
 
-
-8. Add CSS to format the MKMS output so that it works correctly on iOS
 9. Add Stephen's algorithm for generating the square based on start position and start number
