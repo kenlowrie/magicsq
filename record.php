@@ -32,18 +32,6 @@ function get_help($key)
      case 'alignft':
           $str = "Check to automatically align free term (see above description) to the term/definition that is aligned in the output. In each magic square, there is at least one term/definition that will be aligned. By checking here, the aligned term becomes the free term, as long as free term (above) is not 0.";
           break;
-	 case 'genterms3':
-          $str = "Click this button to generate a sample 3x3 set of terms to see how the app works.";
-          break;
-	 case 'genterms5':
-          $str = "Click this button to generate a sample 5x5 set of terms to see how the app works.";
-          break;
-	 case 'genterms7':
-          $str = "Click this button to generate a sample 7x7 set of terms to see how the app works.";
-          break;
-	 case 'reset':
-          $str = "Click this button to reset all the data and start over.";
-          break;
      default:
           $str = NULL;
      }
@@ -86,9 +74,9 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		$fmt->h5("Load a new terms file");
 		$loadfile = LOAD_FILE;
 		$fmt->write("<form method=\"POST\" action=\"$alias?type=$loadfile\" enctype=\"multipart/form-data\">");
-		$fmt->write("<input type=\"file\" name=\"file\" class=\"loadTermsButton\">");
+		$fmt->write("<input type=\"file\" name=\"file\" class=\"fancyButton loadTermsButton\">");
 		$fmt->brk();
-		$fmt->write("<input type=\"submit\" name=\"submit\" value=\"Choose Terms File and Click Here to Upload\" class=\"loadTermsButton\">");
+		$fmt->write("<input type=\"submit\" name=\"submit\" value=\"Choose Terms File and Click Here to Upload\" class=\"fancyButton loadTermsButton\">");
 		$fmt->write("</form>");		
 	} else {
 		$fmt->write("Uploading terms with iOS devices is not supported at this time. Use the Generate buttons below to test.");		
@@ -187,7 +175,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		$fmt->endDiv(2);
 		
 		$fmt->startP("clearAndCenter");
-		$fmt->write("<input id=\"genQuizButton\" type=\"submit\" value=\"Generate Quiz Data\">");
+		$fmt->write("<input class=\"fancyButton genQuizButton\" type=\"submit\" value=\"Generate Quiz Data\">");
 		$fmt->endP();
 		$fmt->write("</form>");
 
@@ -198,20 +186,11 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 
 	$fmt->startSection("helpers");
 	
-	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=3", "Generate 3x3 Sample Term Set",NULL,"helperButton");
-	$fmt->brk();
-	
-	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=5", "Generate 5x5 Sample Term Set",NULL,"helperButton");
-	$fmt->brk();
-	
-	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=7", "Generate 7x7 Sample Term Set",NULL,"helperButton");
-	$fmt->brk();
-	
-	$fmt->linkbutton("$alias?type=".RESET, "Reset Everything and Start Over",NULL,"helperButton");
-	$fmt->brk();
-
-	$fmt->linkbutton("$alias", "Do a Refresh This of This Page",NULL,"helperButton");
-	$fmt->brk();
+	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=3", "Generate 3x3 Term Set",NULL,"fancyButton helperButton");
+	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=5", "Generate 5x5 Term Set",NULL,"fancyButton helperButton");
+	$fmt->linkbutton("$alias?type=".MAKE_TERMS."&size=7", "Generate 7x7 Term Set",NULL,"fancyButton helperButton");
+	$fmt->linkbutton("$alias?type=".RESET, "Reset and Start Over",NULL,"fancyButton helperButton");
+	$fmt->linkbutton("$alias", "Refresh This Page",NULL,"fancyButton helperButton");
 
 	$fmt->endSection();
 }
