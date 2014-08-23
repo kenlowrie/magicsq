@@ -9,7 +9,7 @@ function uploadinputfile($fmt){
 	$temp = explode(".", $_FILES["file"]["name"]);
 	$extension = end($temp);		// TODO: Should I upper case the extension???
 	
-	$fmt->startDiv("statusarea");
+	$fmt->startDiv("statusArea");
 	
 	$fmt->h4("Processing upload of " . $_FILES["file"]["name"] . "...");
 	// Make sure that the file is recognized...
