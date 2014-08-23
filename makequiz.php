@@ -6,18 +6,15 @@ include_once ('utility.php');
 
 $fmt = new cHTMLFormatter;
 
-$fmt->startDiv("outertext");
+$fmt->startHeader("mainHeader");
+$fmt->h1("Generate Magic Squares");
+$fmt->endHeader();
 
-MyLog("Generate Quiz Data");
+$fmt->startSection("makeQuiz");
+$fmt->startDivClass("quizInfo");
 
-$fmt->hr();
-
-// $fmt->addLink("makepdf.php","Click me to generate the output PDF - after reviewing everything below",true);
-// $fmt->brk();
-$fmt->addLink("mkms.php","Click me to return to the Magic Square Maker Page");
-$fmt->brk();
-
-$fmt->startDiv("outertext");
+$fmt->addLink("mkms.php","Click Me to Return to the Magic Square Maker Page");
+$fmt->brk(2);
 
 $quiz = getQuiz();
 
@@ -66,37 +63,48 @@ if (!IsSet($regen)){
 	}
 }
 
-//MyLog("There %s %d variant%s", $numvariants == 1 ? "is" : "are", $numvariants, $numvariants == 1 ? "" : "s");
-$fmt->startDiv("statusarea");
-$fmt->p("Your generated output is below.");
-$fmt->p("Review the puzzles and jumbled term lists, regenerate as needed, and then generate the PDF by clicking the appropriate button for each set.");
+if (!isAppleDevice()){
+	$fmt->p("Review the puzzles and jumbled term lists below, regenerate as needed, and then display or download each PDF by clicking the appropriate button.");
+} else {
+	$fmt->p("Review the puzzles and jumbled term lists below, and regenerate as needed. The current version of this app does not support downloading or displaying PDFs on iOS, so you'll need to run this program on a different computer in order to get the PDF output.");
+}
 $fmt->endDiv();
 
+$optionCounter = 1;		
+$divOptionOddEven = array("puzzleOdd","puzzleEven");
+
+$fmt->startDivClass("puzzle");
+
 for($X = 0; $X < $quiz->variants; ++$X){
+	$fmt->startDivClass($divOptionOddEven[++$optionCounter % 2]);		// wrap with an odd or even puzzle class
+	$fmt->startDivClass("puzzleInfo");		// wrap the puzzle info and buttons
+	$fmt->h4("Magic Square Set #".strval($optionCounter-1));
+
 	$sqType = $quiz->magicSquares[$X]->getSquareType();
-	$fmt->linkbutton("makepdf.php?variant=$X", "Display PDF for this set",null,null,"POST","submit","name",true);
-	$fmt->linkbutton("makepdf.php?variant=$X&download=1", "Download PDF for this set",null,null,"POST","submit","name",true);
-	$fmt->linkbutton("makequiz.php?regen=$X&object=1","Regen this square [$sqType]");
-	$fmt->linkbutton("makequiz.php?regen=$X&object=2","Jumble this set of terms again");
-	$quiz->magicSquares[$X]->validate($fmt,"clearboth");
+	if (!isAppleDevice()){
+		$fmt->linkbutton("makepdf.php?variant=$X", "Display PDF",null,"fancyButton puzzleButton","POST","submit","name",true);
+		$fmt->linkbutton("makepdf.php?variant=$X&download=1", "Download PDF",null,"fancyButton puzzleButton","POST","submit","name",true);
+	}
+	$fmt->linkbutton("makequiz.php?regen=$X&object=1","New square [$sqType]", null, "fancyButton puzzleButton");
+	$fmt->linkbutton("makequiz.php?regen=$X&object=2","Jumble terms",null, "fancyButton puzzleButton");
+
+	$fmt->startDivClass("squareInfo");
+	$quiz->magicSquares[$X]->validate($fmt);
 	$alignedRow = $loadedTerms->checkAlignment($quiz->magicSquares[$X],$X,$fmt);
 	if ($alignedRow != -1 && $quiz->mapFTtoAlignedTD){
 		$quiz->magicSquares[$X]->setAlignedRow($alignedRow);	// This will be used later
 	}
-	$fmt->startDiv("makequiz");
+	$fmt->endDiv(2);		// close div.statusArea and div.puzzleInfo
+
 	$quiz->magicSquares[$X]->prettySquare($fmt);
-	$fmt->startDiv("right");
 	$loadedTerms->output($quiz->magicSquares[$X],$X,$fmt);
-	$fmt->brk();
-	$fmt->endDiv(2);
+	$fmt->endDiv();		// close div.odd or div.even
 }
 
-// 
-// 
-// $loadedTerms->dumpTermObject();
-// 
-$fmt->endDiv();
+$fmt->endDiv();	// close div.puzzle
 
-$fmt->endDiv();
+$fmt->endSection();
+
+include('footer1.inc');
 
 ?>
