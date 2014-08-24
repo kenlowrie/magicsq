@@ -57,7 +57,7 @@ td {
 
 a {
 	color: #14285f;
-	text-decoration:none;
+	text-decoration:underline;
 	}
 	
 a:hover {
@@ -258,19 +258,24 @@ div.puzzle
 
 div.puzzleEven
 {
+	margin-top:10px;
 	background-color: #dae5f4;
 	padding-left:10px;
+	border-radius: 25px;
 }
 
 div.puzzleOdd
 {
+	margin-top:10px;
 	background-color: #b8d1f3;
 	padding-left:10px;
+	border-radius: 25px;
 }
 
 div.puzzleInfo{
 	clear: both;
 	background-color:inherit;	
+	border-radius: 25px;
 }
 
 div.squareInfo{
@@ -309,6 +314,7 @@ div.puzzleTerms
 	font-size: 1.2em;
 	background-color:inherit;
 	overflow:auto;
+	border-radius: 25px;
 }
 
 div.puzzleTermsSize3
