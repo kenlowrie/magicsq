@@ -1,9 +1,8 @@
 
 Things left To Do - yfi=G8Pb}+R-
 
-1. Redo the CSS so that no (or few) CSS classes are used in the code. Use IDs or classes within Divs, and then descendant selectors
 2. Finalize the new colors and test on Android and iPad/iPhone and Windows (!) and then update the code on kenlowrie.com
-
-
+3. Should I detect a duplicate square / jumbled terms list and prevent it? Maybe try 10 times, then give up and print a message?
+6. Should I add a text box that allows you to past in the CSV data?
 
 9. Add Stephen's algorithm for generating the square based on start position and start number
