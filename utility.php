@@ -53,4 +53,15 @@ function isMobileDevice(){
 	return isHTTPUserAgent(getMobileStrings());
 }
 
+function startsWith($haystack, $needle)
+{
+     $length = strlen($needle);
+     return (substr($haystack, 0, strlen($needle)) === $needle);
+}
+
+function endsWith($haystack, $needle)
+{
+    return (substr($haystack, -strlen($needle)) === $needle);
+}
+
 ?>
