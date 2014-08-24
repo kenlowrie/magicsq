@@ -78,7 +78,7 @@ class cHTMLFormatter{
 		}
 	}
 
-	public function linkbutton($action, $text, $help=NULL, $buttonClass=NULL, $method="POST", $type="submit", $name="name", $newwin=false)
+	public function linkbutton($action, $text, $help=NULL, $buttonClass=NULL, $hiddenVars=NULL, $method="POST", $type="submit", $name="name", $newwin=false)
 	{
 		if ($newwin){
 			$curtext = $this->_print("<form method=\"$method\" action=\"$action\" target=\"_blank\">\n");		
@@ -91,6 +91,11 @@ class cHTMLFormatter{
 			$btnClass=" class=\"".$buttonClass."\"";
 		}
 		$curtext .= $this->_print("  <input type=\"$type\" name=\"$name\" value=\"$text\"$btnClass>\n");
+		if (IsSet($hiddenVars)){
+			foreach ($hiddenVars as $var => $value) {
+				$curtext .= $this->_print("  <input type=\"hidden\" name=\"$var\" value=\"$value\">\n");
+			}
+		}
 		$curtext .= $this->_print("</form>\n");
 		$curtext .= $this->_print($help."\n");	
 		return $curtext;	
@@ -153,8 +158,23 @@ class cHTMLFormatter{
 		return $this->_print("<table>\n",true);
 	}
 	public function endTable(){
-			$this->prefixDec();
+		$this->prefixDec();
 		return $this->_print("</table>\n");
+	}
+	public function startTHead(){
+		return $this->_print("<thead>\n",true);		
+	}
+	public function endTHead(){
+		$this->prefixDec();
+		return $this->_print("</thead>\n");		
+	}
+
+	public function startTBody(){
+		return $this->_print("<tbody>\n",true);		
+	}
+	public function endTBody(){
+		$this->prefixDec();
+		return $this->_print("</tbody>\n");		
 	}
 
 	public function startRow(){
