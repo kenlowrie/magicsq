@@ -43,6 +43,10 @@ hr {
 	border: none;
 	}
 	
+thead {
+	display: none;		/* table-header-group; -- This prints wrong on the second page... doesn't honor margin and/or padding...*/
+}
+
 /* ID Styles */
 
 #maintext{
@@ -66,25 +70,39 @@ hr {
 /* Class Styles */
 
 .ptdhterm{
+	font-weight:bold;	
 	font-size:18px; 
 	font-family: arial;
-	text-align:center;
-	font-weight:bold;	
+	color:black;
+	padding:10px;
+	text-align:left;
+	page-break-inside:avoid;
+	width:25%;
+	vertical-align:bottom;
 }
 
 .ptdhansr{
-	font-size:18px; 
-	font-family: arial;
-	text-align:center;
 	font-weight:bold;	
-	width:10%;
+	font-size:18px; 
+	font-family: Arial;
+	color:black;
+	padding:10px;
+	text-align:center;
+	page-break-inside:avoid;
+	width:15%;
+	vertical-align:bottom;
 }
 
 .ptdhdefi{
 	font-size:18px; 
 	font-family: arial;
-	text-align:center;
+	color:black;
+	padding-left: 10px;
+	text-align:left;
+	width:60%;
+	page-break-inside:avoid;
 	font-weight:bold;	
+	vertical-align:bottom;
 }
 
 .ptdterm {
@@ -94,7 +112,7 @@ hr {
 	padding:10px;
 	text-align:left;
 	page-break-inside:avoid;
-	width:30%;
+	width:25%;
 }
 
 .ptdanswer {
@@ -104,7 +122,7 @@ hr {
 	padding:10px;
 	text-align:center;
 	page-break-inside:avoid;
-	width:10%;
+	width:15%;
 }
 
 .ptddef {
