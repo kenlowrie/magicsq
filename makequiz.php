@@ -4,6 +4,8 @@ include_once ('session.php');
 include ('header1.inc');
 include_once ('utility.php');
 
+//var_dump($_POST);
+
 $fmt = new cHTMLFormatter;
 
 $fmt->startHeader("mainHeader");
@@ -18,8 +20,8 @@ $fmt->brk(2);
 
 $quiz = getQuiz();
 
-$regen = $_GET['regen'];       	// check to see if we are in regen mode
-$object  = $_GET['object'];		// which object to regen
+$regen = $_POST['regen'];       	// check to see if we are in regen mode
+$object  = $_POST['object'];		// which object to regen
 
 $loadedTerms = getTerms();
 $numvariants = $loadedTerms->numVariants();
@@ -82,11 +84,11 @@ for($X = 0; $X < $quiz->variants; ++$X){
 
 	$sqType = $quiz->magicSquares[$X]->getSquareType();
 	if (!isAppleDevice()){
-		$fmt->linkbutton("makepdf.php?variant=$X", "Display PDF",null,"fancyButton puzzleButton","POST","submit","name",true);
-		$fmt->linkbutton("makepdf.php?variant=$X&download=1", "Download PDF",null,"fancyButton puzzleButton","POST","submit","name",true);
+		$fmt->linkbutton("makepdf.php", "Display PDF",null,"fancyButton puzzleButton",array("variant" => $X),"POST","submit","name",true);
+		$fmt->linkbutton("makepdf.php", "Download PDF",null,"fancyButton puzzleButton",array("variant" => $X,"download" => 1),"POST","submit","name",true);
 	}
-	$fmt->linkbutton("makequiz.php?regen=$X&object=1","New square [$sqType]", null, "fancyButton puzzleButton");
-	$fmt->linkbutton("makequiz.php?regen=$X&object=2","Jumble terms",null, "fancyButton puzzleButton");
+	$fmt->linkbutton("makequiz.php","New square [$sqType]", null, "fancyButton puzzleButton", array("regen" => $X,"object" => 1));
+	$fmt->linkbutton("makequiz.php","Jumble terms",null, "fancyButton puzzleButton", array("regen" => $X,"object" => 2));
 
 	$fmt->startDivClass("squareInfo");
 	$quiz->magicSquares[$X]->validate($fmt);
