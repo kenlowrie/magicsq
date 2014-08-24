@@ -24,6 +24,8 @@ class Terms{
 	protected $terms = array();
 	protected $filename = "<>";
 	protected $jumbled = array();
+	protected $leftColumn = "Term";
+	protected $rightColumn = "Definition";
 	
     
     public function addTerm($term){
@@ -43,6 +45,21 @@ class Terms{
 		$this->jumbled = array();
 	}
 	
+	public function setHeaders($left,$right){
+		$this->leftColumn = $left;
+		$this->rightColumn = $right;
+	}
+	
+	public function getHeader($which=1){
+		switch($which){
+			default:
+			case 1:
+				return $this->leftColumn;
+			case 2:
+				return $this->rightColumn;
+		}
+	}
+
 	public function numVariants(){
 		return count($this->jumbled);
 	}
@@ -52,6 +69,12 @@ class Terms{
 	}
 	public function getFilename() {
 		return $this->filename;
+	}
+	
+	public function getBaseFilename(){
+		$baseName = pathinfo($this->filename,PATHINFO_FILENAME);
+		
+		return IsSet($baseName) ? $baseName : "magic_square";
 	}
 	
     public function randomizeTerms($replaceSet=-1) {
@@ -106,7 +129,7 @@ class Terms{
 
 					$location = $this->findItemInSquare($count, $ms);
 					if ($location != -1 && $letter->me() == $letter->getSymbol($location)){
-						$msg = sprintf("NOTE: Term and Definition on row [%s] are aligned",$letter->me());
+						$msg = sprintf("NOTE: %s and %s on row [%s] are aligned",$this->getHeader(1),$this->getHeader(2),$letter->me());
 						$fmt->write($msg,true,true);
 						$alignedRow = $location + 1;		// Bump the row so it is 1-based because that's what the lookup expects later...
 					}	
@@ -136,9 +159,9 @@ class Terms{
 			$js = $this->jumbled[$jumbleset];
 			
 			$fmt->startRow();
-			$fmt->writeCellData("Word:");
-			$fmt->writeCellData("Correct Answer:");
-			$fmt->writeCellData("Definition/Information:");
+			$fmt->writeCellData($this->getHeader(1));
+			$fmt->writeCellData("Correct Answer");
+			$fmt->writeCellData($this->getHeader(2));
 			$fmt->endRow();
 			for ($X = 0; $X < $N; ++$X) {
 				for ($Y = 0; $Y < $N; ++$Y) {
@@ -252,11 +275,14 @@ class Terms{
 		$output = $fmt->startDiv("ptermtable");
 		$output .= $fmt->startTable();
 
-		$fmt->startRow();
-		$fmt->writeClassData("ptdhterm", "Word:");
-		$fmt->writeClassData("ptdhansr", "Correct Answer:");
-		$fmt->writeClassData("ptdhdefi", "Definition/Information:");
-		$fmt->endRow();
+		//$output .= $fmt->startTHead();
+		$output .= $fmt->startRow();
+		$output .= $fmt->writeClassData("ptdhterm", $this->getHeader(1));
+		$output .= $fmt->writeClassData("ptdhansr", "Correct Answer");
+		$output .= $fmt->writeClassData("ptdhdefi", $this->getHeader(2));
+		$output .= $fmt->endRow();
+		//$output .= $fmt->endTHead();
+		$output .= $fmt->startTBody();
 
 		for ($X = 0; $X < $N; ++$X) {
 			for ($Y = 0; $Y < $N; ++$Y) {
@@ -282,6 +308,7 @@ class Terms{
 				$output .= $fmt->endRow();		
 			}
 		}
+		$output .= $fmt->endTBody();
 		$output .= $fmt->endTable();
 		$output .= $fmt->endDiv();
 		
