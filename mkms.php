@@ -4,7 +4,7 @@ include_once ('session.php');	// session handling code
 include ('record.php');       // the forms for display/edit of a record
 
 $alias = 'mkms.php';        // avoid hard-coding the script name
-$type  = $_GET['type'];       // my edit type as a GET parameter
+$type  = $_POST['type'];       // my edit type as a POST parameter
 $fmt = new cHTMLFormatter;
 
 include('header1.inc');        // display our standard page layout
@@ -36,7 +36,7 @@ switch ($type){
 	case MAKE_TERMS:
 		// The Generate Sample Terms button sets the type to MAKE_TERMS, which means we want to generate some sample
 		// term data... Do that, and then put the type back to EDIT mode...
-		$size  = $_GET['size'];  // get the size of the square
+		$size  = $_POST['size'];  // get the size of the square
 		
 		if( !IsSet($size) || !in_array($size, array(3,5,7)) ){
 			$size = 5;
