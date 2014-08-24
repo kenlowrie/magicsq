@@ -13,7 +13,7 @@ function genhtml($fmt,$quiz,$loadedTerms,$variant,$pdf){
 	}
 	$output .= $fmt->p("Name: __________________________","tdtitle2");
 		
-	$output .= $fmt->brk();
+	//$output .= $fmt->brk();
 	$dirTxt = <<<EOD
 Directions: Match the correct terms with the correct definition or information. On the last page, 
 place the number of the definition in the box with the letter of the term it matches. 
@@ -23,7 +23,7 @@ EOD;
 	
 	//$pdf->SetFont('helvetica', '', 10, '', true);
 	$output .= $fmt->p($dirTxt,"directions");
-	$output .= $fmt->brk();
+	//$output .= $fmt->brk();
 	//$output .= $fmt->hr();
 	
 	$output .= $fmt->startDiv("maintext");
@@ -141,14 +141,14 @@ function createPDF($fmt, $quiz, $loadedTerms, $variant, $pdfDest)
 
 	// Close and output PDF document
 	// This method has several options, check the source code documentation for more information.
-	$pdf->Output("magic_square_$variant.pdf", $pdfDest);	
+	$pdf->Output($loadedTerms->getBaseFilename()."_$variant.pdf", $pdfDest);	
 }
 
 $fmt = new cHTMLFormatter;
 $fmt->justPrint = false;
 
-$variant = $_GET['variant'];		// Get the variant # that we are to process
-$download = $_GET['download'];	// whether we want to display inline or download
+$variant = $_POST['variant'];		// Get the variant # that we are to process
+$download = $_POST['download'];	// whether we want to display inline or download
 
 if (!IsSet($variant)){
 	include ('header1.inc');
