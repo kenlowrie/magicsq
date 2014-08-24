@@ -30,7 +30,7 @@ function forceReset(){
 function genSampleTerms($size=5){
 	$myTerms = new Terms();
 	$myTerms->loadTerms($size * $size);
-	$myTerms->setFilename("Sample Terms for Testing");
+	$myTerms->setFilename("Sample ".$size."x".$size." Terms.csv");
 	$_SESSION['terms'] = $myTerms;
 }
 
