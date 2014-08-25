@@ -64,6 +64,11 @@ a:hover {
 	color: #FF3300;
 	text-decoration:underline;
 	}
+	
+ul{
+	list-style-position:inside;
+	padding-left:10px;
+}
 
 /* ID Styles */
 
@@ -161,6 +166,55 @@ a:hover {
 	background-color: #eee;
 	border-radius: 25px;
 	padding: 10px;
+}
+
+/* This wraps the help section */
+#helpPage{
+	color:black;
+	background-color: #FFFFCC;
+	padding:10px;
+}
+
+#helpPage div.helpInfo{
+	background-color: #eee;
+	border-radius: 25px;
+	padding: 10px;
+}
+
+#helpPage p{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+/* This wraps the manual entry form */
+#manualInput{
+	color:black;
+	background-color: #FFFFCC;
+	padding:10px;
+}
+
+#manualInput div.manualInfo{
+	background-color: #eee;
+	border-radius: 25px;
+	padding: 10px;
+}
+
+#manualInput p{
+	font-size:1em;
+}
+
+#manualInput textarea{
+	margin-top:10px;
+	margin-bottom:10px;
+	height:auto;
+	width:90%;
+	font-size:0.9em;
+}
+
+#manualInput h3{
+	padding-left:0px;
+	text-align:left;
+	text-transform:capitalize;
 }
 
 /* Class Styles */
