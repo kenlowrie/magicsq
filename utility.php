@@ -97,6 +97,7 @@ function parseTerms($fmt,$inputData){
 		}
         $row++;
     }
+	$myterms->setTermsType(TERMS_MANUAL);
 	setTerms($myterms);
 	$fmt->writeRawData("Parsing has completed... Found <".strval($row-1-$headers)."> terms.<br />");
 
