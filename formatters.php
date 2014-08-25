@@ -239,6 +239,21 @@ class cHTMLFormatter{
 		$curtext .= $this->endCell();
 		return $curtext;
 	}
+	public function startList($which="ul"){
+		return $this->_print("<" . $which . ">\n",true);
+	}
+	public function endList($which="ul"){
+		$this->prefixDec();
+		return $this->_print("</" . $which . ">\n");
+	}
+	public function writeListItem($item){
+		return $this->_print("<li>" . $item . "</li>\n");
+	}
+
+	public function textArea($data,$name,$form,$rows,$cols){
+		return $this->_print("<textarea name=\"" . $name . "\" form=\"". $form . "\" rows=\"" . $rows . "\" cols=\"" . $cols . "\">" . $data . "</textarea>\n");
+	}
+
 }
 
 ?>
