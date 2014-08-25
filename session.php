@@ -21,6 +21,11 @@ define(MAKE_TERMS,4);			// type used to signal creation of default terms for tes
 define(LOAD_FILE,5);				// type used to signal that we need to load the input file
 define(PROCESS_DATA,6);			// type used to signal that we need to process the textarea
 
+define(TERMS_UNKNOWN,0);			// unknown terms
+define(TERMS_AUTO,1);			// generated terms
+define(TERMS_FILE,2);			// terms loaded from a file
+define(TERMS_MANUAL,3);			// terms input manually
+
 define(BASE_URL,"");
 
 function forceReset(){
