@@ -6,6 +6,7 @@ class cQuizMaker{
 	public $variants;
 	public $freeTerm;
 	public $mapFTtoAlignedTD;
+	public $textArea;
 	
 	public function __construct(){
 		$this->quizTitle = "Title of Handout";
@@ -13,6 +14,7 @@ class cQuizMaker{
 		$this->variants = 1;
 		$this->freeTerm = 1;
 		$this->mapFTtoAlignedTD = false;
+		$this->textArea = "";
 	}
 	
 }
