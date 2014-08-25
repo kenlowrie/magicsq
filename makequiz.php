@@ -65,11 +65,11 @@ if (!IsSet($regen)){
 	}
 }
 
-if (!isAppleDevice()){
-	$fmt->p("Review the puzzles and jumbled term lists below, regenerate as needed, and then display or download each PDF by clicking the appropriate button.");
-} else {
-	$fmt->p("Review the puzzles and jumbled term lists below, and regenerate as needed. The current version of this app does not support downloading or displaying PDFs on iOS, so you'll need to run this program on a different computer in order to get the PDF output.");
-}
+//if (!isAppleDevice()){		iphone iOS 8 isn't working, test on iphone iOS 7
+$fmt->p("Review the puzzles and jumbled term lists below, regenerate as needed, and then display or download each PDF by clicking the appropriate button.");
+//} else {
+//	$fmt->p("Review the puzzles and jumbled term lists below, and regenerate as needed. The current version of this app does not support downloading or displaying PDFs on iOS, so you'll need to run this program on a different computer in order to get the PDF output.");
+//}
 $fmt->endDiv();
 
 $optionCounter = 1;		
@@ -83,10 +83,8 @@ for($X = 0; $X < $quiz->variants; ++$X){
 	$fmt->h4("Magic Square Set #".strval($optionCounter-1));
 
 	$sqType = $quiz->magicSquares[$X]->getSquareType();
-	if (!isAppleDevice()){
-		$fmt->linkbutton("makepdf.php", "Display PDF",null,"fancyButton puzzleButton",array("variant" => $X),"POST","submit","name",true);
-		$fmt->linkbutton("makepdf.php", "Download PDF",null,"fancyButton puzzleButton",array("variant" => $X,"download" => 1),"POST","submit","name",true);
-	}
+	$fmt->linkbutton("makepdf.php", "Display PDF",null,"fancyButton puzzleButton",array("variant" => $X),"POST","submit","name",true);
+	$fmt->linkbutton("makepdf.php", "Download PDF",null,"fancyButton puzzleButton",array("variant" => $X,"download" => 1),"POST","submit","name",true);
 	$fmt->linkbutton("makequiz.php","New square [$sqType]", null, "fancyButton puzzleButton", array("regen" => $X,"object" => 1));
 	$fmt->linkbutton("makequiz.php","Jumble terms",null, "fancyButton puzzleButton", array("regen" => $X,"object" => 2));
 
