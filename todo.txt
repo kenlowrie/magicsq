@@ -4,6 +4,4 @@ Things left To Do - yfi=G8Pb}+R-
 3. Should I detect a duplicate square / jumbled terms list and prevent it? Maybe try 10 times, then give up and print a message?
 7. Add a test for checking to see if the magic square and/or the jumbled terms are duplicated and print a note.
 
-8b. Finish the help/documentation.
-
 9. Add Stephen's algorithm for generating the square based on start position and start number
