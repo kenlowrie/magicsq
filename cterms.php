@@ -100,7 +100,7 @@ class Terms{
             $this->terms[] = $tmpTerm;
         }
     }
-	
+		
 	public function findItemInSquare($item,$ms){
 		$N = $ms->getN();
 		for ($X = 0; $X < $N; ++$X) {
