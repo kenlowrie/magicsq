@@ -45,6 +45,14 @@ switch ($type){
 		$type = EDIT_FORM;
 		break;
 				
+	case PROCESS_DATA:
+		// The user entered the data manually from the form.
+		getQuiz()->textArea = trim($_POST['textarea']);
+		$splitTerms = explode("\n", getQuiz()->textArea);
+		parseTerms($fmt,$splitTerms);
+		$type = EDIT_FORM;
+		break;
+				
 	case EDIT_FORM:
 		break;		// This case is handled below, it's the same for all types...
 		
