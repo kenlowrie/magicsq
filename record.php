@@ -83,14 +83,19 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		$fmt->write("<input type=\"submit\" name=\"submit\" value=\"Choose Input File and Click Here to Upload\" class=\"fancyButton loadTermsButton\">");
 		$fmt->write("<input type=\"hidden\" name=\"type\" value=\"$loadfile\">");
 		$fmt->write("</form>");		
+		$fmt->brk();
 	} else {
 		$fmt->write("Uploading files with iOS devices is not supported at this time. Use the Generate buttons below to test.");		
 	}
 
+	$fmt->h5("Enter input data manually");
+	$fmt->linkbutton("uploadmanual.php", "Load Using Text Box",NULL,"fancyButton loadTermsButton");
+
+
 	$fmt->endDiv();
 	$fmt->endSection();
 	
-	if (IsSet($terms)){
+	if ($quiz->magicSquareSize > 0 && IsSet($terms)){
 
 		$fmt->startSection("selectOptions");
 
@@ -203,6 +208,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 	$fmt->linkbutton($alias, "Generate 7x7 Term Set",NULL,"fancyButton helperButton",$hiddenVars[2]);
 	$fmt->linkbutton($alias, "Reset and Start Over",NULL,"fancyButton helperButton",$hiddenVars[3]);
 	$fmt->linkbutton($alias, "Refresh This Page",NULL,"fancyButton helperButton");
+	$fmt->linkbutton("mshelp.php", "Help",NULL,"fancyButton helperButton");
 
 	$fmt->endSection();
 }
