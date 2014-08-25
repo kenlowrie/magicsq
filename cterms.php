@@ -26,12 +26,21 @@ class Terms{
 	protected $jumbled = array();
 	protected $leftColumn = "Term";
 	protected $rightColumn = "Definition";
+	protected $termsType = TERMS_UNKNOWN;
 	
     
     public function addTerm($term){
     		//MyLog("ADDTERM: %s : %s", $term->getTerm(), $term->getDefinition());
         $this->terms[] = $term;
     }
+	
+	public function setTermsType($type=TERMS_UNKNOWN){
+		$this->termsType = $type;
+	}
+	
+	public function getTermsType(){
+		return $this->termsType;
+	}
 	
 	public function getTerms(){
 		return $this->terms;
@@ -99,6 +108,8 @@ class Terms{
             // seems unnecessary to assign to tmpTerm...
             $this->terms[] = $tmpTerm;
         }
+		
+		$this->termsType = TERMS_AUTO;
     }
 		
 	public function findItemInSquare($item,$ms){
