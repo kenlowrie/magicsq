@@ -52,6 +52,7 @@ function uploadinputfile($fmt){
 			    }
 			    fclose($handle);
 			}
+			$myterms->setTermsType(TERMS_FILE);
 			setTerms($myterms);
 			$fmt->writeRawData("Parsing has completed... Found <".strval($row-1-$headers)."> terms.<br />");
 		}
