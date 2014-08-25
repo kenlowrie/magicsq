@@ -1,20 +1,141 @@
-<h3>CSV Input Files</h3>
+<h3>Magic Square Quiz Maker</h3>
 
-<p>The input for the Magic Square tool is a CSV file. CSV stands for Comma Separated Values, and the file should have one line for every term or item to be included in the square. Each line will have two items separated by a comma. For this reason, if you need a comma included in your definition, you will need to encase it in quotation marks. For example, here are some possible CSV lines</p>
+<p>Welcome to the Magic Square Quiz Maker help page. Hopefully the information that follows will help you understand what the Magic Square Quiz Maker can do, and how to most efficiently operate it. If you have questions, or would like to provide feedback and/or to report a bug, feel free to contact the author [Ken Lowrie][mailto:klowrie@yahoo.com].</p>
 
-<pre><code>Water, liquid that covers 70% of the planet Earth
+<p>When you first visit the app page <a href="http://www.kenlowrie.com/msqv1/">Magic Square Quiz Maker</a>, you will see several options. To get started, you need to provide some input to the program, so the options for doing that are presented first. There are two options:</p>
+
+<ol>
+<li>Load a new input file - This option allows you to browse your local computer for a CSV (Comma Separated Values) file, and upload it to the server for processing. This is the most common method of providing input. Details on CSV Input Files are covered later in this help file.</li><br />
+<li>Enter input data manually - This option allows you to manually enter or copy/paste the input data into a text box on your browser. This method is useful in situations where do not have a CSV file on the system, or if you are running on a system that the app is unable to upload a file from. e.g. iOS. In these cases, you can copy/paste the information from another app running on your computer, and then generate the terms from that.</li>
+</ol>
+
+<p>If no data is currently loaded, the next thing you&#8217;ll see is a series of buttons that allow you to generate test data, reset the app and start over, perform a refresh (useful for clearing status areas), or accessing the online help.</p>
+
+<p>Since the app relies heavily on CSV input, whether from a file or being manually entered, let&#8217;s go ahead and discuss what a CSV file is.</p>
+
+<h4>CSV Input Files</h4>
+
+<p>The input for the Magic Square tool is a CSV file. CSV stands for Comma Separated Values, and the file should have one line for every term or item to be included in the square. Each line must have two items separated by a comma. For this reason, if you need a comma included in your definition, you will need to encase it in quotation marks. For example, here are some possible CSV lines:</p>
+
+<pre>Water, liquid that covers 70% of the planet Earth
 US flag colors, &quot;red, white, and blue&quot;
 Texas, greatest state in the union
-</code></pre>
+</pre>
 
-<p>Also be aware that certain characters must be encoded using HTML character encoding in order to display properly. For things you would need to insert as a symbol, like a &deg;, &Delta;, &Lambda;, &Sigma;, &copy;, you must encode them properly. You can find character encodings for these entities on various sites across the Internet, one such reference being: <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">http://www.w3.org/TR/REC-html40/sgml/entities.html</a>. </p>
+<p>Another thing to be aware of is that certain characters must be encoded using HTML character encoding in order to display properly. For things you would need to insert as a symbol, like a &deg;, &Delta;, &Lambda;, &Sigma;, &copy;, you must encode them properly. You can find character encodings for these entities on various sites across the Internet, one such reference being: <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">http://www.w3.org/TR/REC-html40/sgml/entities.html</a>. Here are a few examples of the encodings for the previously discussed symbols:</p>
 
-<p>If you plan on using the 5x5 magic square, you will need 25 items. If you prefer, you can make a smaller (3x3) grid with 9 items, or a larger one (7x7) with 49 items. This tool only supports odd-numbered squares. </p>
+<table>
+<colgroup>
+<col style="text-align:right;"/>
+<col style="text-align:center;"/>
+<col style="text-align:left;"/>
+</colgroup>
 
-<p>The CSV file may be created using a variety of software programs. Microsoft Excel is commonly used, is great for importing data from other sources, but sometimes formats cells in a way that causes errors in the output. Consider using a more rudimentary tool like Wordpad or Notepad. These programs will provide less formatting and give a &#8220;cleaner&#8221; look at what you are setting up. Just make sure that your file name has the extension CSV (letters after the period that identify the file type). </p>
+<thead>
+<tr>
+	<th style="text-align:right;"><strong>Description</strong></th>
+	<th style="text-align:center;"><strong>Symbol</strong></th>
+	<th style="text-align:left;"><strong>HTML Code</strong></th>
+</tr>
+</thead>
 
-<p>Another consideration: The first column (usually column A in Excel) will become associated with the letter in the magic square, and the second column will be used to fill the number side of the worksheet. Columns can easily be moved in Excel, and if you decide that one item makes more sense in a particular position, that’s how to control it. You might start with the word as the first column and the definition in the second.</p>
+<tbody>
+<tr>
+	<td style="text-align:right;">Degree</td>
+	<td style="text-align:center;">&deg;</td>
+	<td style="text-align:left;">&amp;deg;</td>
+</tr>
+<tr>
+	<td style="text-align:right;">Delta</td>
+	<td style="text-align:center;">&Delta;</td>
+	<td style="text-align:left;">&amp;Delta;</td>
+</tr>
+<tr>
+	<td style="text-align:right;">Lambda</td>
+	<td style="text-align:center;">&Lambda;</td>
+	<td style="text-align:left;">&amp;Lambda;</td>
+</tr>
+<tr>
+	<td style="text-align:right;">Sigma</td>
+	<td style="text-align:center;">&Sigma;</td>
+	<td style="text-align:left;">&amp;Sigma;</td>
+</tr>
+<tr>
+	<td style="text-align:right;">Copyright</td>
+	<td style="text-align:center;">&copy;</td>
+	<td style="text-align:left;">&amp;copy;</td>
+</tr>
+</tbody>
+</table>
 
-<p>You can use this tool for an endless variety of activities, from an engaging way to introduce new information to a fresh look at items to be studied for review. Just to give you a quick example, and possibly one you would use with students in guided practice, I am providing &#8220;MathFacts.CSV&#8221;. This has 25 very simple math problems, whose answers range (exactly) from 1 to 25. Working the magic square involves finding the math problem on the right that provides the answer for each letter on the left. Once you figure out which items pair up, just write the number from each pair onto the box with that letter on the answer sheet. </p>
+<p><strong>NOTE:</strong> If you plan on using the 5x5 magic square, you will need 25 items. If you prefer, you can make a smaller (3x3) grid with 9 items, or a larger one (7x7) with 49 items. This tool only supports odd-numbered squares. </p>
 
-<p>Note that this should be self-correcting for students – if they add up all the boxes in each horizontal row, every row should get the same sum, and that is the same for all the columns (like a Sudoku). The diagonals DO NOT add up to the same value however. Students should be able to validate that their square has been correctly completed, and if they are close, the rows and columns with errors should be fairly easy to spot. </p>
+<p>The CSV file may be created using a variety of software programs. Microsoft Excel is commonly used, is great for importing data from other sources, but sometimes formats cells in a way that causes errors in the output. Consider using a more rudimentary tool like Wordpad or Notepad. These programs will provide less formatting and give a &quot;cleaner&quot; look at what you are setting up. Just make sure that your file name has the extension CSV (letters after the period that identify the file type). </p>
+
+<h4>Columns in Excel (or any Spreadsheet App)</h4>
+
+<p>The first column (usually column A in Excel) will become associated with the letter in the magic square, and the second column will be used to fill the number side of the worksheet. Columns can easily be moved in Excel, and if you decide that one item makes more sense in a particular position, that’s how to control it. You might start with the word as the first column and the definition in the second.</p>
+
+<h4>Special Prefix</h4>
+
+<p>By default, this application uses &quot;Term&quot; and &quot;Definition&quot; to label the columns in the printed output (both on screen and in PDF). These terms can be customized by using a special prefix <strong>+++</strong> in the Column A entry, as in the following example:</p>
+
+<pre>+++Problem,Solution</pre>
+
+<p>This would substitute &quot;Problem&quot; for &quot;Term&quot; and &quot;Solution&quot; for Description within the app. Just like on any line, if you need to insert a comma, just surround the item with quotation marks, for example:</p>
+
+<pre>+++Left Column,&quot;Solution, Description, or Information&quot;
+</pre>
+
+<h4>Using the Magic Square Quiz Maker</h4>
+
+<p>You can use this tool for an endless variety of activities, from an engaging way to introduce new information to a fresh look at items to be studied for review. Just to give you a quick example, and possibly one you would use with students in guided practice, I am providing <a href="http://www.kenlowrie.com/msqv1/MathFacts.csv">MathFacts.csv</a>. This has 25 very simple math problems, whose answers range (exactly) from 1 to 25. Working the magic square involves finding the math problem on the right that provides the answer for each letter on the left. Once you figure out which items pair up, just write the number from each pair onto the box with that letter on the answer sheet. </p>
+
+<h4>Self Correcting</h4>
+
+<p>One final note is that using this system is self-correcting for students - if they add up all the boxes in each horizontal row, every row should get the same sum, and that is the same for all the columns (like a Sudoku). The diagonals DO NOT add up to the same value however, in other words, we are generating semi-magic squares, not true-magic squares. Take the following example of a 3x3 Magic Square:</p>
+
+<table>
+<colgroup>
+<col style="text-align:right;"/>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+<col style="text-align:left;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:right;">15</th>
+	<th style="text-align:center;">15</th>
+	<th style="text-align:center;">15</th>
+	<th style="text-align:left;">&nbsp;</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:right;">2</td>
+	<td style="text-align:center;">6</td>
+	<td style="text-align:center;">7</td>
+	<td style="text-align:left;"><strong>15</strong></td>
+</tr>
+<tr>
+	<td style="text-align:right;">4</td>
+	<td style="text-align:center;">8</td>
+	<td style="text-align:center;">3</td>
+	<td style="text-align:left;"><strong>15</strong></td>
+</tr>
+<tr>
+	<td style="text-align:right;">9</td>
+	<td style="text-align:center;">1</td>
+	<td style="text-align:center;">5</td>
+	<td style="text-align:left;"><strong>15</strong></td>
+</tr>
+</tbody>
+</table>
+
+<p>As you can see, each row and each column adds up to 15 when the numbers are placed in the correct location in the square. This allows students to validate that their square has been correctly completed, and if they are close, the rows and columns with errors should be fairly easy to spot. </p>
+
+<h4>Summary</h4>
+
+<p>This concludes the documentation on the Magic Square Quiz Maker app.</p>
