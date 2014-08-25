@@ -19,6 +19,7 @@ define(EDIT_COMMIT,2);           // type used to specify commit changes to quiz 
 define(RESET,3);             	// type used to specify a reset of the session data
 define(MAKE_TERMS,4);			// type used to signal creation of default terms for testing
 define(LOAD_FILE,5);				// type used to signal that we need to load the input file
+define(PROCESS_DATA,6);			// type used to signal that we need to process the textarea
 
 define(BASE_URL,"");
 
