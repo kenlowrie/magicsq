@@ -18,6 +18,9 @@ $fmt->brk(2);
 
 include ('msdocs.html');
 
+$fmt->brk();
+$fmt->addLink("mkms.php","Click Me to Return to the Magic Square Maker Page");
+
 $fmt->endDiv();	// close div.helpInfo
 
 $fmt->endSection();
