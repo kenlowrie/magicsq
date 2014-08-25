@@ -6,6 +6,7 @@ include_once ('formatters.php');
 
 function uploadinputfile($fmt){
 	$allowedExts = array("txt", "csv");
+	$allowedTypes = array("text/csv","text/plain","application/vnd.ms-excel","text/comma-separated-values", "application/octet-stream");
 	$temp = explode(".", $_FILES["file"]["name"]);
 	$extension = strtolower(end($temp));
 	
@@ -13,7 +14,7 @@ function uploadinputfile($fmt){
 	
 	$fmt->h4("Processing upload of " . $_FILES["file"]["name"] . "...");
 	// Make sure that the file is recognized...
-	if (( ($_FILES["file"]["type"] == "text/csv") || ($_FILES["file"]["type"] == "text/plain") || ($_FILES["file"]["type"] == "application/vnd.ms-excel")) 
+	if ( in_array($_FILES["file"]["type"],$allowedTypes) 
 	   && ($_FILES["file"]["size"] < 32768)
 	   && in_array($extension, $allowedExts)) {
 	   	
@@ -59,6 +60,13 @@ function uploadinputfile($fmt){
 		$fmt->writeAndBreak("Filetype: " . $_FILES["file"]["type"]);
 		$fmt->writeAndBreak("Filesize: " . ($_FILES["file"]["size"] / 1024) . " kB");
 		$fmt->writeAndBreak("Tempname: " . $_FILES["file"]["tmp_name"]);
+		$fmt->p("<br />A common issue is that the filetype passed in by the browser is not recognized. Currently, I recognize the following filetypes:");
+		$fmt->brk();
+		$fmt->StartList();
+		foreach($allowedTypes as $mytype){
+			$fmt->writeListItem($mytype);
+		}
+		$fmt->EndList();
 	}
 	
 	//$fmt->addLink("mkms.php","Click me to return to the Magic Square Maker Page");
