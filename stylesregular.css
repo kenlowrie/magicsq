@@ -17,7 +17,8 @@ address, article, aside, canvas, details, figcaption, figure, footer, header, hg
 }
 
 body {
-	background:#FFFFCC;
+	background:#ddb647;
+	text-rendering: optimizeLegibility;
 }
 
 form {
@@ -78,8 +79,8 @@ ul,ol{
 
 /* This is used by the <header> tag specified in the various php page files */
 #mainHeader {
-	background: #333;
-	color: white;
+	background: #f57d53;
+	color: #f0e9d6;
 	padding: 15px;
 	text-align:center;
 }
@@ -87,7 +88,7 @@ ul,ol{
 /* This wraps the Load Input File section */
 #loadTerms{
 	color:black;
-	background-color: #FFFFCC;
+	background-color: #ddb647;
 	padding:10px;
 }
 
@@ -107,7 +108,7 @@ ul,ol{
 }
 
 #loadTerms div.termInfo{
-	background-color: #eee;
+	background-color: #f0e9d6;
 	border-radius: 25px;
 	padding: 10px;
 }
@@ -115,7 +116,7 @@ ul,ol{
 #selectOptions
 {
 	margin: 10px;
-	background-color: #eee;
+	background-color: #f0e9d6;
 	border-radius: 25px;
 }
 
@@ -143,7 +144,7 @@ ul,ol{
 {
 	clear:both;
 	font-size:1em;
-	background-color: #FFFFCC;
+	background-color: #ddb647;
 	padding:10px;
 }
 
@@ -157,19 +158,19 @@ ul,ol{
 	padding:5px;
 	font-size: .8em;
 	color:black;
-	background-color: #CCCCCC;
+	background-color: #cddac0;
 }
 
 
 /* This wraps the makequiz section */
 #makeQuiz{
 	color:black;
-	background-color: #FFFFCC;
+	background-color: #f57d53;
 	padding:10px;
 }
 
 #makeQuiz div.quizInfo{
-	background-color: #eee;
+	background-color: #f0e9d6;
 	border-radius: 25px;
 	padding: 10px;
 }
@@ -177,12 +178,12 @@ ul,ol{
 /* This wraps the help section */
 #helpPage{
 	color:black;
-	background-color: #FFFFCC;
+	background-color: #DDB647;
 	padding:10px;
 }
 
 #helpPage div.helpInfo{
-	background-color: #eee;
+	background-color: #f0e9d6;
 	border-radius: 25px;
 	padding: 10px;
 }
@@ -202,15 +203,24 @@ ul,ol{
 	padding:25px;
 }
 
+#helpPage th.noborder{
+	border:none;
+}
+
+#helpPage th.helpsquare, td.helpsquare{
+	background:#DDB647;
+	font-weight:bold;
+}
+
 /* This wraps the manual entry form */
 #manualInput{
 	color:black;
-	background-color: #FFFFCC;
+	background-color: #DDB647;
 	padding:10px;
 }
 
 #manualInput div.manualInfo{
-	background-color: #eee;
+	background-color: #f0e9d6;
 	border-radius: 25px;
 	padding: 10px;
 }
@@ -266,12 +276,13 @@ div.quizForm
 
 div.quizOptionEven
 {
-	background-color: #dae5f4;
+	background-color: #cddac0;
 }
 
 div.quizOptionOdd
 {
-	background-color: #b8d1f3;
+	color: #f0e9d6;
+	background-color: #485a51;
 }
 
 div.quizOptionLeft
@@ -283,6 +294,7 @@ div.quizOptionLeft
 	margin-bottom: 5px;
 	text-align:right;
 	width: 20%;
+	color:inherit;
 	background-color:inherit;
 	min-width: 250px; 
 	min-height: 100px;
@@ -300,6 +312,7 @@ div.quizOptionRight
 	font-size: 1.2em;
 	border-radius: 15px;
 	background-color:inherit;
+	color:inherit;
 }
 
 
@@ -329,16 +342,18 @@ div.puzzle
 div.puzzleEven
 {
 	margin-top:10px;
-	background-color: #dae5f4;
+	background-color: #f0e9d6;
 	padding-left:10px;
 	border-radius: 25px;
+	color:black;
 }
 
 div.puzzleOdd
 {
 	margin-top:10px;
-	background-color: #b8d1f3;
+	background-color: #cddac0;
 	padding-left:10px;
+	color:black;
 	border-radius: 25px;
 }
 
@@ -351,8 +366,8 @@ div.puzzleInfo{
 div.squareInfo{
 	padding:10px;
 	font-size: 1.1em;
-	color:black;
 	background-color: inherit;
+	color:inherit;
 }
 
 div.puzzleSquare
@@ -361,6 +376,7 @@ div.puzzleSquare
 	float: left;
 	padding:10px;
 	background-color:inherit;
+	color:inherit;
 }
 
 div.puzzleSize3
