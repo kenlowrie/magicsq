@@ -31,20 +31,24 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
 	font-size: 1.6em;
+	text-shadow: 2px 2px 3px rgba(0,0,0,.7);
 }
 
 h2 {
 	font-size: 1.4em;
+	text-shadow: 2px 2px 3px rgba(0,0,0,.7);
 }
 
 h3 {
 	font-size: 1.2em;
+	text-shadow: 1px 1px 2px rgba(48,48,48,.7);
 	margin:0;
 	padding:10px;
 }
 
 h4 {
 	font-size: 1.1em;
+	text-shadow: 1px 1px 1px rgba(48,48,48,.7);
 	margin:0;
 	padding:8px;
 }
@@ -83,6 +87,9 @@ ul,ol{
 	color: #f0e9d6;
 	padding: 15px;
 	text-align:center;
+	/*box-shadow: 10px 10px 5px 5px rgba(0,0,0,.7);
+	-moz-box-shadow: 10px 10px 5px 5px rgba(0,0,0,.7);
+	-webkit-box-shadow: 10px 10px 5px 5px rgba(0,0,0,.7);*/
 }
 
 /* This wraps the Load Input File section */
@@ -111,6 +118,9 @@ ul,ol{
 	background-color: #f0e9d6;
 	border-radius: 25px;
 	padding: 10px;
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
 }
 
 #selectOptions
@@ -118,6 +128,9 @@ ul,ol{
 	margin: 10px;
 	background-color: #f0e9d6;
 	border-radius: 25px;
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
 }
 
 #selectOptions h3{
@@ -173,6 +186,9 @@ ul,ol{
 	background-color: #f0e9d6;
 	border-radius: 25px;
 	padding: 10px;
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
 }
 
 /* This wraps the help section */
@@ -186,6 +202,9 @@ ul,ol{
 	background-color: #f0e9d6;
 	border-radius: 25px;
 	padding: 10px;
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
 }
 
 #helpPage p,ol,ul{
@@ -223,6 +242,9 @@ ul,ol{
 	background-color: #f0e9d6;
 	border-radius: 25px;
 	padding: 10px;
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
 }
 
 #manualInput p{
@@ -255,6 +277,9 @@ ul,ol{
     text-decoration: none;
     cursor: pointer;
     border:none;
+	box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
+	-moz-box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
+	-webkit-box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
 }
 
 .fancyButton:hover{
@@ -346,6 +371,9 @@ div.puzzleEven
 	padding-left:10px;
 	border-radius: 25px;
 	color:black;
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
 }
 
 div.puzzleOdd
@@ -355,6 +383,9 @@ div.puzzleOdd
 	padding-left:10px;
 	color:black;
 	border-radius: 25px;
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
 }
 
 div.puzzleInfo{
