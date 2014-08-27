@@ -15,7 +15,7 @@ function get_help($key)
      switch($key)
      {
      case 'title':
-          $str = "Enter the title of the handout in the space above. This title will be printed at the top of the student handout.";
+          $str = "Enter the title of the handout in the text box. This title will be printed at the top of the student handout.";
           break;
      case 'mssize':
           $str = "Select the size for your magic square. Currently, only odd sizes of 3x3, 5x5, 7x7 and 9x9 are supported. Make sure that your input file below has exactly (size * size) questions in it. e.g. if you select 5x5, you need 25 questions in your input file.";
@@ -103,7 +103,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 
 	$fmt->h5("Enter input data manually");
 	$fmt->p("You can enter the data manually (or edit previously entered data) by using the following button to display a text area.");
-	$fmt->linkbutton("uploadmanual.php", "Load/Edit Using Text Box",NULL,"fancyButton loadTermsButton");
+	$fmt->linkbutton("uploadmanual.php", "Enter Using Text Box",NULL,"fancyButton loadTermsButton");
 
 
 	$fmt->endDiv();
