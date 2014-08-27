@@ -1,0 +1,526 @@
+/* Global Styles */
+
+@colorGold: #DDB647;
+@colorSalmon: #f57d53;
+@colorCream: #f0e9d6;
+@colorMint: #cddac0;
+@colorToupe: #485a51;
+@colorDarkGray: #333;
+@colorDarkBlue: #14285F;
+@colorBrightRed: #FF3300;
+@colorSteel: #777;
+
+@color1: @colorToupe;
+@color2: @colorMint;
+@color3: @colorCream;
+@color4: @colorGold;
+@color5: @colorSalmon;
+
+@colorDefaultTD: @colorSteel;
+@colorDefaultA: @colorDarkBlue;
+@colorDefaultAhover: @colorBrightRed;
+
+@bodyBG: @color4;
+@headerBG: @color5; 
+@headerColor: @color3;
+@statusAreaBG: @color2;
+@termsBG: @color4;
+@termsColor: black;
+@termInfoBG: @color3;
+@selectOptionsBG: @color3;
+@helpersBG: @color4;
+@makeQuizBG: @color5;
+@quizInfoBG: @color3;
+@helpBG: @color4;
+@helpInfoBG: @color3;
+@helpsquareBG: @color4;
+@manualInputBG: @color4;
+@manualInfoBG: @color3;
+@quizOptionEvenBG: @color2;
+@quizOptionOddColor: @color3;
+@quizOptionOddBG: @color1;
+@puzzleEvenBG: @color3;
+@puzzleEvenColor: black;
+@puzzleOddBG: @color2;
+@puzzleOddColor: black;
+@fancyButtonBG: @colorDarkGray;
+@fancyButtonColor: white;
+@fancyButtonHoverBG: red;
+@fancyButtonHoverColor: white;
+
+
+/*limited reset*/
+html, body, div, section, article, aside, header, hgroup, footer, nav, h1, h2, h3, h4, h5, h6, p, blockquote, address, time, span, em, strong, img, ol, ul, li, figure, canvas, video, th, td, tr {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align:baseline;
+	font-size: 100%;
+	font: inherit;
+	font-family:Arial;
+}
+
+/*html5 display rule*/
+address, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+	display: block;
+}
+
+body {
+	background:@bodyBG;
+	text-rendering: optimizeLegibility;
+}
+
+form {
+	display:inline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}
+
+.bigTextShadow() {
+  text-shadow: 2px 2px 3px rgba(0,0,0,.7);  
+}
+
+.smallTextShadow() {
+  text-shadow: 1px 1px 2px rgba(48,48,48,.7);
+}
+
+.tinyTextShadow(){
+  text-shadow: 1px 1px 1px rgba(48,48,48,.7);
+}
+
+.primaryBoxShadow(){
+	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	-ms-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+}
+
+.smallBoxShadow(){
+	-moz-box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
+	-webkit-box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
+	-ms-box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
+	box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
+}
+.tinyBoxShadow(){
+	-moz-box-shadow: 0px 0px 1px @colorSteel;
+	-webkit-box-shadow: 0px 0px 1px @colorSteel;
+	-ms-box-shadow: 0px 0px 1px @colorSteel;
+	box-shadow: 0px 0px 1px @colorSteel;
+}
+
+.borderRadius(@size: 5px)
+{
+    -moz-border-radius: @size;
+    -webkit-border-radius: @size;
+    -ms-border-radius: @size;
+    border-radius: @size;
+}
+
+h1 {
+	font-size: 1.6em;
+	.bigTextShadow();
+}
+
+h2 {
+	font-size: 1.4em;
+    .bigTextShadow();
+}
+
+h3 {
+	font-size: 1.2em;
+    .smallTextShadow();
+	margin:0;
+	padding:10px;
+}
+
+h4 {
+	font-size: 1.1em;
+    .tinyTextShadow();
+	margin:0;
+	padding:8px;
+}
+
+table {
+	border:none;
+}
+
+td,th {
+	color: @colorDefaultTD;
+	padding:10px;
+	text-align:center;
+	border: 1pt solid rgb(20,40,95);
+}
+
+a {
+	text-decoration:underline;
+	
+	&:link, &:visited {
+		color: @colorDefaultA;	
+	}
+	
+	&:hover {
+		color: @colorDefaultAhover;
+	}
+}
+	
+ul,ol{
+	list-style-position:inside;
+	padding-left:10px;
+}
+
+/* ID Styles */
+
+/* This is used by the <header> tag specified in the various php page files */
+#mainHeader {
+	background: @headerBG;
+	color: @headerColor;
+	padding: 15px;
+	text-align:center;
+}
+
+/* This wraps the Load Input File section */
+#loadTerms{
+	color: @termsColor;
+	background-color: @termsBG;
+	padding:10px;
+
+	h3{
+		padding-left:0px;
+		text-align:center;
+		text-transform:capitalize;
+	}
+	
+	h5{
+		padding: 10px 0;
+		text-transform: uppercase;
+	}
+	
+	p{
+		padding-bottom: 10px;
+	}
+	
+	div.termInfo{
+		background-color: @termInfoBG;
+		border-radius: 25px;
+		padding: 10px;
+		.primaryBoxShadow();
+	}
+}
+
+#selectOptions
+{
+	margin: 10px;
+	background-color: @selectOptionsBG;
+	border-radius: 25px;
+	.primaryBoxShadow();
+
+	h3{
+		text-align: center;
+		border-radius: 25px;
+	}
+	
+	h4{
+		text-align: right;
+	}
+	
+	p.clearAndCenter
+	{
+		clear:both;
+		padding:10px;
+		text-align:center;
+	}
+	
+	form{
+		display:inline;
+	}
+}
+
+#helpers
+{
+	clear:both;
+	font-size:1em;
+	background-color: @helpersBG;
+	padding:10px;
+	
+	form{
+		display:inline;
+	}
+}
+
+
+
+#statusArea{
+	clear:both;
+	padding:5px;
+	font-size: .8em;
+	color:black;
+	background-color: @statusAreaBG;
+}
+
+
+/* This wraps the makequiz section */
+#makeQuiz{
+	color:black;
+	background-color: @makeQuizBG;
+	padding:10px;
+
+	div.quizInfo{
+		background-color: @quizInfoBG;
+		border-radius: 25px;
+		padding: 10px;
+		.primaryBoxShadow();
+	}
+}
+
+/* This wraps the help section */
+#helpPage{
+	color:black;
+	background-color: @helpBG;
+	padding:10px;
+
+	div.helpInfo{
+		background-color: @helpInfoBG;
+		border-radius: 25px;
+		padding: 10px;
+		.primaryBoxShadow();
+	}
+	
+	p,ol,ul{
+		margin-top:10px;
+		padding:10px;
+	}
+	
+	pre{
+		margin:0;
+		padding:30px;
+		font-size:1.2em;
+	}
+	
+	table{
+		padding:25px;
+	}
+	
+	th.noborder{
+		border:none;
+	}
+	
+	th.helpsquare, td.helpsquare{
+		background:@helpsquareBG;
+		font-weight:bold;
+	}
+}
+
+/* This wraps the manual entry form */
+#manualInput{
+	color:black;
+	background-color: @manualInputBG;
+	padding:10px;
+
+	div.manualInfo{
+		background-color: @manualInfoBG;
+		border-radius: 25px;
+		padding: 10px;
+		.primaryBoxShadow();
+	}
+	
+	p{
+		font-size:1em;
+	}
+	
+	textarea{
+		margin-top:10px;
+		margin-bottom:10px;
+		height:auto;
+		width:90%;
+		font-size:0.9em;
+	}
+	
+	h3{
+		padding-left:0px;
+		text-align:left;
+		text-transform:capitalize;
+	}
+}
+
+/* Class Styles */
+.fancyButton{
+	background-color: @fancyButtonBG;
+    color: @fancyButtonColor;
+    .borderRadius();
+    font-size: 1.4em;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+    .smallBoxShadow();
+
+	&:hover{
+		border: none;
+		background: @fancyButtonHoverBG;
+		color: @fancyButtonHoverColor;
+		.tinyBoxShadow();
+	}
+}
+
+.loadTermsButton{
+    font-size: 1em;
+    padding:3px 5px;
+}
+
+div.quizForm
+{
+	margin-left:10px;
+}
+
+div.quizOptionEven
+{
+	background-color: @quizOptionEvenBG;
+}
+
+div.quizOptionOdd
+{
+	color: @quizOptionOddColor;
+	background-color: @quizOptionOddBG;
+}
+
+div.quizOptionLeft
+{
+	clear: both;
+	float: left;
+	padding: 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	text-align:right;
+	width: 20%;
+	color:inherit;
+	background-color:inherit;
+	min-width: 250px; 
+	min-height: 100px;
+	.borderRadius(15px);
+}
+
+div.quizOptionRight
+{
+	float: left;
+	padding: 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	width: 70%;
+	min-height:100px;
+	font-size: 1.2em;
+	.borderRadius(15px);
+	background-color:inherit;
+	color:inherit;
+}
+
+
+.genQuizButton{
+
+	&:hover{
+	}
+}
+
+.helperButton{
+    min-width:280px;
+
+	&:hover{
+	}
+}
+
+.puzzleButton{
+    min-width:200px;
+}
+
+div.puzzle
+{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+div.puzzleEven
+{
+	margin-top:10px;
+	padding-left:10px;
+	background-color: @puzzleEvenBG;
+	color: @puzzleEvenColor;
+	.borderRadius(25px);
+	.primaryBoxShadow();
+}
+
+div.puzzleOdd
+{
+	margin-top:10px;
+	padding-left:10px;
+	background-color: @puzzleOddBG;
+	color:@puzzleOddColor;
+	.borderRadius(25px);
+	.primaryBoxShadow();
+}
+
+div.puzzleInfo{
+	clear: both;
+	background-color:inherit;
+	.borderRadius(25px);
+}
+
+div.squareInfo{
+	padding:10px;
+	font-size: 1.1em;
+	background-color: inherit;
+	color:inherit;
+}
+
+div.puzzleSquare
+{
+	clear: both;
+	float: left;
+	padding:10px;
+	background-color:inherit;
+	color:inherit;
+}
+
+div.puzzleSize3
+{
+	min-width: 15%;
+}
+
+div.puzzleSize5
+{
+	min-width: 25%;
+}
+
+div.puzzleSize7
+{
+	min-width: 40%;
+}
+
+div.puzzleTerms
+{
+	padding: 10px;
+	font-size: 1.2em;
+	background-color:inherit;
+	overflow:auto;
+	.borderRadius(25px);
+}
+
+div.puzzleTermsSize3
+{
+}
+
+div.puzzleTermsSize5
+{
+}
+
+div.puzzleTermsSize7
+{
+}
+
+div.puzzleTerms td{
+	text-align:left;
+}
+
+div.puzzleTerms td.answer{
+	text-align:center;
+	font-size:1.4em;
+}
