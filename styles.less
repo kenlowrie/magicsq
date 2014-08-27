@@ -10,13 +10,26 @@
 @colorBrightRed: #FF3300;
 @colorSteel: #777;
 
-@color1: @colorToupe;
-@color2: @colorMint;
-@color3: @colorCream;
-@color4: @colorGold;
-@color5: @colorSalmon;
+@colorSocial1: rgb(252,255,245);
+@colorSocial2: rgb(209,219,189);
+@colorSocial3: rgb(145,170,157);
+@colorSocial4: rgb(62,96,111);
+@colorSocial5: rgb(25,52,65);
 
-@colorDefaultTD: @colorSteel;
+// @color1: lighten(@colorToupe,10%);
+// @color2: @colorMint;
+// @color3: @colorCream;
+// @color4: @colorGold;
+// @color5: darken(@colorSalmon,10%);
+
+@color1: @colorSocial4;
+@color2: @colorSocial3;
+@color3: @colorSocial2;
+@color4: @colorSocial1;
+@color5: @colorSocial5;
+
+
+@colorDefaultTD: black;
 @colorDefaultA: @colorDarkBlue;
 @colorDefaultAhover: @colorBrightRed;
 
@@ -37,8 +50,9 @@
 @manualInputBG: @color4;
 @manualInfoBG: @color3;
 @quizOptionEvenBG: @color2;
-@quizOptionOddColor: @color3;
+@quizOptionOddColor: lighten(@color3,10%);
 @quizOptionOddBG: @color1;
+@quizOptionEvenColor: black;
 @puzzleEvenBG: @color3;
 @puzzleEvenColor: black;
 @puzzleOddBG: @color2;
@@ -78,16 +92,16 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 
-.bigTextShadow() {
-  text-shadow: 2px 2px 3px rgba(0,0,0,.7);  
+.bigTextShadow(@shadowCol: rgba(0,0,0,.7)) {
+  text-shadow: 2px 2px 3px @shadowCol;  
 }
 
-.smallTextShadow() {
-  text-shadow: 1px 1px 2px rgba(48,48,48,.7);
+.smallTextShadow(@shadowCol: rgba(48,48,48,.7)) {
+  text-shadow: 1px 1px 2px @shadowCol;
 }
 
-.tinyTextShadow(){
-  text-shadow: 1px 1px 1px rgba(48,48,48,.7);
+.tinyTextShadow(@shadowCol: rgba(48,48,48,.7)){
+  text-shadow: 1px 1px 1px @shadowCol;
 }
 
 .primaryBoxShadow(){
@@ -130,14 +144,14 @@ h2 {
 
 h3 {
 	font-size: 1.2em;
-    .smallTextShadow();
+    .smallTextShadow(rgba(51,51,51,.6));
 	margin:0;
 	padding:10px;
 }
 
 h4 {
 	font-size: 1.1em;
-    .tinyTextShadow();
+    .tinyTextShadow(rgba(51,51,51,.6));
 	margin:0;
 	padding:8px;
 }
@@ -375,13 +389,16 @@ div.quizForm
 
 div.quizOptionEven
 {
+	color: @quizOptionEvenColor;
 	background-color: @quizOptionEvenBG;
+	.tinyTextShadow();
 }
 
 div.quizOptionOdd
 {
 	color: @quizOptionOddColor;
 	background-color: @quizOptionOddBG;
+	.tinyTextShadow();
 }
 
 div.quizOptionLeft
