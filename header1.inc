@@ -10,6 +10,6 @@
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<link rel="stylesheet" href="stylesregular.css" type="text/css" />
+<link rel="stylesheet" href="styles.css" type="text/css" />
 </head>
 <body>
