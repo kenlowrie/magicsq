@@ -123,7 +123,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		$fmt->h3("Provide details for the handouts, and then click Generate Quiz Data.");
 		
 	     // construct the form, and then the outer table that will hold the field definitions
-		$fmt->write("<form method=\"POST\" action=\"makequiz.php\">");
+		$fmt->write("<form method=\"POST\" action=\"mq2.php\">");
 		//$fmt->write("")
 
 		$fmt->startDivClass($divOptionOddEven[++$optionCounter % 2]);	
