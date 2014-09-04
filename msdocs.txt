@@ -1,5 +1,16 @@
 ### Magic Square Quiz Maker
-Welcome to the Magic Square Quiz Maker help page. Hopefully the information that follows will help you understand what the Magic Square Quiz Maker can do, and how to most efficiently operate it. If you have questions, or would like to provide feedback and/or to report a bug, feel free to contact the author, Ken Lowrie, at <klowrie@yahoo.com>.
+Welcome to the Magic Square Quiz Maker. The information here should help you understand what the Magic Square Quiz Maker app can do, as well as how to efficiently operate it. If you have questions, or would like to provide feedback and/or to report a bug, feel free to contact the author, Ken Lowrie, at <klowrie@yahoo.com>.
+
+[wpms]:http://en.m.wikipedia.org/wiki/Magic_square
+
+#### What is a Magic Square?
+
+According to Wikipedia, a [magic square][wpms] is "*an arrangement of distinct numbers (i.e. each number is used once), usually integers, in a square grid, where the numbers in each row, and in each column, and the numbers in the forward and backward main diagonals, all add up to the same number*". The Magic Square Quiz Maker App currently supports creating magic squares of odd sizes only (3, 5, 7 & 9). Given this, you will need 9, 25, 49 or 81 terms and definitions, questions and answers, or problems and solutions, in order to use the application.
+
+The Magic Square Quiz Maker will generate *n* variations (where *n* is between 1 and 99) of your input data, each containing its own magic square and jumbled terms, which helps prevent students from directly copying answers from their peers.
+
+#### Getting Started with the App
+
 
 [home]:http://www.kenlowrie.com/apps/magicsquarev1/
 
@@ -14,7 +25,7 @@ Since the app relies heavily on CSV input, whether from a file or being manually
 
 #### CSV Input Files
 
-The input for the Magic Square tool is a CSV file.  CSV stands for Comma Separated Values, and the file should have one line for every term or item to be included in the square.  Each line must have two items separated by a comma.  For this reason, if you need a comma included in your definition, you will need to encase it in quotation marks.  For example, here are some possible CSV lines:
+The input for the Magic Square tool is a CSV file, or raw data in CSV format. CSV stands for Comma Separated Values, and the file should have one line for every term or item to be included in the square.  Each line must have two items separated by a comma.  For this reason, if you need a comma included in your definition, you will need to encase it in quotation marks.  For example, here are some possible CSV lines:
 
 	Water, liquid that covers 70% of the planet Earth
 	US flag colors, "red, white, and blue"
@@ -59,6 +70,10 @@ Another thing to be aware of is that certain characters must be encoded using HT
 
 The CSV file may be created using a variety of software programs.   Microsoft Excel is commonly used, is great for importing data from other sources, but sometimes formats cells in a way that causes errors in the output.   Consider using a more rudimentary tool like Wordpad or Notepad.   These programs will provide less formatting and give a &quot;cleaner&quot; look at what you are setting up.  Just make sure that your file name has the extension CSV (letters after the period that identify the file type).  
 
+In the current version of the app, CSV files can be uploaded from both desktops and Android devices. In other words, your desktop or laptop, or your Android smart phone or tablet device all support uploading data from a CSV file stored locally. Presumably, Windows smart phones would also support this, but that platform has not been tested by me. 
+
+When running the Magic Square Quiz Maker app on iOS devices, on the other hand, you cannot upload a CSV file from the local device. Instead, you will need to enter the data manually, most likely by performing a copy/paste operation. You could use an external app to create the data in the proper format, and then copy it to the clipboard, switch to the Magic Square Quiz Maker app running in the browser on the iOS device, and paste it into the text area.
+
 #### Columns in Excel (or any Spreadsheet App)
 
 The first column (usually column A in Excel) will become associated with the letter in the magic square, and the second column will be used to fill the number side of the worksheet.   Columns can easily be moved in Excel, and if you decide that one item makes more sense in a particular position, that’s how to control it.  You might start with the word as the first column and the definition in the second.
@@ -72,6 +87,24 @@ By default, this application uses &quot;Term&quot; and &quot;Definition&quot; to
 This would substitute &quot;Problem&quot; for &quot;Term&quot; and &quot;Solution&quot; for Description within the app. Just like on any line, if you need to insert a comma, just surround the item with quotation marks, for example:
 
 	+++Left Column,"Solution, Description, or Information"
+
+#### Setting Options
+
+Once the data has been loaded, the next step is to set the various options before generating the quiz data (squares and jumbled term sets). There are several options available:
+
+<dl>
+	<dt>Title for Handout</dt>
+	<dd>Enter the title to be printed on the handout.</dd>
+	<dt>Number of Variants</dt>
+	<dd>Enter the number of variants to be created.</dd>
+	<dt>Free Term</dt>
+	<dd>Enter the number of the free term</dd>
+	<dt>Sync Term</dt>
+	<dd>Check this box to sync the free term to the aligned term in the jumbled list.</dd>
+</dl>
+
+Once you have set all of the options, press the **Generate Quiz Data** button to create the sets of magic squares and jumbled terms.
+
 
 #### Using the Magic Square Quiz Maker
 
@@ -115,3 +148,4 @@ As you can see, each row and each column adds up to 15 when the numbers are plac
 #### Summary
  
 This concludes the documentation on the Magic Square Quiz Maker app.
+
