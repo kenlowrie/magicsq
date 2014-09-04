@@ -64,5 +64,6 @@ switch ($type){
 // This function displays the main form so the user can enter data...
 display_quiz_form($fmt, $alias, getQuiz(), EDIT_COMMIT);
 
+addJS($fmt,"mkms");
 include('footer1.inc');
 ?>
