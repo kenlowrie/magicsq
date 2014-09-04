@@ -6,7 +6,7 @@ function printMagicSquare($ms){
 
 class cHTMLFormatter{
 	public $justPrint=true;
-	protected $prefix="  ";
+	protected $prefix="    ";
 	
 	protected function prefixDec(){
 		$this->prefix = substr($this->prefix,0,-2);
@@ -138,6 +138,9 @@ class cHTMLFormatter{
 	public function startDivClass($class){
 		return $this->_print("<div class=\"$class\">\n",true);
 	}
+	public function startDivOfClass($id, $class){
+		return $this->_print("<div id=\"$id\" class=\"$class\">\n",true);
+	}
 	public function startDivs($array_of_divs){
 		$curtext = "";
 		foreach ($array_of_divs as $div) {
@@ -183,6 +186,14 @@ class cHTMLFormatter{
 	public function endRow(){
 			$this->prefixDec();
 		return $this->_print("</tr>\n");
+	}
+
+	public function startScript(){
+		return $this->_print("<script>\n",true);
+	}
+	public function endScript(){
+			$this->prefixDec();
+		return $this->_print("</script>\n");
 	}
 
 	public function startCell($class){

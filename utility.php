@@ -64,6 +64,15 @@ function endsWith($haystack, $needle)
     return (substr($haystack, -strlen($needle)) === $needle);
 }
 
+function addJS($fmt,$which){
+	$fmt->write("<script src=\"script.js\"></script>");
+	$fmt->startScript();
+	//$fmt->write("MYJSLIB.init();");
+	$fmt->write("MYJSLIB.".$which."Init();");
+	$fmt->endScript();
+}
+
+
 function parseTerms($fmt,$inputData){
 	$row = 1;
 	$headers = 0;		// ignore header rows in the final count
