@@ -120,7 +120,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		
 		$fmt->startDivClass("quizForm");
 
-		$fmt->h3("Provide details for the handouts, and then click Generate Quiz Data.");
+		$fmt->h3("Quiz Handout Details");
 		
 	     // construct the form, and then the outer table that will hold the field definitions
 		$fmt->write("<form method=\"POST\" action=\"mq2.php\">");
@@ -209,7 +209,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		$fmt->endSection();
 	}
 
-	$fmt->startSection("helpers");
+	$fmt->startSection("buttons");
 	
 	$hiddenVars = array( 
 		array("type" => MAKE_TERMS, "size" => 3),

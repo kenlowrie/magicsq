@@ -73,9 +73,9 @@ $fmt->p("Review the puzzles and jumbled term lists below, regenerate as needed, 
 $fmt->endDiv();
 
 $optionCounter = 1;		
-$divOptionOddEven = array("puzzleOdd","puzzleEven");
+$divOptionOddEven = array("quizPuzzleOdd","quizPuzzleEven");
 
-$fmt->startDivClass("puzzle");
+$fmt->startDivClass("quizPuzzle");
 
 for($X = 0; $X < $quiz->variants; ++$X){
 	$fmt->startDivClass($divOptionOddEven[++$optionCounter % 2]);		// wrap with an odd or even puzzle class
@@ -88,7 +88,7 @@ for($X = 0; $X < $quiz->variants; ++$X){
 	$fmt->linkbutton("makequiz.php","New square [$sqType]", null, "fancyButton puzzleButton", array("regen" => $X,"object" => 1));
 	$fmt->linkbutton("makequiz.php","Jumble terms",null, "fancyButton puzzleButton", array("regen" => $X,"object" => 2));
 
-	$fmt->startDivClass("squareInfo");
+	$fmt->startDivClass("magicSquareNotes");
 	$quiz->magicSquares[$X]->validate($fmt);
 	$alignedRow = $loadedTerms->checkAlignment($quiz->magicSquares[$X],$X,$fmt);
 	if ($alignedRow != -1 && $quiz->mapFTtoAlignedTD){
