@@ -4,23 +4,20 @@
 "use strict";
 
 function prepareMKMS() {
-	document.getElementById("loadTerms").onclick = function() {
-		// if (document.getElementById("brochures").checked) {
-			// // use CSS style to show it
-			// document.getElementById("tourSelection").style.display = "block";
-		// } else {
-			// // hide the div
-			// document.getElementById("tourSelection").style.display = "none";
+	document.getElementById("selectOptions").onclick = function() {
+		// if (document.getElementById("selectOptions").style.display === "none"){
+			// document.getElementById("selectOptions").style.display = "block";
+		// } else{
+			// document.getElementById("selectOptions").style.display = "none";
 		// }
-		if (document.getElementById("selectOptions").style.display === "none"){
-			document.getElementById("selectOptions").style.display = "block";
-		} else{
-			document.getElementById("selectOptions").style.display = "none";
-
+		if($(".quizOptionRight").is(':visible')){
+			$(".quizOptionRight").hide();
+		} else {
+			$(".quizOptionRight").show();
 		}
 	};
 	// now hide it on the initial page load.
-//	document.getElementById("tourSelection").style.display = "none";
+	$(".quizOptionRight").hide();
 }
 
 
