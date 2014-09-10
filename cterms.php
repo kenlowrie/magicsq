@@ -86,7 +86,7 @@ class Terms{
 		return IsSet($baseName) ? $baseName : "magic_square";
 	}
 	
-    public function randomizeTerms($replaceSet=-1) {
+    public function randomizeTerms($fmt,$replaceSet=-1) {
 
 		$copy = $this->terms;		// Make a copy of the current terms
 
@@ -94,10 +94,12 @@ class Terms{
 		if( $replaceSet == -1){
 			$this->jumbled[] = $copy;		// Save this copy of the jumbled terms into the array
 		} elseif ($replace >= count($this->jumbled)){
-			MyLog("randomizeTerms($replaceSet) called with invalid item number");
+			return $fmt->write("randomizeTerms($replaceSet) called with invalid item number");
 		} else {
 			$this->jumbled[$replaceSet] = $copy;
-		}		
+		}
+		
+		return "";	
 	}
     
     public function loadTerms($howMany) {
@@ -132,6 +134,7 @@ class Terms{
 		if($fmt == NULL){
 			$fmt = new cHTMLFormatter;		
 		}
+		$output = "";
 		if( $this->numVariants() > 0){
 			$js = $this->jumbled[$jumbleset];
 			
@@ -141,7 +144,7 @@ class Terms{
 					$location = $this->findItemInSquare($count, $ms);
 					if ($location != -1 && $letter->me() == $letter->getSymbol($location)){
 						$msg = sprintf("NOTE: %s and %s on row [%s] are aligned",$this->getHeader(1),$this->getHeader(2),$letter->me());
-						$fmt->write($msg,true,true);
+						$output .= $fmt->write($msg,true,true);
 						$alignedRow = $location + 1;		// Bump the row so it is 1-based because that's what the lookup expects later...
 					}	
 					++$count;
@@ -149,10 +152,10 @@ class Terms{
 				}
 			}
 		} else {
-			MyLog("output called with no variants defined...");
+			$output .= $fmt->write("output called with no variants defined...");
 		}
 		
-		return $alignedRow;
+		return array($alignedRow,$output);
 	}
 	
 	public function output($ms,$jumbleset=0,$fmt=NULL){
@@ -163,42 +166,44 @@ class Terms{
 			$fmt = new cHTMLFormatter;		
 		}
 		
-		$fmt->startDivClass("puzzleTerms puzzleTermsSize".strval($N));
-		$fmt->startTable();
+		$output = $fmt->startDivClass("puzzleTermsSize".strval($N));
+		$output .= $fmt->startTable();
 
 		if( $this->numVariants() > 0){
 			$js = $this->jumbled[$jumbleset];
 			
-			$fmt->startRow();
-			$fmt->writeCellData($this->getHeader(1));
-			$fmt->writeCellData("Correct Answer");
-			$fmt->writeCellData($this->getHeader(2));
-			$fmt->endRow();
+			$output .= $fmt->startRow();
+			$output .= $fmt->writeCellData($this->getHeader(1));
+			$output .= $fmt->writeCellData("Correct Answer");
+			$output .= $fmt->writeCellData($this->getHeader(2));
+			$output .= $fmt->endRow();
 			for ($X = 0; $X < $N; ++$X) {
 				for ($Y = 0; $Y < $N; ++$Y) {
-					$fmt->startRow();
+					$output .= $fmt->startRow();
 					$item = $ms->getElement($X,$Y);
 					$t1 = $js[$item-1]->getTerm();
 					$d1 = $js[$count-1]->getDefinition();
 	
-					$fmt->writeCellData("%s. %s", $letter->me(), $t1);
+					$output .= $fmt->writeCellData("%s. %s", $letter->me(), $t1);
 					$location = $this->findItemInSquare($count, $ms);
 					if ($location != -1){
-						$fmt->writeClassData("answer", "%s", $letter->getSymbol($location));
+						$output .= $fmt->writeClassData("answer", "%s", $letter->getSymbol($location));
 					} else {
-						$fmt->writeClassData("answer", "?");
+						$output .= $fmt->writeClassData("answer", "?");
 					}
-					$fmt->writeCellData("%d. %s", $count, $d1);
+					$output .= $fmt->writeCellData("%d. %s", $count, $d1);
 					++$count;
 					$letter->increment();
-					$fmt->endRow();
+					$output .= $fmt->endRow();
 				}
 			}
 		} else {
-			MyLog("output called with no variants defined...");
+			$output .= $fmt->write("output called with no variants defined...");
 		}
-		$fmt->endTable();
-		$fmt->endDiv();
+		$output .= $fmt->endTable();
+		$output .= $fmt->endDiv();
+		
+		return $output;
 	}
     
 	public function dumpTermSet($which, $termSet, $fmt = NULL){
