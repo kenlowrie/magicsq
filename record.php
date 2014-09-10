@@ -56,6 +56,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 	}
 
 	$fmt->startDivClass("termInfo");	
+	addNeedJavaScript($fmt);
 	if (IsSet($terms)){
 		$numterms = count($terms->getTerms());
 		$fmt->h5("Current file information");
@@ -120,7 +121,10 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		
 		$fmt->startDivClass("quizForm");
 
+		$fmt->startDiv("quizHelp");
 		$fmt->h3("Quiz Handout Details");
+		$fmt->svg("images/cqm.svg","Display Form Help",30,30);
+		$fmt->endDiv();
 		
 	     // construct the form, and then the outer table that will hold the field definitions
 		$fmt->write("<form method=\"POST\" action=\"mq2.php\">");
