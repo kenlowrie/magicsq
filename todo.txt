@@ -5,3 +5,19 @@ Things left To Do - yfi=G8Pb}+R-
 7. Add a test for checking to see if the magic square and/or the jumbled terms are duplicated and print a note.
 
 9. Add Stephen's algorithm for generating the square based on start position and start number
+
+
+
+A. Find a place to put this "how-not-to-do-this" JavaScript code...
+
+var mynode = $(pvID).children("div")[0]; 
+if( object == 1){
+	var curNotes = $($($(mynode).children("div")[0]).children("div")[0]).html();
+	console.log(curNotes);
+	$($($(mynode).children("div")[0]).children("div")[0]).html(curNotes + "<br />I just added to the innerHTML!");		
+} else {
+	console.log($(pvID).find(".magicSquareNotes").html());
+	$(pvID).find(".magicSquareNotes").html("I just replaced the innerHTML (again)!");
+
+}
+	
