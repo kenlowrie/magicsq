@@ -64,6 +64,10 @@ function endsWith($haystack, $needle)
     return (substr($haystack, -strlen($needle)) === $needle);
 }
 
+function addNeedJavaScript($fmt){
+	$fmt->write("<noscript>This app is more functional with JavaScript enabled...</noscript>");
+}
+
 function addJS($fmt,$which){
 	$fmt->write("<script src=\"script.js\"></script>");
 	$fmt->startScript();
@@ -71,7 +75,6 @@ function addJS($fmt,$which){
 	$fmt->write("MYJSLIB.".$which."Init();");
 	$fmt->endScript();
 }
-
 
 function parseTerms($fmt,$inputData){
 	$row = 1;
