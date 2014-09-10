@@ -238,14 +238,21 @@ ul,ol{
 {
 	margin: 10px;
 	background-color: @selectOptionsBG;
-	border-radius: 25px;
+	border-radius: 15px;
 	display: inline-block;
 	.primaryBoxShadow();
 
 	h3{
 		text-align: center;
-		border-radius: 25px;
 		text-transform:uppercase;
+		display:inline;
+	}
+	
+	svg{
+		height:30px;
+		width:30px;
+	}
+	svg image{
 	}
 	
 	h4{
@@ -400,7 +407,7 @@ ul,ol{
 		color:inherit;
 		
 		&:hover{
-			border:@colorTableBorder 2px solid;
+			background-color:lightyellow;
 		}
 	}
 	
@@ -431,7 +438,7 @@ ul,ol{
 		display:inline-block;
 
 		&:hover{
-			border:@colorTableBorder 2px solid;
+			background-color:lightyellow;
 		}
 
 		table {
