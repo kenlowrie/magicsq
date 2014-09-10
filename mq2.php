@@ -3,6 +3,7 @@
 include_once ('session.php');
 include ('header1.inc');
 include_once ('utility.php');
+include_once ('datautil.php');
 
 //var_dump($_POST);
 
@@ -15,6 +16,7 @@ $fmt->endHeader();
 $fmt->startSection("makeQuiz");
 $fmt->startDivClass("quizInfo");
 
+addNeedJavaScript($fmt);
 $fmt->addLink("mkms.php","Click Me to Return to the Magic Square Maker Page");
 $fmt->brk(2);
 
@@ -23,8 +25,13 @@ $quiz = getQuiz();
 $regen = $_POST['regen'];       	// check to see if we are in regen mode
 $object  = $_POST['object'];		// which object to regen
 
+//TODO: This may be temporary, after implementing json properly...
+if( !IsSet($regen)){
+	$regen=$_GET['regen'];
+	$object=$_GET['object'];
+}
+
 $loadedTerms = getTerms();
-$numvariants = $loadedTerms->numVariants();
 
 if (!IsSet($regen)){
 	// In this case, we are coming in on a POST (should I verify that??)
@@ -45,24 +52,10 @@ if (!IsSet($regen)){
 	
 	$loadedTerms->resetJumbledTerms();				// Throw out what we had, if any
 	for($X = 0; $X < $quiz->variants; ++$X){
-		$loadedTerms->randomizeTerms();
+		$loadedTerms->randomizeTerms($fmt);
 	}
-} elseif ($regen >= $numvariants){
-		$fmt->p("Internal error: regen element is out of variant range [$regen]");	
-} else{
-	switch ($object){
-		case 1:
-			$tmpSquare = new cMagicSquare($quiz->magicSquareSize);
-			$tmpSquare->makeMagic();
-			$quiz->magicSquares[$regen] = $tmpSquare;	
-			break;
-		case 2:
-			$loadedTerms->randomizeTerms($regen);
-			break;
-		default:
-			$fmt->p("Internal error: regen mode with invalid object type $object");
-			break;
-	}
+} else {
+	handleRegen($fmt, $quiz, $loadedTerms, $regen, $object);			// This will do the regen in a jsonp safe way...
 }
 
 //if (!isAppleDevice()){		iphone iOS 8 isn't working, test on iphone iOS 7
@@ -78,27 +71,37 @@ $divOptionOddEven = array("quizPuzzleOdd","quizPuzzleEven");
 $fmt->startDivClass("quizPuzzle");
 
 for($X = 0; $X < $quiz->variants; ++$X){
+	$puzzleVariant = "puzzleVariant".$optionCounter;
+	$pvID = $puzzleVariant."ID";
+	$fmt->startDiv($pvID);								// give myself a unique ID so I can find this section with JavaScript
 	$fmt->startDivClass($divOptionOddEven[++$optionCounter % 2]);		// wrap with an odd or even puzzle class
 	$fmt->startDivClass("puzzleInfo");		// wrap the puzzle info and buttons
+	$fmt->anchor($puzzleVariant);
 	$fmt->h4("Magic Square Set #".strval($optionCounter-1));
 
 	$sqType = $quiz->magicSquares[$X]->getSquareType();
 	$fmt->linkbutton("makepdf.php", "Display PDF",null,"fancyButton puzzleButton",array("variant" => $X),"POST","submit","name",true);
 	$fmt->linkbutton("makepdf.php", "Download PDF",null,"fancyButton puzzleButton",array("variant" => $X,"download" => 1),"POST","submit","name",true);
-	$fmt->linkbutton("makequiz.php","New square [$sqType]", null, "fancyButton puzzleButton", array("regen" => $X,"object" => 1));
-	$fmt->linkbutton("makequiz.php","Jumble terms",null, "fancyButton puzzleButton", array("regen" => $X,"object" => 2));
+	$fmt->linkbutton("mq2.php#$puzzleVariant","New square [$sqType]", null, "fancyButton puzzleButton", array("regen" => $X,"object" => 1));
+	$fmt->linkbutton("mq2.php#$puzzleVariant","Jumble terms",null, "fancyButton puzzleButton", array("regen" => $X,"object" => 2));
 
 	$fmt->startDivClass("magicSquareNotes");
-	$quiz->magicSquares[$X]->validate($fmt);
-	$alignedRow = $loadedTerms->checkAlignment($quiz->magicSquares[$X],$X,$fmt);
-	if ($alignedRow != -1 && $quiz->mapFTtoAlignedTD){
-		$quiz->magicSquares[$X]->setAlignedRow($alignedRow);	// This will be used later
-	}
+	getNotes($fmt, $quiz, $loadedTerms,$X);		// This will write the messages to the $fmt object if print is ON
 	$fmt->endDiv(2);		// close div.statusArea and div.puzzleInfo
 
+	$fmt->write("<a onClick=\"regenPuzzleObject($X,1,'#$pvID')\">\n");
+	$fmt->startDivClass("puzzleSquare");
 	$quiz->magicSquares[$X]->prettySquare($fmt);
+	$fmt->endDiv();
+	$fmt->write("</a>");
+	$fmt->write("<a onClick=\"regenPuzzleObject($X,2,'#$pvID')\">\n");
+	$fmt->startDivClass("puzzleTerms");
 	$loadedTerms->output($quiz->magicSquares[$X],$X,$fmt);
+	$fmt->endDiv();
+	$fmt->write("</a>");
+	
 	$fmt->endDiv();		// close div.odd or div.even
+	$fmt->endDiv();		// close puzzleVariant#ID
 }
 
 $fmt->endDiv();	// close div.puzzle
