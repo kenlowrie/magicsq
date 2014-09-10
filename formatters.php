@@ -70,12 +70,21 @@ class cHTMLFormatter{
 	public function writeAndBreak($text){
 		return $this->_print($text . "<br />\n");
 	}
+	public function anchor($id){
+			return $this->_print("<a id=\"$id\"></a>");			
+	}
 	public function addLink($page,$text,$blank=false){
 		if(!$blank){
 			return $this->_print("<a href=\"$page\">$text</a>");			
 		} else{
 			return $this->_print("<a href=\"$page\" target=\"_blank\">$text</a>");			
 		}
+	}
+	public function startLink($page){
+		return $this->_print("<a href=\"$page\">");			
+	}
+	public function endLink(){
+		return $this->_print("</a>");			
 	}
 
 	public function linkbutton($action, $text, $help=NULL, $buttonClass=NULL, $hiddenVars=NULL, $method="POST", $type="submit", $name="name", $newwin=false)
@@ -99,6 +108,9 @@ class cHTMLFormatter{
 		$curtext .= $this->_print("</form>\n");
 		$curtext .= $this->_print($help."\n");	
 		return $curtext;	
+	}
+	public function svg($svgImage,$svgTitle="SVG Image",$svgWidth=16,$svgHeight=16){
+		return $this->_print("<svg><image width=\"$svgWidth\" height=\"$svgHeight\" xlink:href=\"$svgImage\"></image><title>$svgTitle</title></svg>\n");
 	}
 	public function startHeader($id="mainHeader"){
 		return $this->_print("<header id=\"".$id."\">\n",true);
