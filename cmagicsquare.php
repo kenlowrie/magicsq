@@ -229,7 +229,7 @@ class cMagicSquare{
     
 	public function prettySquare($fmt){
         	
-		$output = $fmt->startDivClass("puzzleSquare puzzleSize".strval($this->N));	// adjust the space needed for the square
+		$output = $fmt->startDivClass("puzzleSize".strval($this->N));	// adjust the space needed for the square
 		$output .= $fmt->startTable();
 		$sym = new cSymbol;
 		
