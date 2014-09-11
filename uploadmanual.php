@@ -59,7 +59,7 @@ $preload = $_POST['preload'];
 if(IsSet($preload) && $preload == '1'){
 	getQuiz()->textArea = preloadData();
 }
-$fmt->textArea(getQuiz()->textArea,"textarea", "manual", 30, 100);
+$fmt->textArea(htmlentities(getQuiz()->textArea,ENT_QUOTES|ENT_HTML401),"textarea", "manual", 30, 100);
 
 $fmt->write("<form method=\"POST\" action=\"mkms.php\" id=\"manual\">");
 $fmt->write("<input class=\"fancyButton genQuizButton\" type=\"submit\" value=\"Load These Terms\">");
