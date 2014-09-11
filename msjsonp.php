@@ -4,7 +4,9 @@ include_once ('session.php');	// session handling code
 include_once ('datautil.php');
 
 function encodeHTML($htmlStr){
-	return trim(json_encode($htmlStr),'"');
+	$mystr = trim(json_encode(htmlentities($htmlStr),JSON_HEX_APOS),'"');		//JSON_HEX_TAG doesn't seem to matter...
+	//echo "[$mystr]\n\n";
+	return $mystr;
 //	return str_replace("\n","\\n",htmlspecialchars($htmlStr,ENT_QUOTES|ENT_HTML401,null,false));
 }
 
