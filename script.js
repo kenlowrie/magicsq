@@ -4,6 +4,7 @@
 "use strict";
 
 function prepareMKMS() {
+	//TODO: Need to check for existance before doing this -- sometimes this div isn't there...
 	document.getElementById("quizHelp").onclick = function() {
 		// if (document.getElementById("selectOptions").style.display === "none"){
 			// document.getElementById("selectOptions").style.display = "block";
@@ -35,13 +36,14 @@ function resetDocumentData(pvID,object,key,value){
 		case "square":
 			var decoded = $('<textarea/>').html(value).val();
 			$(pvID).find(".puzzleSquare").html(decoded);	
-			console.log($(pvID).find(".puzzleSquare").html());
+			//console.log($(pvID).find(".puzzleSquare").html());
 			break;
 		case "puzzle":
 			var decoded = $('<textarea/>').html(value).val();
 			$(pvID).find(".puzzleTerms").html(decoded);		
 			break;
 		default:
+			console.log('I got a key back that I cannot handle ['+key+']');
 			break;
 	}
 }
@@ -51,7 +53,7 @@ function regenPuzzleObject(variant,object,pvID){
 	var jqxhr = $.getJSON('msjsonp.php?callback=?','variant='+variant+'&item='+object,function(data){
     		console.log('success:');
     		$.each(data, function( key, val) {
-    			console.log(key + "=" + val);
+    			console.log(key + "=" + val.substr(0,25) + ' ... ' + val.substr(-25));
 	    		resetDocumentData(pvID,object,key,val);			
     		});
 	})
