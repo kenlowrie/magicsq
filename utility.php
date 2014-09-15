@@ -76,6 +76,10 @@ function addJS($fmt,$which){
 	$fmt->endScript();
 }
 
+function addJSspinner($fmt){
+	$fmt->write("<div class=\"modal\"><!-- This is for the JS Spinner --></div>",true,true);
+}
+
 function parseTerms($fmt,$inputData){
 	$row = 1;
 	$headers = 0;		// ignore header rows in the final count
@@ -100,7 +104,7 @@ function parseTerms($fmt,$inputData){
 			$fmt->p("Error on line $row: Found $num terms, expected 2.");
 		} else {
 			if (startsWith($data[0],"+++")){
-				$myterms->setHeaders(substr($data[0],3),$data[1]);
+				$myterms->setHeaders(trim(substr($data[0],3),'"'),$data[1]);
 				++$headers;
 				$fmt->p("New column headers defined: Column 1: \"".$myterms->getHeader(1)."\" Column 2: \"".$myterms->getHeader(2)."\"");
 			} else{
