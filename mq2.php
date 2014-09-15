@@ -60,6 +60,13 @@ if (!IsSet($regen)){
 
 //if (!isAppleDevice()){		iphone iOS 8 isn't working, test on iphone iOS 7
 $fmt->p("Review the puzzles and jumbled term lists below, regenerate as needed, and then display or download each PDF by clicking the appropriate button.");
+$fmt->startP();
+$fmt->write("<br /><a onClick=\"disableAccordion()\" title=\"Click to show all the puzzle sets\">\n");
+$fmt->write("Click Me to expand all sets");
+$fmt->write("</a><br /><br /><a onClick=\"enableAccordion()\" title=\"Click to collapse all the puzzle sets\">\n");
+$fmt->write("Click Me to collapse the sets");
+$fmt->write("</a>");
+$fmt->endP();
 //} else {
 //	$fmt->p("Review the puzzles and jumbled term lists below, and regenerate as needed. The current version of this app does not support downloading or displaying PDFs on iOS, so you'll need to run this program on a different computer in order to get the PDF output.");
 //}
@@ -73,28 +80,31 @@ $fmt->startDivClass("quizPuzzle");
 for($X = 0; $X < $quiz->variants; ++$X){
 	$puzzleVariant = "puzzleVariant".$optionCounter;
 	$pvID = $puzzleVariant."ID";
+	$fmt->h3("Magic Square Set #".strval($optionCounter-1));
 	$fmt->startDiv($pvID);								// give myself a unique ID so I can find this section with JavaScript
 	$fmt->startDivClass($divOptionOddEven[++$optionCounter % 2]);		// wrap with an odd or even puzzle class
 	$fmt->startDivClass("puzzleInfo");		// wrap the puzzle info and buttons
 	$fmt->anchor($puzzleVariant);
-	$fmt->h4("Magic Square Set #".strval($optionCounter-1));
+	//$fmt->h4("Magic Square Set #".strval($optionCounter-1));
 
 	$sqType = $quiz->magicSquares[$X]->getSquareType();
 	$fmt->linkbutton("makepdf.php", "Display PDF",null,"fancyButton puzzleButton",array("variant" => $X),"POST","submit","name",true);
 	$fmt->linkbutton("makepdf.php", "Download PDF",null,"fancyButton puzzleButton",array("variant" => $X,"download" => 1),"POST","submit","name",true);
+	$fmt->startNoScript();
 	$fmt->linkbutton("mq2.php#$puzzleVariant","New square [$sqType]", null, "fancyButton puzzleButton", array("regen" => $X,"object" => 1));
 	$fmt->linkbutton("mq2.php#$puzzleVariant","Jumble terms",null, "fancyButton puzzleButton", array("regen" => $X,"object" => 2));
+	$fmt->endNoScript();
 
 	$fmt->startDivClass("magicSquareNotes");
 	getNotes($fmt, $quiz, $loadedTerms,$X);		// This will write the messages to the $fmt object if print is ON
 	$fmt->endDiv(2);		// close div.statusArea and div.puzzleInfo
 
-	$fmt->write("<a onClick=\"regenPuzzleObject($X,1,'#$pvID')\">\n");
+	$fmt->write("<a onClick=\"regenPuzzleObject($X,1,'#$pvID')\" title=\"Click me to generate a new square\">\n");
 	$fmt->startDivClass("puzzleSquare");
 	$quiz->magicSquares[$X]->prettySquare($fmt);
 	$fmt->endDiv();
 	$fmt->write("</a>");
-	$fmt->write("<a onClick=\"regenPuzzleObject($X,2,'#$pvID')\">\n");
+	$fmt->write("<a onClick=\"regenPuzzleObject($X,2,'#$pvID')\" title=\"Click me to jumble this term set\">\n");
 	$fmt->startDivClass("puzzleTerms");
 	$loadedTerms->output($quiz->magicSquares[$X],$X,$fmt);
 	$fmt->endDiv();
@@ -105,11 +115,9 @@ for($X = 0; $X < $quiz->variants; ++$X){
 }
 
 $fmt->endDiv();	// close div.puzzle
-$fmt->startDiv("myElement");
-$fmt->write("<p style=\"color:white\">Click on me to invoke the json</p>");
-$fmt->endDiv();
 $fmt->endSection();
 
+addJSspinner($fmt);
 addJS($fmt,"makequiz");
 include('footer1.inc');
 
