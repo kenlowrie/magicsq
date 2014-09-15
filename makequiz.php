@@ -58,18 +58,16 @@ if (!IsSet($regen)){
 	handleRegen($fmt, $quiz, $loadedTerms, $regen, $object);			// This will do the regen in a jsonp safe way...
 }
 
-//if (!isAppleDevice()){		iphone iOS 8 isn't working, test on iphone iOS 7
 $fmt->p("Review the puzzles and jumbled term lists below, regenerate as needed, and then display or download each PDF by clicking the appropriate button.");
-$fmt->startP();
-$fmt->write("<br /><a onClick=\"disableAccordion()\" title=\"Click to show all the puzzle sets\">\n");
-$fmt->write("Click Me to expand all sets");
-$fmt->write("</a><br /><br /><a onClick=\"enableAccordion()\" title=\"Click to collapse all the puzzle sets\">\n");
-$fmt->write("Click Me to collapse the sets");
-$fmt->write("</a>");
-$fmt->endP();
-//} else {
-//	$fmt->p("Review the puzzles and jumbled term lists below, and regenerate as needed. The current version of this app does not support downloading or displaying PDFs on iOS, so you'll need to run this program on a different computer in order to get the PDF output.");
-//}
+if($quiz->variants > 1){
+	$fmt->startP();
+	$fmt->write("<br /><a onClick=\"disableAccordion()\" title=\"Click to show all the puzzle sets\" class=\"fancyButton puzzleButton\">\n");
+	$fmt->write(" Show All ",false,false);
+	$fmt->write("</a>&nbsp;<a onClick=\"enableAccordion(false)\" title=\"Click to collapse all the puzzle sets\" class=\"fancyButton puzzleButton\">",false,false);
+	$fmt->write(" Collapse ");
+	$fmt->write("</a>");
+	$fmt->endP();
+}
 $fmt->endDiv();
 
 $optionCounter = 1;		
@@ -90,10 +88,10 @@ for($X = 0; $X < $quiz->variants; ++$X){
 	$sqType = $quiz->magicSquares[$X]->getSquareType();
 	$fmt->linkbutton("makepdf.php", "Display PDF",null,"fancyButton puzzleButton",array("variant" => $X),"POST","submit","name",true);
 	$fmt->linkbutton("makepdf.php", "Download PDF",null,"fancyButton puzzleButton",array("variant" => $X,"download" => 1),"POST","submit","name",true);
-	$fmt->startNoScript();
-	$fmt->linkbutton("mq2.php#$puzzleVariant","New square [$sqType]", null, "fancyButton puzzleButton", array("regen" => $X,"object" => 1));
-	$fmt->linkbutton("mq2.php#$puzzleVariant","Jumble terms",null, "fancyButton puzzleButton", array("regen" => $X,"object" => 2));
-	$fmt->endNoScript();
+	$fmt->startDivClass("hideMe");
+	$fmt->linkbutton("makequiz.php#$puzzleVariant","New square [$sqType]", null, "fancyButton puzzleButton", array("regen" => $X,"object" => 1));
+	$fmt->linkbutton("makequiz.php#$puzzleVariant","Jumble terms",null, "fancyButton puzzleButton", array("regen" => $X,"object" => 2));
+	$fmt->endDiv();
 
 	$fmt->startDivClass("magicSquareNotes");
 	getNotes($fmt, $quiz, $loadedTerms,$X);		// This will write the messages to the $fmt object if print is ON
