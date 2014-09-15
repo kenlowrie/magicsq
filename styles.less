@@ -43,6 +43,8 @@
 @selectOptionsBG: @color3;
 @helpersBG: @color4;
 @makeQuizBG: @color5;
+@makeQuizPuzzleBG: @color3;
+@makeQuizPuzzleColor: @color4;
 @quizInfoBG: @color3;
 @helpBG: @color4;
 @helpInfoBG: @color3;
@@ -344,6 +346,19 @@ ul,ol{
 	background-color: @makeQuizBG;
 	padding:10px;
 
+	h3{
+		text-transform:uppercase;
+		color:@makeQuizPuzzleColor;
+	}
+	
+	.ui-accordion-header{
+		background:@makeQuizBG;
+	}
+	
+	.ui-accordion-content{
+		background:@makeQuizBG;
+	}
+	
 	/* wraps the quizInfo area at the top of makequiz.php, before the individual puzzles */
 	div.quizInfo{
 		background-color: @quizInfoBG;
@@ -363,10 +378,11 @@ ul,ol{
 	div.quizPuzzleEven
 	{
 		margin-top:10px;
+		padding-top:10px;
 		padding-left:10px;
 		background-color: @puzzleEvenBG;
 		color: @puzzleEvenColor;
-		.borderRadius(25px);
+		.borderRadius(10px);
 		.primaryBoxShadow();
 	}
 	
@@ -374,10 +390,11 @@ ul,ol{
 	div.quizPuzzleOdd
 	{
 		margin-top:10px;
+		padding-top:10px;
 		padding-left:10px;
 		background-color: @puzzleOddBG;
 		color:@puzzleOddColor;
-		.borderRadius(25px);
+		.borderRadius(10px);
 		.primaryBoxShadow();
 	}
 	
@@ -385,7 +402,7 @@ ul,ol{
 	div.puzzleInfo{
 		clear: both;
 		background-color:inherit;
-		.borderRadius(25px);
+		.borderRadius(10px);
 	}
 	
 	/* wraps the magic square notes for the specific puzzle set: magic square value, which term/def are aligned... */
@@ -403,6 +420,7 @@ ul,ol{
 		float: left;
 		padding:10px;
 		background-color:inherit;
+		overflow:scroll;
 		.borderRadius(25px);
 		color:inherit;
 		
@@ -581,3 +599,33 @@ ul,ol{
     min-width:200px;
 }
 
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   speak for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .5 ) 
+                url('images/ajax-loader.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
