@@ -3,22 +3,58 @@
  */
 "use strict";
 
-function prepareMKMS() {
-	//TODO: Need to check for existance before doing this -- sometimes this div isn't there...
-	document.getElementById("quizHelp").onclick = function() {
-		// if (document.getElementById("selectOptions").style.display === "none"){
-			// document.getElementById("selectOptions").style.display = "block";
-		// } else{
-			// document.getElementById("selectOptions").style.display = "none";
-		// }
-		if($(".quizOptionRight").is(':visible')){
-			$(".quizOptionRight").hide();
-		} else {
-			$(".quizOptionRight").show();
+function prepareTooltips(){
+	$(document).tooltip({
+		show: true,
+		track: true,
+		open: function (event, ui) {
+			setTimeout(function() {
+				$(ui.tooltip).hide(true);
+			},2000);
 		}
-	};
-	// now hide it on the initial page load.
-	$(".quizOptionRight").hide();
+	});
+}
+
+function disableAccordion(){
+	$("div.quizPuzzle").accordion("destroy");
+}
+
+function enableAccordion(){
+	$("div.quizPuzzle").accordion({
+		collapsible: true
+	});
+}
+
+/*
+function prepareAjaxSpinner(){
+	var $body = $("body");
+	// could not get this to work at all (with on() or bind()....)
+	// So instead, I just added this to my getJSON code below...
+	
+	$("document").on({		
+		ajaxStart: function () { $body.addClass("loading");		},
+		 ajaxStop: function () { $body.removeClass("loading");	}
+	});
+}
+*/
+
+function prepareMKMS() {
+	//Check for existance before doing this -- initially (or after reset), nothing is there...
+	if ($('#quizHelp').length ){
+		$('#quizHelp').click(function() {
+			// If the help div's are currently visible, then:
+			if($(".quizOptionRight").is(':visible')){
+				// Hide them
+				$(".quizOptionRight").hide();
+			} else {
+				// Show them
+				$(".quizOptionRight").show();
+			}
+		});
+		// now hide it on the initial page load.
+		$(".quizOptionRight").hide();
+	}
+	prepareTooltips();
 }
 
 function isTextNode(){
@@ -27,7 +63,6 @@ function isTextNode(){
 
 function resetDocumentData(pvID,object,key,value){
 	var mynode = $(pvID).children("div")[0];
-	//var curNotes = $(pvID).find(".magicSquareNotes").html();
 	switch(key){
 		case "notes":
 			var decoded = $('<textarea/>').html(value).val();
@@ -49,7 +84,8 @@ function resetDocumentData(pvID,object,key,value){
 }
 
 function regenPuzzleObject(variant,object,pvID){
-	console.log('inside prepareMAKEQUIZ('+variant+','+object+','+pvID+')');
+	//TODO: Decide if we need a spinner here for calls that take a little bit to complete...
+	console.log('regenPuzzleObject('+variant+','+object+','+pvID+')');
 	var jqxhr = $.getJSON('msjsonp.php?callback=?','variant='+variant+'&item='+object,function(data){
     		console.log('success:');
     		$.each(data, function( key, val) {
@@ -65,13 +101,18 @@ function regenPuzzleObject(variant,object,pvID){
 	})
 	.always(function() {
 		//console.log("complete");
+		//Turn the spinner off here
+		$("body").removeClass("loading");
 	});
+	// Turn the spinner on here
+	// Have a DIV with the spinner prepositioned in the right place so we can enable/disable on the fly
+	$("body").addClass("loading");
 }
 
 function prepareMAKEQUIZ(variant,object) {
-	document.getElementById("myElement").onclick = function() {
-		regenPuzzleObject(0,1,'myid');
-	};
+	prepareTooltips();
+	enableAccordion();
+	//prepareAjaxSpinner();
 }
 
 var MYJSLIB = MYJSLIB || (function(){
