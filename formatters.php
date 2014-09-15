@@ -112,6 +112,14 @@ class cHTMLFormatter{
 	public function svg($svgImage,$svgTitle="SVG Image",$svgWidth=16,$svgHeight=16){
 		return $this->_print("<svg><image width=\"$svgWidth\" height=\"$svgHeight\" xlink:href=\"$svgImage\"></image><title>$svgTitle</title></svg>\n");
 	}
+	public function startNoScript(){
+		return $this->_print("<noscript>\n",true);
+	}
+	public function endNoScript(){
+		$this->prefixDec();
+		return $this->_print("</noscript>\n");
+	}
+	
 	public function startHeader($id="mainHeader"){
 		return $this->_print("<header id=\"".$id."\">\n",true);
 	}
@@ -144,7 +152,17 @@ class cHTMLFormatter{
 		return $this->_print("</aside>\n");
 	}
 	
-	public function startDiv($id){
+	public function getTitleAttr($title){
+		if(IsSet($title)){
+			return " title=\"$title\"";
+		}
+		return "";
+	}
+	
+	public function startDiv($id,$title=null){
+		if(IsSet($title)){
+			return $this->_print("<div id=\"$id\" title=\"$title\">\n",true);
+		}
 		return $this->_print("<div id=\"$id\">\n",true);
 	}
 	public function startDivClass($class){
