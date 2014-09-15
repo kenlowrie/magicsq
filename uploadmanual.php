@@ -4,7 +4,22 @@ include_once ('session.php');
 include ('header1.inc');
 include_once ('utility.php');
 
-function preloadData(){
+function preloadData9(){
+	return <<<EOD
++++Answer,Question
+Twelve,How many pairs of ribs would the normal human have?
+Mrs Hudson,What was the name of Sherlock Holmes Housekeeper?
+Prunella Scale,Which actress played the part of Sybil Fawlty in Television's Fawlty Towers?
+Fidelio,What was the title of Beethoven's only opera?
+Captain Ahab,Who was dedicated to killing Moby Dick?
+Insects,What does an entomologist study?
+Leonardo da Vinci,Who painted The Last Supper?
+Arrow in heel,How was Achilles killed?
+Martha,What was George Washington's wife's first name?
+EOD;
+}
+
+function preloadData25(){
 	return <<<EOD
 +++Problem,Solution
 37/37,1
@@ -34,6 +49,20 @@ function preloadData(){
 625/25,25
 EOD;
 }
+
+function loadCurrentTerms(){
+	$loadedTerms = getTerms();
+	
+	$colHeaders = array();
+	$colHeaders[] = $loadedTerms->getHeader(1);
+	$colHeaders[] = $loadedTerms->getHeader(2);
+	
+	$lines = "+++\"" . $loadedTerms->getHeader(1) . "\",\"" . $loadedTerms->getHeader(2) . "\"\n";
+	foreach ($loadedTerms->getTerms() as $term) {
+		$lines .= '"' . $term->getTerm() .'","' . $term->getDefinition() . "\"\n";
+	}
+	return $lines;
+}
 $fmt = new cHTMLFormatter;
 
 $fmt->startHeader("mainHeader");
@@ -56,8 +85,17 @@ $fmt->write("If you put the previous line in your input data below, then the col
 $fmt->endP();
 
 $preload = $_POST['preload'];
-if(IsSet($preload) && $preload == '1'){
-	getQuiz()->textArea = preloadData();
+if(IsSet($preload)){
+	switch($preload){
+		case '1':
+			getQuiz()->textArea = preloadData9();
+			break;
+		case '2':
+			getQuiz()->textArea = preloadData25();
+			break;
+	}
+} else {
+	getQuiz()->textArea = loadCurrentTerms();
 }
 $fmt->textArea(htmlentities(getQuiz()->textArea,ENT_QUOTES|ENT_HTML401),"textarea", "manual", 30, 100);
 
@@ -66,7 +104,8 @@ $fmt->write("<input class=\"fancyButton genQuizButton\" type=\"submit\" value=\"
 $fmt->write("<input type=\"hidden\" name=\"type\" value=\"". PROCESS_DATA . "\">");
 $fmt->write("</form>");
 
-$fmt->linkbutton("uploadmanual.php", "Create Sample Data",NULL,"fancyButton genQuizButton",array("preload" => "1"));
+$fmt->linkbutton("uploadmanual.php", "Create 3x3 Sample Set",NULL,"fancyButton genQuizButton",array("preload" => "1"));
+$fmt->linkbutton("uploadmanual.php", "Create 5x5 Sample Set",NULL,"fancyButton genQuizButton",array("preload" => "2"));
 $fmt->linkbutton("mkms.php", "Cancel and Return",NULL,"fancyButton genQuizButton");
 
 $fmt->endDiv();			// textareaForm end div
