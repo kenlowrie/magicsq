@@ -121,7 +121,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		
 		$fmt->startDivClass("quizForm");
 
-		$fmt->startDiv("quizHelp");
+		$fmt->startDiv("quizHelp","Click me to display help");
 		$fmt->h3("Quiz Handout Details");
 		$fmt->svg("images/cqm.svg","Display Form Help",30,30);
 		$fmt->endDiv();
