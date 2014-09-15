@@ -19,9 +19,11 @@ function disableAccordion(){
 	$("div.quizPuzzle").accordion("destroy");
 }
 
-function enableAccordion(){
+function enableAccordion($open){
+	if(typeof($open) === 'undefined') $open = 0;
 	$("div.quizPuzzle").accordion({
-		collapsible: true
+		collapsible: true,
+		active: $open
 	});
 }
 
@@ -112,6 +114,7 @@ function regenPuzzleObject(variant,object,pvID){
 function prepareMAKEQUIZ(variant,object) {
 	prepareTooltips();
 	enableAccordion();
+	$(".hideMe").hide();
 	//prepareAjaxSpinner();
 }
 
