@@ -127,7 +127,7 @@ function display_quiz_form($fmt, $alias, $quiz, $commit_id)
 		$fmt->endDiv();
 		
 	     // construct the form, and then the outer table that will hold the field definitions
-		$fmt->write("<form method=\"POST\" action=\"mq2.php\">");
+		$fmt->write("<form method=\"POST\" action=\"makequiz.php\">");
 		//$fmt->write("")
 
 		$fmt->startDivClass($divOptionOddEven[++$optionCounter % 2]);	
