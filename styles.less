@@ -406,6 +406,9 @@ ul,ol{
 		clear: both;
 		background-color:inherit;
 		.borderRadius(10px);
+		.aligned{
+			background-color:lightyellow;
+		}
 	}
 	
 	/* wraps the magic square notes for the specific puzzle set: magic square value, which term/def are aligned... */
@@ -460,6 +463,10 @@ ul,ol{
 
 		&:hover{
 			background-color:lightyellow;
+			
+			.aligned{
+				background-color:white;
+			}
 		}
 
 		table {
@@ -472,6 +479,9 @@ ul,ol{
 		td.answer{
 			text-align:center;
 			font-size:1.4em;
+		}
+		td.aligned{
+			background-color:lightyellow;
 		}
 	}
 	
@@ -510,8 +520,12 @@ ul,ol{
 	dt,dd{
 		padding-left:25px;
 	}
+	dt{
+		font-weight:bold;
+	}
 	dd{
 		padding-bottom:10px;
+		font-style:italic;
 	}
 	
 	pre{
@@ -525,8 +539,10 @@ ul,ol{
 	}
 	
 	blockquote{
-		padding: 25px;
+		margin: 25px;
+		padding: 10px;
 		font-style:italic;
+		border: 1px solid;
 	}
 	
 	span.bold{
