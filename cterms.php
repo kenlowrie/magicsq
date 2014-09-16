@@ -143,7 +143,7 @@ class Terms{
 
 					$location = $this->findItemInSquare($count, $ms);
 					if ($location != -1 && $letter->me() == $letter->getSymbol($location)){
-						$msg = sprintf("NOTE: %s and %s on row [%s] are aligned",$this->getHeader(1),$this->getHeader(2),$letter->me());
+						$msg = sprintf("NOTE: <span class=\"aligned\">%s and %s on row [%s] are aligned</span>",$this->getHeader(1),$this->getHeader(2),$letter->me());
 						$output .= $fmt->write($msg,true,true);
 						$alignedRow = $location + 1;		// Bump the row so it is 1-based because that's what the lookup expects later...
 					}	
@@ -184,14 +184,18 @@ class Terms{
 					$t1 = $js[$item-1]->getTerm();
 					$d1 = $js[$count-1]->getDefinition();
 	
-					$output .= $fmt->writeCellData("%s. %s", $letter->me(), $t1);
 					$location = $this->findItemInSquare($count, $ms);
-					if ($location != -1){
-						$output .= $fmt->writeClassData("answer", "%s", $letter->getSymbol($location));
-					} else {
-						$output .= $fmt->writeClassData("answer", "?");
+					$cellBaseClass = "";
+					if ($letter->me() == $letter->getSymbol($location)){
+						$cellBaseClass = "aligned";
 					}
-					$output .= $fmt->writeCellData("%d. %s", $count, $d1);
+					$output .= $fmt->writeClassData($cellBaseClass,"%s. %s", $letter->me(), $t1);
+					if ($location != -1){
+						$output .= $fmt->writeClassData($cellBaseClass . " answer", "%s", $letter->getSymbol($location));
+					} else {
+						$output .= $fmt->writeClassData($cellBaseClass, "?");
+					}
+					$output .= $fmt->writeClassData($cellBaseClass,"%d. %s", $count, $d1);
 					++$count;
 					$letter->increment();
 					$output .= $fmt->endRow();
