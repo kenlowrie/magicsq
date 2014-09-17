@@ -53,9 +53,9 @@ EOD;
 function loadCurrentTerms(){
 	$loadedTerms = getTerms();
 	
-	$colHeaders = array();
-	$colHeaders[] = $loadedTerms->getHeader(1);
-	$colHeaders[] = $loadedTerms->getHeader(2);
+	if(!IsSet($loadedTerms)){
+		return "";
+	}
 	
 	$lines = "+++\"" . $loadedTerms->getHeader(1) . "\",\"" . $loadedTerms->getHeader(2) . "\"\n";
 	foreach ($loadedTerms->getTerms() as $term) {
@@ -73,40 +73,49 @@ $fmt->startSection("manualInput");
 
 $fmt->startDivClass("manualInfo");
 
-$fmt->h3("Enter your input data below");
-
-$fmt->startP();
-$fmt->write("The format of the data in the text area needs to follow standard CSV rules. If you need to use commas in your input, be sure to surround the data with quotation marks.");
-$fmt->write("The default column headers are \"Term\" and \"Definition\", but you can override them by entering a line in your CSV input like this:");
-$fmt->brk(2);
-$fmt->write("+++Left Column, Right Column");
-$fmt->brk(2);
-$fmt->write("If you put the previous line in your input data below, then the columns would be named: \"Left Column\" and \"Right Column\".");
-$fmt->endP();
-
-$preload = $_POST['preload'];
-if(IsSet($preload)){
-	switch($preload){
-		case '1':
-			getQuiz()->textArea = preloadData9();
-			break;
-		case '2':
-			getQuiz()->textArea = preloadData25();
-			break;
-	}
+if(get_user_browser() == "ie"){
+	$fmt->h3("Your browser is NOT supported");
+	$fmt->startP();
+	$fmt->write("More precisely, your browser doesn't support HTML standards, so you cannot use this feature. :(<br /><br />");
+	$fmt->write("If you need this feature, use a better browser like Chrome or Firefox.<br /><br />");
+	$fmt->endP();
+	$fmt->linkbutton("mkms.php", "Return",NULL,"fancyButton genQuizButton");
 } else {
-	getQuiz()->textArea = loadCurrentTerms();
+	$fmt->h3("Enter your input data below");
+	
+	$fmt->startP();
+	$fmt->write("The format of the data in the text area needs to follow standard CSV rules. If you need to use commas in your input, be sure to surround the data with quotation marks.");
+	$fmt->write("The default column headers are \"Term\" and \"Definition\", but you can override them by entering a line in your CSV input like this:");
+	$fmt->brk(2);
+	$fmt->write("+++Left Column, Right Column");
+	$fmt->brk(2);
+	$fmt->write("If you put the previous line in your input data below, then the columns would be named: \"Left Column\" and \"Right Column\".");
+	$fmt->endP();
+	
+	$preload = $_POST['preload'];
+	if(IsSet($preload)){
+		switch($preload){
+			case '1':
+				getQuiz()->textArea = preloadData9();
+				break;
+			case '2':
+				getQuiz()->textArea = preloadData25();
+				break;
+		}
+	} else {
+		getQuiz()->textArea = loadCurrentTerms();
+	}
+	$fmt->textArea(htmlentities(getQuiz()->textArea,ENT_QUOTES|ENT_HTML401),"textarea", "manual", 30, 100);
+	
+	$fmt->write("<form method=\"POST\" action=\"mkms.php\" id=\"manual\">");
+	$fmt->write("<input class=\"fancyButton genQuizButton\" type=\"submit\" value=\"Load These Terms\">");
+	$fmt->write("<input type=\"hidden\" name=\"type\" value=\"". PROCESS_DATA . "\">");
+	$fmt->write("</form>");
+	
+	$fmt->linkbutton("uploadmanual.php", "Create 3x3 Sample Set",NULL,"fancyButton genQuizButton",array("preload" => "1"));
+	$fmt->linkbutton("uploadmanual.php", "Create 5x5 Sample Set",NULL,"fancyButton genQuizButton",array("preload" => "2"));
+	$fmt->linkbutton("mkms.php", "Cancel and Return",NULL,"fancyButton genQuizButton");
 }
-$fmt->textArea(htmlentities(getQuiz()->textArea,ENT_QUOTES|ENT_HTML401),"textarea", "manual", 30, 100);
-
-$fmt->write("<form method=\"POST\" action=\"mkms.php\" id=\"manual\">");
-$fmt->write("<input class=\"fancyButton genQuizButton\" type=\"submit\" value=\"Load These Terms\">");
-$fmt->write("<input type=\"hidden\" name=\"type\" value=\"". PROCESS_DATA . "\">");
-$fmt->write("</form>");
-
-$fmt->linkbutton("uploadmanual.php", "Create 3x3 Sample Set",NULL,"fancyButton genQuizButton",array("preload" => "1"));
-$fmt->linkbutton("uploadmanual.php", "Create 5x5 Sample Set",NULL,"fancyButton genQuizButton",array("preload" => "2"));
-$fmt->linkbutton("mkms.php", "Cancel and Return",NULL,"fancyButton genQuizButton");
 
 $fmt->endDiv();			// textareaForm end div
 
