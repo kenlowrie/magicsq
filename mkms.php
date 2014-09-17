@@ -57,7 +57,7 @@ switch ($type){
 		break;		// This case is handled below, it's the same for all types...
 		
 	default:
-		MyLog("$alias: Unexpected type passed: $type");
+		$fmt->write("$alias: Unexpected type passed: $type");
 		break;
 }
 
