@@ -69,7 +69,7 @@ function addNeedJavaScript($fmt){
 }
 
 function addJS($fmt,$which){
-	$fmt->write("<script src=\"script.js\"></script>");
+	$fmt->write("<script src=\"script.min.js\"></script>");
 	$fmt->startScript();
 	//$fmt->write("MYJSLIB.init();");
 	$fmt->write("MYJSLIB.".$which."Init();");
@@ -118,6 +118,38 @@ function parseTerms($fmt,$inputData){
 	$fmt->writeRawData("Parsing has completed... Found <".strval($row-1-$headers)."> terms.<br />");
 
 	$fmt->endDiv();
+}
+
+function get_user_browser()
+{
+    $u_agent = $_SERVER['HTTP_USER_AGENT'];
+    $ub = '';
+    if(preg_match('/MSIE/i',$u_agent) || preg_match('/Trident/i',$u_agent))
+    {
+        $ub = "ie";
+    }
+    elseif(preg_match('/Firefox/i',$u_agent))
+    {
+        $ub = "firefox";
+    }
+    elseif(preg_match('/Safari/i',$u_agent))
+    {
+        $ub = "safari";
+    }
+    elseif(preg_match('/Chrome/i',$u_agent))
+    {
+        $ub = "chrome";
+    }
+    elseif(preg_match('/Flock/i',$u_agent))
+    {
+        $ub = "flock";
+    }
+    elseif(preg_match('/Opera/i',$u_agent))
+    {
+        $ub = "opera";
+    }
+
+    return $ub;
 }
 
 ?>
