@@ -38,10 +38,12 @@ if (!IsSet($regen)){
 	// Generate Quiz Data (the SUBMIT button on the main form), invokes this page, so we need to Extract the
 	// new values that the user entered, store them in the object, so that we remember them until they finish
 	// or do a RESET later...
-	$quiz->quizTitle = $_POST['title'];    // transfer the form variables into
-	$quiz->variants = $_POST['variants'];	
-	$quiz->freeTerm = $_POST['freeterm'];
-	$alignFT = $_POST['alignft'];
+	if(IsSet($_POST['title'])){		// This will be true if coming from the form
+		$quiz->quizTitle = $_POST['title'];    // transfer the form variables into
+		$quiz->variants = $_POST['variants'];	
+		$quiz->freeTerm = $_POST['freeterm'];
+		$alignFT = $_POST['alignft'];
+	}
 	$quiz->mapFTtoAlignedTD = ($alignFT == 1) ? true : false;
 	$quiz->magicSquares = array();
 	for($X = 0; $X < $quiz->variants; ++$X){
