@@ -1,7 +1,21 @@
 # magicsq
-### Magic Square Maker Quiz Maker for Teachers
+### Magic Square Quiz Maker for Teachers
 
 Welcome to the Magic Square Quiz Maker. The information here should help you understand what the Magic Square Quiz Maker app can do, as well as how to efficiently operate it. If you have questions, or would like to provide feedback and/or to report a bug, feel free to contact the author, Ken Lowrie, at [www.kenlowrie.com](http://www.kenlowrie.com/).
+
+### Attributions
+
+The algorithms for generating magic squares were ported to PHP from Python code written by [Stephen Lowrie](https://github.com/arithx) and then extended as needed for this application. The original Python source can be downloaded [from here](https://github.com/arithx/pyMagicSquare).
+
+This application requires [TCPDF](http://www.tcpdf.org) in order to generate and print PDF files. I downloaded version 6.0.089 and tested with that version (as it was current when I wrote this app), but you can [download the latest version of TCPDF from here](http://www.sourceforge.net/projects/tcpdf).
+
+#### Installing this app to your server
+
+To install this application to your server, just copy all the files into a directory, and be sure to maintain the current structure with the images directory in-tact.
+
+Download and install [TCPDF](http://www.sourceforge.net/projects/tcpdf) to a directory called tcpdf, inside the magicsq directory, at the same level as the images directory.
+
+That's it! If you run into any problems, feel free to contact me for assistance.
 
 #### What is a Magic Square?
 
