@@ -1,5 +1,4 @@
-
-Things left To Do - yfi=G8Pb}+R-
+Things left To Do
 
 3. Should I detect a duplicate square / jumbled terms list and prevent it? Maybe try 10 times, then give up and print a message?
 7. Add a test for checking to see if the magic square and/or the jumbled terms are duplicated and print a note.
@@ -8,7 +7,8 @@ Things left To Do - yfi=G8Pb}+R-
 
 
 
-A. Find a place to put this "how-not-to-do-this" JavaScript code...
+A. Find a place to put this "how-not-to-do-this" JavaScript code... 
+	- What the hell does this mean?
 
 var mynode = $(pvID).children("div")[0]; 
 if( object == 1){
