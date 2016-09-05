@@ -11,9 +11,15 @@ This application requires [TCPDF](http://www.tcpdf.org) in order to generate and
 
 #### Installing this app to your server
 
-To install this application to your server, just copy all the files into a directory, and be sure to maintain the current structure with the images directory in-tact.
+This is a [Gulp](http://gulpjs.com/) project, so you'll need [Node.js](https://nodejs.org/en/) installed on your build machine in order to put the distribution together. Follow the link above to learn about Gulp and how to set it up on your system, just make sure to install and configure Node.js first.
 
-Download and install [TCPDF](http://www.sourceforge.net/projects/tcpdf) to a directory called tcpdf, inside the magicsq directory, at the same level as the images directory.
+Once you've installed Node.js, simply checkout the source tree from Github to a local directory on your system, and issue: "npm install" to automatically pull down the various Gulp modules you need to build a distribution.
+
+Then, run "gulp" to build a development version, or "NODE_ENV=rel gulp" to build a release version (the only difference is that your CSS and JS will be minified in the release version.
+
+Running Gulp will create a "Build/dev" or "Build/rel" depending on how the NODE_ENV variable is set. Go into the corresponding directory, and then transfer all the files up to your server, maintaining the directory structure, and you'll be all set, ... after you do this next step!
+
+Download and install [TCPDF](http://www.sourceforge.net/projects/tcpdf) to a directory called tcpdf, inside the magicsq directory (or whatever directory you copied your distribution into on your server), at the same level as the images directory.
 
 That's it! If you run into any problems, feel free to contact me for assistance.
 
