@@ -9,7 +9,7 @@ var user = process.env.FTP_USER;
 var password = process.env.FTP_PWD;  
 var host = process.env.FTP_HOST;  
 var port = 21;  
-var localFilesGlob = ['**/*'];  
+var localFilesGlob = ['**/*', '!ftpxfer.js', '!phpserver.js'];  
 var remoteFolder = '/public_html/sd/magicsq'
 
 
