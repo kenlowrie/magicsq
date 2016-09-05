@@ -22,8 +22,7 @@ include_once ('utility.php');
 require_once('tcpdf/tcpdf.php');
 
 function genhtml($fmt,$quiz,$loadedTerms,$variant,$pdf){
-	
-	$output = '<style>'.file_get_contents('stylespdf.css').'</style>';
+	$output = '<style>'.file_get_contents('css/stylespdf.css').'</style>';
 	
 	if ($variant >= $loadedTerms->numVariants()){
 		return $fmt->p("Internal error: Variant [$variant] is out of range...");
@@ -53,7 +52,7 @@ EOD;
 
 function gensquare($fmt,$quiz,$loadedTerms,$variant,$pdf){
 
-	$output = '<style>'.file_get_contents('stylespdf.css').'</style>';	
+	$output = '<style>'.file_get_contents('css/stylespdf.css').'</style>';	
 		
 	if ($variant >= $loadedTerms->numVariants()){
 		return $fmt->p("Internal error: Variant [$variant] is out of range...");
@@ -68,7 +67,7 @@ function gensquare($fmt,$quiz,$loadedTerms,$variant,$pdf){
 
 function gensolution($fmt,$quiz,$loadedTerms,$variant,$pdf){
 
-	$output = '<style>'.file_get_contents('stylespdf.css').'</style>';	
+	$output = '<style>'.file_get_contents('css/stylespdf.css').'</style>';	
 		
 	$output .= $quiz->magicSquares[$variant]->validate($fmt,"maintext");
 

@@ -17,72 +17,9 @@
 //
 // See LICENSE.TXT for more information.   
 */
+/* @import "_base.css" */
+
 /* Global Styles */
-
-@colorGold: #DDB647;
-@colorSalmon: #f57d53;
-@colorCream: #f0e9d6;
-@colorMint: #cddac0;
-@colorToupe: #485a51;
-@colorDarkGray: #333;
-@colorDarkBlue: #14285F;
-@colorBrightRed: #FF3300;
-@colorSteel: #777;
-
-@colorSocial1: rgb(252,255,245);
-@colorSocial2: rgb(209,219,189);
-@colorSocial3: rgb(145,170,157);
-@colorSocial4: rgb(62,96,111);
-@colorSocial5: rgb(25,52,65);
-
-// @color1: lighten(@colorToupe,10%);
-// @color2: @colorMint;
-// @color3: @colorCream;
-// @color4: @colorGold;
-// @color5: darken(@colorSalmon,10%);
-
-@color1: @colorSocial4;
-@color2: @colorSocial3;
-@color3: @colorSocial2;
-@color4: @colorSocial1;
-@color5: @colorSocial5;
-
-
-@colorDefaultTD: black;
-@colorDefaultA: @colorDarkBlue;
-@colorDefaultAhover: @colorBrightRed;
-
-@bodyBG: @color4;
-@headerBG: @color5; 
-@headerColor: @color3;
-@statusAreaBG: @color2;
-@termsBG: @color4;
-@termsColor: black;
-@termInfoBG: @color3;
-@selectOptionsBG: @color3;
-@helpersBG: @color4;
-@makeQuizBG: @color5;
-@makeQuizPuzzleBG: @color3;
-@makeQuizPuzzleColor: @color4;
-@quizInfoBG: @color3;
-@helpBG: @color4;
-@helpInfoBG: @color3;
-@helpsquareBG: @color4;
-@manualInputBG: @color4;
-@manualInfoBG: @color3;
-@quizOptionEvenBG: @color2;
-@quizOptionOddColor: lighten(@color3,10%);
-@quizOptionOddBG: @color1;
-@quizOptionEvenColor: black;
-@puzzleEvenBG: @color3;
-@puzzleEvenColor: black;
-@puzzleOddBG: @color2;
-@puzzleOddColor: black;
-@fancyButtonBG: @colorDarkGray;
-@fancyButtonColor: white;
-@fancyButtonHoverBG: red;
-@fancyButtonHoverColor: white;
-@colorTableBorder: rgb(20,40,95);
 
 
 /*limited reset*/
@@ -102,7 +39,7 @@ address, article, aside, canvas, details, figcaption, figure, footer, header, hg
 }
 
 body {
-	background:@bodyBG;
+	background:$bodyBG;
 	text-rendering: optimizeLegibility;
 }
 
@@ -114,66 +51,26 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 
-.bigTextShadow(@shadowCol: rgba(0,0,0,.7)) {
-  text-shadow: 2px 2px 3px @shadowCol;  
-}
-
-.smallTextShadow(@shadowCol: rgba(48,48,48,.7)) {
-  text-shadow: 1px 1px 2px @shadowCol;
-}
-
-.tinyTextShadow(@shadowCol: rgba(48,48,48,.7)){
-  text-shadow: 1px 1px 1px @shadowCol;
-}
-
-.primaryBoxShadow(){
-	-moz-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
-	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
-	-ms-box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
-	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
-}
-
-.smallBoxShadow(){
-	-moz-box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
-	-webkit-box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
-	-ms-box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
-	box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
-}
-.tinyBoxShadow(){
-	-moz-box-shadow: 0px 0px 1px @colorSteel;
-	-webkit-box-shadow: 0px 0px 1px @colorSteel;
-	-ms-box-shadow: 0px 0px 1px @colorSteel;
-	box-shadow: 0px 0px 1px @colorSteel;
-}
-
-.borderRadius(@size: 5px)
-{
-    -moz-border-radius: @size;
-    -webkit-border-radius: @size;
-    -ms-border-radius: @size;
-    border-radius: @size;
-}
-
 h1 {
 	font-size: 1.6em;
-	.bigTextShadow();
+	@mixin bigTextShadow;
 }
 
 h2 {
 	font-size: 1.4em;
-    .bigTextShadow();
+    @mixin bigTextShadow;
 }
 
 h3 {
 	font-size: 1.2em;
-    .smallTextShadow(rgba(51,51,51,.6));
+    @mixin smallTextShadow rgba(51,51,51,.6);
 	margin:0;
 	padding:10px;
 }
 
 h4 {
 	font-size: 1.1em;
-    .tinyTextShadow(rgba(51,51,51,.6));
+    @mixin tinyTextShadow rgba(51,51,51,.6);
 	margin:0;
 	padding:8px;
 }
@@ -183,21 +80,21 @@ table {
 }
 
 td,th {
-	color: @colorDefaultTD;
+	color: $colorDefaultTD;
 	padding:10px;
 	text-align:center;
-	border: 1pt solid @colorTableBorder;
+	border: 1pt solid $colorTableBorder;
 }
 
 a {
 	text-decoration:underline;
 	
 	&:link, &:visited {
-		color: @colorDefaultA;	
+		color: $colorDefaultA;	
 	}
 	
 	&:hover {
-		color: @colorDefaultAhover;
+		color: $colorDefaultAhover;
 	}
 }
 	
@@ -210,8 +107,8 @@ ul,ol{
 
 /* This is used by the <header> tag specified in the various php page files */
 #mainHeader {
-	background: @headerBG;
-	color: @headerColor;
+	background: $headerBG;
+	color: $headerColor;
 	padding: 15px;
 	text-align:center;
 }
@@ -222,13 +119,13 @@ ul,ol{
 	padding:5px;
 	font-size: .8em;
 	color:black;
-	background-color: @statusAreaBG;
+	background-color: $statusAreaBG;
 }
 
 /* This wraps the Load Input File section */
 #loadTerms{
-	color: @termsColor;
-	background-color: @termsBG;
+	color: $termsColor;
+	background-color: $termsBG;
 	padding:10px;
 
 	h3{
@@ -247,10 +144,10 @@ ul,ol{
 	}
 	
 	div.termInfo{
-		background-color: @termInfoBG;
+		background-color: $termInfoBG;
 		border-radius: 25px;
 		padding: 10px;
-		.primaryBoxShadow();
+		@mixin primaryBoxShadow;
 	}
 }
 
@@ -258,10 +155,10 @@ ul,ol{
 #selectOptions
 {
 	margin: 10px;
-	background-color: @selectOptionsBG;
+	background-color: $selectOptionsBG;
 	border-radius: 15px;
 	display: inline-block;
-	.primaryBoxShadow();
+	@mixin primaryBoxShadow;
 
 	h3{
 		text-align: center;
@@ -300,16 +197,16 @@ ul,ol{
 	/* These next 2 alternate between options to help group them together */
 	div.quizOptionEven
 	{
-		color: @quizOptionEvenColor;
-		background-color: @quizOptionEvenBG;
-		.tinyTextShadow();
+		color: $quizOptionEvenColor;
+		background-color: $quizOptionEvenBG;
+		@mixin tinyTextShadow;
 	}
 	
 	div.quizOptionOdd
 	{
-		color: @quizOptionOddColor;
-		background-color: @quizOptionOddBG;
-		.tinyTextShadow();
+		color: $quizOptionOddColor;
+		background-color: $quizOptionOddBG;
+		@mixin tinyTextShadow;
 	}
 	
 	/* These next two are used to control the left side, where the input field is, and the right size, where the help text is displayed */
@@ -326,7 +223,7 @@ ul,ol{
 		background-color:inherit;
 		min-width: 250px; 
 		min-height: 100px;
-		.borderRadius(15px);
+		@mixin borderRadius 15px;
 	}
 	
 	div.quizOptionRight
@@ -338,7 +235,7 @@ ul,ol{
 		width: 70%;
 		min-height:100px;
 		font-size: 1.2em;
-		.borderRadius(15px);
+		@mixin borderRadius 15px;
 		background-color:inherit;
 		color:inherit;
 	}
@@ -350,7 +247,7 @@ ul,ol{
 {
 	clear:both;
 	font-size:1em;
-	background-color: @helpersBG;
+	background-color: $helpersBG;
 	padding:10px;
 	
 	form{
@@ -362,31 +259,31 @@ ul,ol{
 /* This wraps the makequiz section */
 #makeQuiz{
 	color:black;
-	background-color: @makeQuizBG;
+	background-color: $makeQuizBG;
 	padding:10px;
 
 	h3{
 		text-transform:uppercase;
-		color:@makeQuizPuzzleColor;
+		color:$makeQuizPuzzleColor;
 	}
 	
 	div.hideMe{
 		display:inline;
 	}
 	.ui-accordion-header{
-		background:@makeQuizBG;
+		background:$makeQuizBG;
 	}
 	
 	.ui-accordion-content{
-		background:@makeQuizBG;
+		background:$makeQuizBG;
 	}
 	
 	/* wraps the quizInfo area at the top of makequiz.php, before the individual puzzles */
 	div.quizInfo{
-		background-color: @quizInfoBG;
+		background-color: $quizInfoBG;
 		border-radius: 25px;
 		padding: 10px;
-		.primaryBoxShadow();
+		@mixin primaryBoxShadow;
 	}
 
 	/* wraps the puzzle area - the entire N Variant set of puzzles */
@@ -402,10 +299,10 @@ ul,ol{
 		margin-top:10px;
 		padding-top:10px;
 		padding-left:10px;
-		background-color: @puzzleEvenBG;
-		color: @puzzleEvenColor;
-		.borderRadius(10px);
-		.primaryBoxShadow();
+		background-color: $puzzleEvenBG;
+		color: $puzzleEvenColor;
+		@mixin borderRadius 10px;
+		@mixin primaryBoxShadow;
 	}
 	
 	/* wraps odd numbered rows in the puzzle sets */
@@ -414,17 +311,17 @@ ul,ol{
 		margin-top:10px;
 		padding-top:10px;
 		padding-left:10px;
-		background-color: @puzzleOddBG;
-		color:@puzzleOddColor;
-		.borderRadius(10px);
-		.primaryBoxShadow();
+		background-color: $puzzleOddBG;
+		color:$puzzleOddColor;
+		@mixin borderRadius 10px;
+		@mixin primaryBoxShadow;
 	}
 	
 	/* wraps an individual puzzle info area where the puzzle set header and buttons are printed */
 	div.puzzleInfo{
 		clear: both;
 		background-color:inherit;
-		.borderRadius(10px);
+		@mixin borderRadius 10px;
 		.aligned{
 			border:1px dashed;
 			padding: 1px 2px;
@@ -448,7 +345,7 @@ ul,ol{
 		padding:10px;
 		background-color:inherit;
 		overflow:auto;
-		.borderRadius(25px);
+		@mixin borderRadius 25px;
 		color:inherit;
 		
 		&:hover{
@@ -460,28 +357,55 @@ ul,ol{
 	div.puzzleSize3
 	{
 		min-width: 15%;
+		font-size: 2.4rem;
+		
+		@media $small {
+			font-size: 2.8rem;
+		}
+
 	}
 	
 	div.puzzleSize5
 	{
 		min-width: 25%;
+		font-size: .8rem;
+		
+		@media $small {
+			font-size: 1.2rem;
+		}
+
 	}
 	
 	div.puzzleSize7
 	{
 		min-width: 40%;
+		font-size: .3rem;
+		padding:2px;
+		
+		@media $tiny {
+			td, th {
+				padding: 8px 4px;
+			}
+		}
+		
+		@media $small {
+			font-size: .9rem;
+			padding:10px;
+			td, th {
+				padding: 10px 8px;
+			}
+		}
 	}
 	
 	/* The primary div for printing the puzzle terms */
 	div.puzzleTerms
 	{
 		padding: 10px;
-		font-size: 1.2em;
 		background-color:inherit;
 		overflow:auto;
-		.borderRadius(25px);
+		@mixin borderRadius 25px;
 		display:inline-block;
-
+		
 		&:hover{
 			background-color:lightyellow;
 			
@@ -509,14 +433,29 @@ ul,ol{
 	/* The overrides for each puzzle size */
 	div.puzzleTermsSize3
 	{
+		font-size: .7em;
+		
+		@media $small {
+			font-size: 1.2em;
+		}
 	}
 	
 	div.puzzleTermsSize5
 	{
+		font-size: .7rem;
+		
+		@media $small {
+			font-size: 1.2rem;
+		}
 	}
 	
 	div.puzzleTermsSize7
 	{
+		font-size: .7rem;
+		
+		@media $small {
+			font-size: 1.2rem;
+		}
 	}
 
 }
@@ -524,14 +463,14 @@ ul,ol{
 /* This wraps the help page */
 #helpPage{
 	color:black;
-	background-color: @helpBG;
+	background-color: $helpBG;
 	padding:10px;
 
 	div.helpInfo{
-		background-color: @helpInfoBG;
+		background-color: $helpInfoBG;
 		border-radius: 25px;
 		padding: 10px;
-		.primaryBoxShadow();
+		@mixin primaryBoxShadow;
 	}
 	
 	p,ol,ul{
@@ -575,7 +514,7 @@ ul,ol{
 	}
 	
 	th.helpsquare, td.helpsquare{
-		background:@helpsquareBG;
+		background:$helpsquareBG;
 		font-weight:bold;
 	}
 }
@@ -583,14 +522,14 @@ ul,ol{
 /* This wraps the manual entry form */
 #manualInput{
 	color:black;
-	background-color: @manualInputBG;
+	background-color: $manualInputBG;
 	padding:10px;
 
 	div.manualInfo{
-		background-color: @manualInfoBG;
+		background-color: $manualInfoBG;
 		border-radius: 25px;
 		padding: 10px;
-		.primaryBoxShadow();
+		@mixin primaryBoxShadow;
 	}
 	
 	p{
@@ -614,20 +553,20 @@ ul,ol{
 
 /* Class Styles */
 .fancyButton{
-	background-color: @fancyButtonBG;
-    color: @fancyButtonColor;
-    .borderRadius();
+	background-color: $fancyButtonBG;
+    color: $fancyButtonColor;
+    @mixin borderRadius;
     font-size: 1.4em;
     text-decoration: none;
     cursor: pointer;
     border:none;
-    .smallBoxShadow();
+    @mixin smallBoxShadow;
 
 	&:hover{
 		border: none;
-		background: @fancyButtonHoverBG;
-		color: @fancyButtonHoverColor;
-		.tinyBoxShadow();
+		background: $fancyButtonHoverBG;
+		color: $fancyButtonHoverColor;
+		@mixin tinyBoxShadow;
 	}
 }
 
@@ -668,7 +607,7 @@ ul,ol{
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .5 ) 
-                url('images/ajax-loader.gif') 
+                url('../images/ajax-loader.gif') 
                 50% 50% 
                 no-repeat;
 }

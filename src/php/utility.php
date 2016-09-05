@@ -86,7 +86,7 @@ function addNeedJavaScript($fmt){
 }
 
 function addJS($fmt,$which){
-	$fmt->write("<script src=\"script.min.js\"></script>");
+	$fmt->write("<script src=\"js/script.js\"></script>");
 	$fmt->startScript();
 	//$fmt->write("MYJSLIB.init();");
 	$fmt->write("MYJSLIB.".$which."Init();");

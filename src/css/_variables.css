@@ -1,0 +1,65 @@
+/* @import "_variables.css" */
+
+$colorGold: #DDB647;
+$colorSalmon: #f57d53;
+$colorCream: #f0e9d6;
+$colorMint: #cddac0;
+$colorToupe: #485a51;
+$colorDarkGray: #333;
+$colorDarkBlue: #14285F;
+$colorBrightRed: #FF3300;
+$colorSteel: #777;
+
+$colorSocial1: rgb(252,255,245);
+$colorSocial2: rgb(209,219,189);
+$colorSocial3: rgb(145,170,157);
+$colorSocial4: rgb(62,96,111);
+$colorSocial5: rgb(25,52,65);
+
+$color1: $colorSocial4;
+$color2: $colorSocial3;
+$color3: $colorSocial2;
+$color4: $colorSocial1;
+$color5: $colorSocial5;
+
+
+$colorDefaultTD: black;
+$colorDefaultA: $colorDarkBlue;
+$colorDefaultAhover: $colorBrightRed;
+
+$bodyBG: $color4;
+$headerBG: $color5; 
+$headerColor: $color3;
+$statusAreaBG: $color2;
+$termsBG: $color4;
+$termsColor: black;
+$termInfoBG: $color3;
+$selectOptionsBG: $color3;
+$helpersBG: $color4;
+$makeQuizBG: $color5;
+$makeQuizPuzzleBG: $color3;
+$makeQuizPuzzleColor: $color4;
+$quizInfoBG: $color3;
+$helpBG: $color4;
+$helpInfoBG: $color3;
+$helpsquareBG: $color4;
+$manualInputBG: $color4;
+$manualInfoBG: $color3;
+$quizOptionEvenBG: $color2;
+$quizOptionOddColor: lighten($color3,10%);
+$quizOptionOddBG: $color1;
+$quizOptionEvenColor: black;
+$puzzleEvenBG: $color3;
+$puzzleEvenColor: black;
+$puzzleOddBG: $color2;
+$puzzleOddColor: black;
+$fancyButtonBG: $colorDarkGray;
+$fancyButtonColor: white;
+$fancyButtonHoverBG: red;
+$fancyButtonHoverColor: white;
+$colorTableBorder: rgb(20,40,95);
+
+$tiny: screen and (min-width: 378px);
+$small: screen and (min-width: 600px);
+$medium: screen and (min-width: 900px);
+$large: screen and (min-width: 1200px);

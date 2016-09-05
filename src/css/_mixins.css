@@ -1,0 +1,37 @@
+/* @import "_mixins.css" */
+
+@define-mixin bigTextShadow $shadowCol: rgba(0,0,0,.7)
+{
+  text-shadow: 2px 2px 3px $shadowCol;  
+}
+
+@define-mixin smallTextShadow $shadowCol: rgba(48,48,48,.7)
+{
+  text-shadow: 1px 1px 2px $shadowCol;
+}
+
+@define-mixin tinyTextShadow $shadowCol: rgba(48,48,48,.7)
+{
+  text-shadow: 1px 1px 1px $shadowCol;
+}
+
+@define-mixin primaryBoxShadow
+{
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,.7);
+}
+
+@define-mixin smallBoxShadow
+{
+	box-shadow: 1px 1px 1px 1px rgba(0,0,0,.7);
+}
+
+@define-mixin tinyBoxShadow
+{
+	box-shadow: 0px 0px 1px @colorSteel;
+}
+
+@define-mixin borderRadius $size: 5px
+{
+    border-radius: $size;
+}
+
