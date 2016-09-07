@@ -3,6 +3,7 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	postcss = require('gulp-postcss'),
 	precss = require('precss'),
+	debug = require('gulp-debug'),
 	cssnano = require('cssnano'),
 	uglify = require('gulp-uglify'),
 	autoprefixer = require('autoprefixer'),
@@ -59,7 +60,8 @@ gulp.task('cpphp', function(){
 });
 
 gulp.task('cpgulpphpsrv', function(){
-   gulp.src(phpGulpSrc) 
+   gulp.src(phpGulpSrc)
+   	.pipe(debug())
   	.pipe(gulp.dest(outDir));
 });
 
