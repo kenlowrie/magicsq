@@ -275,6 +275,10 @@ ul,ol{
 	}
 	
 	.ui-accordion-content{
+		padding: 2px 2px;
+		@media $small {
+			padding: 1em 2.2em;
+		}
 		background:$makeQuizBG;
 	}
 	
@@ -359,6 +363,10 @@ ul,ol{
 		min-width: 15%;
 		font-size: 2.4rem;
 		
+		@media $tiny {
+			font-size: 2.6rem;
+		}
+		
 		@media $small {
 			font-size: 2.8rem;
 		}
@@ -370,6 +378,10 @@ ul,ol{
 		min-width: 25%;
 		font-size: .8rem;
 		
+		@media $tiny {
+			font-size: 1.0rem;
+		}
+		
 		@media $small {
 			font-size: 1.2rem;
 		}
@@ -379,9 +391,13 @@ ul,ol{
 	div.puzzleSize7
 	{
 		min-width: 40%;
-		font-size: .3rem;
-		padding:2px;
+		font-size: .7rem;
+		padding:0;
 		
+		td, th {
+			padding: 0;
+		}
+
 		@media $tiny {
 			td, th {
 				padding: 8px 4px;
@@ -435,6 +451,10 @@ ul,ol{
 	{
 		font-size: .7em;
 		
+		@media $tiny {
+			font-size: 1.0rem;
+		}
+		
 		@media $small {
 			font-size: 1.2em;
 		}
@@ -444,6 +464,10 @@ ul,ol{
 	{
 		font-size: .7rem;
 		
+		@media $tiny {
+			font-size: 1.0rem;
+		}
+		
 		@media $small {
 			font-size: 1.2rem;
 		}
@@ -451,7 +475,11 @@ ul,ol{
 	
 	div.puzzleTermsSize7
 	{
-		font-size: .7rem;
+		font-size: .6rem;
+		
+		@media $tiny {
+			font-size: 1.0rem;
+		}
 		
 		@media $small {
 			font-size: 1.2rem;
